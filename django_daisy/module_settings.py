@@ -25,7 +25,7 @@ settings.X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 settings.APPS_REORDER = {
     'auth': {
-        'icon': 'icon-shield-check',
+        'icon': 'fa-solid fa-person-military-pointing',
         'name': _('Authentication'),
         'hide': False,
         'app': 'users',

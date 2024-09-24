@@ -4,11 +4,11 @@ Django Daisy is a modern, lightweight, and responsive admin dashboard built with
 support, multiple themes, and an optimized user experience for mobile, tablet, and PC users.
 Features
 
-    Responsive Design: Adapts seamlessly to different screen sizes.
-    RTL Support: Ensures proper layout for right-to-left languages.
-    Multi-theme Support: Easily switch between themes.
-    Enhanced UX/UI: Improved admin interface with tabbed inline admins and sidebar icons.
-    Admin List Filter: Supports multi-value filtering for easier navigation.
+Responsive Design: Adapts seamlessly to different screen sizes.
+RTL Support: Ensures proper layout for right-to-left languages.
+Multi-theme Support: Easily switch between themes.
+Enhanced UX/UI: Improved admin interface with tabbed inline admins and sidebar icons.
+Admin List Filter: Supports multi-value filtering for easier navigation.
 
 Compatibility
 
