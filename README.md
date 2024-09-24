@@ -1,6 +1,8 @@
 Django Daisy
 
 demo: http://hy3.ir/admin/
+username: demo
+password: demo
 
 Django Daisy is a modern, lightweight, and responsive admin dashboard built with DaisyUI and TailwindCSS. It offers RTL
 support, multiple themes, and an optimized user experience for mobile, tablet, and PC users.
