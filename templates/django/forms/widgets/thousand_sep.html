@@ -1,0 +1,8 @@
+{% load humanize %}
+{% load dash_tags %}
+{% with widget=widget|apply_class_to_widget:'input w-full  focus:outline-0 transition-all input-sm input-bordered focus:outline-offset-0' %}
+    <input oninput="formatNumber(this)" data-moneyinput="" type="text" name="{{ widget.name }}"
+            {% if widget.value != None %}
+           value="{{ widget.value }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}>
+{% endwith %}
+

@@ -1,0 +1,46 @@
+{% for app in app_list %}
+    {% if app.apps %}
+        <li class="nav-item nav-item-submenu">
+            <a href="#" class="nav-link"><i class="{{ app.icon }}"></i><span>{{ app.name }}</span></a>
+            <ul class="nav nav-group-sub" data-submenu-title="Themes">
+                {% for app in app.apps %}
+                    <li class="nav-item nav-item-submenu">
+                        {% if app.models|length == 1 %}
+                            <a href="{{ app.models.0.admin_url }}" class="nav-link"><i
+                                    class="{{ app.icon }}"></i><span>{{ app.models.0.name }}</span></a>
+                        {% else %}
+                            <a href="#" class="nav-link"><i class="{{ app.icon }}"></i><span>{{ app.name }}</span></a>
+                            <ul class="nav nav-group-sub" data-submenu-title="Themes">
+                                {% for model in app.models %}
+                                    <li class="nav-item">
+                                        <a href="{{ model.admin_url }}"
+                                           class="nav-link {% if model.admin_url in request.path %} active {% endif %}">
+                                            <span>{{ model.name }}</span></a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    </li>
+                {% endfor %}
+            </ul>
+        </li>
+    {% else %}
+        <li class="nav-item nav-item-submenu">
+            {% if app.models|length == 1 %}
+                <a href="{{ app.models.0.admin_url }}" class="nav-link"><i
+                        class="{{ app.icon }}"></i><span>{{ app.name }}</span></a>
+            {% else %}
+                <a href="#" class="nav-link"><i class="{{ app.icon }}"></i><span>{{ app.name }}</span></a>
+                <ul class="nav nav-group-sub" data-submenu-title="Themes">
+                    {% for model in app.models %}
+                        <li class="nav-item">
+                            <a href="{{ model.admin_url }}"
+                               class="nav-link {% if model.admin_url in request.path %} active {% endif %}">
+                                <span>{{ model.name }}</span></a>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        </li>
+    {% endif %}
+{% endfor %}

@@ -1,0 +1,2 @@
+{% for name, value in attrs.items %}{% if value is not False %}
+    {{ name }}{% if value is not True %}="{{ value|stringformat:'s' }}"{% endif %}{% endif %}{% endfor %}

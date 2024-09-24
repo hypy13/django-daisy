@@ -1,0 +1,168 @@
+{% extends "admin/base.html" %}
+{% load i18n admin_urls static admin_modify %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <script src="{% url 'admin:jsi18n' %}"></script>
+    {{ media }}
+    <link rel="stylesheet" href="{% static "admin/css/widgets.css" %}">
+{% endblock %}
+
+{% block extrastyle %}
+    {{ block.super }}
+{#    <link rel="stylesheet" href="{% static "admin/css/forms.css" %}">#}
+{#    <link rel="stylesheet" href="{% static "admin/css/base.css" %}">#}
+{% endblock %}
+
+
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
+
+{% if not is_popup %}
+    {% block breadcrumbs %}
+        <div class="text-sm max-sm:hidden breadcrumbs max-w-xs">
+            <ul>
+                <li><a href="{% url 'admin:index' %}" class="link link-hover">{% trans 'Dashboard' %}</a></li>
+                {% if has_view_permission %}
+                    <li><a class="link link-hover"
+                           href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>
+                    </li>
+                {% else %}
+                    <li><a class="disabled" href="#">{{ cl.opts.verbose_name_plural|capfirst }}</a></li>
+                {% endif %}
+
+                <li>{% if add %}{% blocktranslate with name=opts.verbose_name %}Add {{ name }}
+                {% endblocktranslate %}{% else %}{{ original|truncatewords:"18" }}{% endif %}</li>
+            </ul>
+        </div>
+    {% endblock %}
+{% endif %}
+
+{% block content_title %}
+    {% if add %}{% blocktranslate with name=opts.verbose_name %}Add {{ name }}
+    {% endblocktranslate %}{% else %}{{ original|truncatewords:"18" }}{% endif %}
+{% endblock %}
+
+{% block content %}
+    <div id="content-main" class="border-base-200">
+        {% comment %}<div class="navbar rounded-sm bg-base-100">
+            <div class="flex-1">
+                <a class="btn btn-ghost text-xl">daisyUI</a>
+            </div>
+            <div class="flex-none">
+                {% block object-tools %}
+                    {% if change and not is_popup %}
+                        <ul class="object-tools flex justify-end space-x-2">
+                            {% block object-tools-items %}
+                                {% change_form_object_tools %}
+                            {% endblock %}
+                        </ul>
+                    {% endif %}
+                {% endblock %}
+            </div>
+        </div>{% endcomment %}
+
+        <form
+                {% if has_file_field %}enctype="multipart/form-data" {% endif %}
+                {% if form_url %}action="{{ form_url }}"{% else %} action="{{ request.path }}" {% endif %}
+                method="post"
+                id="{{ opts.model_name }}_form"
+                novalidate
+                class="w-full h-full">
+
+            {% csrf_token %}
+            {% block form_top %}{% endblock %}
+            <div class="grid grid-cols-1 xl:grid-cols-[1fr_auto] gap-4">
+                {% if is_popup %}<input type="hidden" name="{{ is_popup_var }}" value="1">{% endif %}
+                {% if to_field %}<input type="hidden" name="{{ to_field_var }}" value="{{ to_field }}">{% endif %}
+                {% if save_on_top %}
+                    {% block submit_buttons_top %}
+                        <div class="justify-end space-x-2">
+                            {% submit_row %}
+                        </div>
+                    {% endblock %}
+                {% endif %}
+
+                <div class="w-full overflow-x-auto">
+                    {% if errors %}
+                        <div class="alert alert-error mb-5 rounded" role="alert">
+                            <i class="fa fa-exclamation"></i>
+                            <div>
+                                <p class="errornote">
+                                    {% blocktranslate count counter=errors|length %}
+                                        Please correct the error below.
+                                        {% plural %}
+                                        Please correct the errors below.
+                                    {% endblocktranslate %}
+                                </p>
+                                <ul>
+                                    {{ adminform.form.non_field_errors }}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+
+
+                    {% block field_sets %}
+                        {% for fieldset in adminform %}
+                            <fieldset class=" collapse w-full mt-3 collapse-arrow fieldset card card-bordered bg-base-100 p-1">
+                                <input type="checkbox" name="fieldsets-{{ forloop.counter }}" checked/>
+                                <div class="collapse-title text-xl font-medium">
+                                    {{ fieldset.name|default:opts.object_name }}
+                                </div>
+                                <div class="collapse-content w-full">
+                                    {% include "admin/includes/fieldset.html" %}
+                                </div>
+                            </fieldset>
+                        {% endfor %}
+                    {% endblock %}
+
+                    {% block after_field_sets %}{% endblock %}
+
+                    {% block inline_field_sets %}
+                        {% for inline_admin_formset in inline_admin_formsets %}
+                            <fieldset
+                                    class="collapse overflow-hidden mt-3 collapse-arrow fieldset card card-bordered bg-base-100 p-3">
+                                <input type="checkbox" name="inlineadmin-{{ forloop.counter }}" checked/>
+                                <div class="collapse-title text-xl font-medium">
+                                    {{ inline_admin_formset.opts.verbose_name_plural|capfirst }}
+                                </div>
+                                <div class="collapse-content overflow-x-auto overflow-y-visible">
+                                    {% include inline_admin_formset.opts.template %}
+                                </div>
+                            </fieldset>
+                        {% endfor %}
+                    {% endblock %}
+
+                    {% block after_related_objects %}{% endblock %}
+                </div>
+
+                {% block submit_buttons_bottom %}
+                    <div class="xl:w-96 w-full z-10 sticky bottom-2">
+                        {% submit_row %}
+                    </div>
+                {% endblock %}
+
+            </div>
+        </form>
+    </div>
+    {% block admin_change_form_document_ready %}
+        <script id="django-admin-form-add-constants"
+                src="{% static 'admin/js/change_form.js' %}"
+                {% if adminform and add %}
+                data-model-name="{{ opts.model_name }}"
+                {% endif %}
+                async>
+        </script>
+    {% endblock %}
+{% endblock %}
+
+
+<div id="wrapper">
+    <div id="content"></div>
+    <div id="sidebar"></div>
+</div>
+
+
+
+{# JavaScript for prepopulated fields #}
+{% prepopulated_fields_js %}

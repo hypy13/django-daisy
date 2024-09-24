@@ -1,0 +1,18 @@
+{% with id=widget.attrs.id %}
+    <div class="form-control flex flex-row gap-4 pt-1"
+            {% if id %} id="{{ id }}"{% endif %}{% if widget.attrs.class %} class="{{ widget.attrs.class }}"{% endif %}>
+        {% for group, options, index in widget.optgroups %}
+            {% if group %}
+                <div {% if id %} id="{{ id }}_{{ index }}"{% endif %} class="form-group">{{ group }}
+            {% endif %}
+                {% for option in options %}
+                    <div class="flex flex-row">{% include option.template_name with widget=option %}</div>
+                {% endfor %}
+            {% if group %}
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+{% endwith %}
+
+

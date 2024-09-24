@@ -1,0 +1,17 @@
+{% comment %}<label {% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}
+                                class="custom-control custom-control-secondary custom-radio mb-2">
+    <input name="{{ widget.name }}" type="radio" value="{{ widget.value }}"
+           class="custom-control-input" {% include "django/forms/widgets/attrs.html" %}>
+    <span class="custom-control-label">{{ widget.label }}</span>
+</label>{% endcomment %}
+
+{% load dash_tags %}
+{% with widget=widget|apply_class_to_widget:'radio radio-sm focus:outline-0 transition-all focus:outline-offset-0' %}
+    <label for="{{ widget.attrs.id }}" class="cursor-pointer px-1">
+        {{ widget.label }}
+    </label>
+    <input
+            {% if widget.attrs.checked %} checked {% endif %}
+            type="radio" name="{{ widget.name }}" {% if widget.value != None %}
+           value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}  >
+{% endwith %}

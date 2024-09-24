@@ -1,0 +1,72 @@
+{% load i18n %}
+<div id="sidebar" class="sidebar bg-base-100 border-base-200 border-r w-56  hidden xl:block lg:block">
+    <!-- Sidebar header with logo -->
+    <a class="flex h-16 items-center justify-center" href="{% url 'admin:index' %}">
+        <div class="inline">
+            <img alt="logo-dark" loading="lazy" width="50" height="24" class="hidden dark:inline"
+                 src="https://img.daisyui.com/images/daisyui-logo/daisyui-logomark.svg">
+            <img alt="logo-light" loading="lazy" width="50" height="24" class="inline dark:hidden"
+                 src="https://img.daisyui.com/images/daisyui-logo/daisyui-logomark.svg">
+        </div>
+        <div class="inline">HyPy</div>
+    </a>
+
+    <!-- Sidebar menu -->
+    <ul class="menu rounded-box w-56">
+        <!-- Dashboard link -->
+        <li>
+            <a href="{% url 'admin:index' %}">
+                <i class="fa fa-th"></i>
+                {% trans 'Dashboard' %}
+            </a>
+        </li>
+
+        <!-- App list -->
+        {% for app in app_list %}
+            <!-- If the app has sub-apps, handle it here -->
+            {% if app.apps %}
+                <!-- Placeholder or specific handling for sub-apps -->
+                <h1>Sub-apps placeholder</h1>
+            {% else %}
+                <!-- Divider between apps, if needed -->
+                {% if app.divider_title %}
+                    <div class="divider menu-title divider-start text-info-content/50">{{ app.divider_title|safe }}</div>
+                {% endif %}
+
+                <!-- Single model in app -->
+                {% if app.models|length == 1 %}
+                    <li>
+                        <a class="{% if app.models.0.admin_url in request.path|urlencode %} active{% endif %}" href="{{ app.models.0.admin_url }}">
+                            <i class="{{ app.icon }}"></i>
+                            {{ app.name }}
+                        </a>
+                    </li>
+
+                    <!-- Multiple models in app -->
+                {% else %}
+                    <li class="mb-2">
+                        <details {% if app.app_url in request.path|urlencode %} open {% endif %}>
+                            <summary>
+                                <i class="{{ app.icon }}"></i>
+                                {{ app.name }}
+                            </summary>
+                            <ul>
+                                {% for model in app.models %}
+                                    <li class="model-{{ model.object_name|lower }}">
+                                        <a class="{% if model.admin_url in request.path|urlencode %} active {% endif %}" href="{{ model.admin_url }}">
+                                            {{ model.name }}
+                                        </a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </details>
+                    </li>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+
+{% if not app_list %}
+    <p>{% translate 'You don’t have permission to view or edit anything.' %}</p>
+{% endif %}
