@@ -20,20 +20,17 @@ Upcoming Features
 
 Installation
 
-    bash
     pip install django-daisy
 
     Add django_daisy to your INSTALLED_APPS in the Django settings file.
     and comment the default django admin 'django.contrib.admin' app
-    ```python
 
-        INSTALLED_APPS = [
-        
-            'daisyui_dashboard',
-            # 'django.contrib.admin',
-            ...
-        ]
-```
+    INSTALLED_APPS = [
+        'daisyui_dashboard',
+        # 'django.contrib.admin',
+        ...
+    ]
+
 Enjoy the new theme!
 
 Contributing
