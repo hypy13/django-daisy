@@ -1,6 +1,7 @@
 Django Daisy
 
-Django Daisy is a modern, lightweight, and responsive admin dashboard built with DaisyUI and TailwindCSS. It offers RTL support, multiple themes, and an optimized user experience for mobile, tablet, and PC users.
+Django Daisy is a modern, lightweight, and responsive admin dashboard built with DaisyUI and TailwindCSS. It offers RTL
+support, multiple themes, and an optimized user experience for mobile, tablet, and PC users.
 Features
 
     Responsive Design: Adapts seamlessly to different screen sizes.
@@ -19,14 +20,21 @@ Upcoming Features
 
 Installation
 
-    Clone the repo:
-
     bash
-
-    git clone https://github.com/hypy13/django-daisy.git
+    pip install django-daisy
 
     Add django_daisy to your INSTALLED_APPS in the Django settings file.
-    Enjoy the new theme!
+    and comment the default django admin 'django.contrib.admin' app
+    ```python
+
+        INSTALLED_APPS = [
+        
+            'daisyui_dashboard',
+            # 'django.contrib.admin',
+            ...
+        ]
+```
+Enjoy the new theme!
 
 Contributing
 
