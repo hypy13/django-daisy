@@ -1,2 +1,4 @@
 node_modules/
 __pycache__/
+django_daisy.egg-info/
+dist/
