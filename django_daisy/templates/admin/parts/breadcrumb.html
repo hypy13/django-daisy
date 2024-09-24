@@ -1,0 +1,24 @@
+{% load i18n %}
+{% load admin_urls %}
+<div class="page-header col mt-1">
+    <div class="header-elements-md-inline">
+        <div class="d-flex">
+            <div class="breadcrumb">
+                <a href="{% url 'admin:index' %}" class="breadcrumb-item"><i
+                        class="fa fab-menu-bottom mr-2"></i>{% trans 'Dashboard' %}</a>
+                {% if cl.opts.app_label %}
+                    <a class="breadcrumb-item"
+                       href="{% url 'admin:app_list' app_label=cl.opts.app_label %}">{{ cl.opts.app_config.verbose_name }}</a>
+                {% endif %}
+                {% if has_view_permission %}
+                    <a class="breadcrumb-item"
+                       href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>
+                {% endif %}
+                {% if title %}
+                    <span class="breadcrumb-item active">{{ title }}</span>
+                {% endif %}
+            </div>
+            <a href="#" class="header-elements-toggle text-default d-md-none " style="margin-bottom: 1px"><i class="fa fa-dot-circle-o"></i></a>
+        </div>
+    </div>
+</div>

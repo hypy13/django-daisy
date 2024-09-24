@@ -1,0 +1,98 @@
+{% load admin_modify %}
+{% load i18n admin_urls %}
+{% block submit-row %}
+    <div class="p-3 card bg-base-100 grid grid-cols-1 mt-3 gap-3 sticky top-3 max-lg:hidden">
+        <div class="text-start grid grid-cols-1 gap-1">
+            {% if show_save_as_new %}
+                <input type="submit" value="{% translate 'Save as new' %}" name="_saveasnew">
+            {% endif %}
+            {% if show_save %}
+                <button type="submit" class="btn-md btn-primary px-4  btn rounded-md legitRipple" name="_save">
+                    {% translate 'Save' %}
+                    <i class="fas fa-save px-1"></i>
+                </button>
+            {% endif %}
+            {% if show_save_and_continue %}
+                <button class="btn-sm bg-blue-300 text-black btn rounded-md legitRipple" type="submit" name="_continue">
+                    {% if can_change %}{% translate 'Save and continue editing' %}{% else %}
+                        {% translate 'Save and view' %}{% endif %}
+                    <i class="fas fa-sync"></i>
+                </button>
+            {% endif %}
+            {% if show_save_and_add_another %}
+                <button class="btn-sm  bg-blue-300 text-black rounded-md btn legitRipple" type="submit"
+                        name="_addanother">
+                    {% translate 'Save and add another' %}
+                    <i class="fas fa-plus-circle"></i>
+                </button>
+            {% endif %}
+
+
+        </div>
+        <div class="text-end grid grid-cols-1">
+            {% if show_delete_link and original or can_delete_popup %}
+                {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
+                <a href="{% add_preserved_filters delete_url %}{% if can_delete_popup %}?_popup=1{% endif %}"
+                   class="btn-sm btn-block btn-error btn rounded-md place-self-end">
+                    {% translate "Delete" %}
+                    <i class="fa fa-xmark"></i>
+                </a>
+            {% endif %}
+
+
+            {% if show_close and not is_popup %}
+                <a href="{% url opts|admin_urlname:'changelist' %}" class="closelink">{% translate 'Close' %}</a>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="p-3 card bg-base-100 grid grid-cols-2 mt-3 lg:hidden gap-5 md:visible border !shadow-lg">
+        {% if show_save %}
+            <button type="submit" class="btn-sm btn-primary px-4 btn rounded-md legitRipple" name="_save">
+                {% translate 'Save' %}
+                <i class="fas fa-save px-1"></i>
+            </button>
+        {% endif %}
+        <details class="dropdown dropdown-top w-full">
+            <summary type="button" tabindex="0" role="button" class="btn btn-sm btn-block">Options</summary>
+            <div tabindex="0" class="dropdown-content menu w-full bg-base-100 rounded-box z-[1] mb-1 border p-2 shadow">
+                {% if show_save_as_new %}
+                    <input type="submit" value="{% translate 'Save as new' %}" name="_saveasnew">
+                {% endif %}
+
+                {% if show_save_and_continue %}
+                    <button class="btn-sm bg-blue-300 text-black btn rounded-md legitRipple" type="submit" name="_continue">
+                        {% if can_change %}{% translate 'Save and continue editing' %}{% else %}
+                            {% translate 'Save and view' %}{% endif %}
+                        <i class="fas fa-sync"></i>
+                    </button>
+                {% endif %}
+                {% if show_save_and_add_another %}
+                    <button class="btn-sm  bg-blue-300 text-black rounded-md btn legitRipple" type="submit"
+                            name="_addanother">
+                        {% translate 'Save and add another' %}
+                        <i class="fas fa-plus-circle"></i>
+                    </button>
+                {% endif %}
+                {% if show_delete_link and original or can_delete_popup %}
+                    {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
+                    <a href="{% add_preserved_filters delete_url %}{% if can_delete_popup %}?_popup=1{% endif %}"
+                       class="btn-sm btn-block btn-error mt-1 btn rounded-md place-self-end">
+                        {% translate "Delete" %}
+                        <i class="fa fa-xmark"></i>
+                    </a>
+                {% endif %}
+                <div class="mobile-option-tools mt-2">
+                    {% change_form_object_tools %}
+                </div>
+
+
+                {% if show_close and not is_popup %}
+                    <a href="{% url opts|admin_urlname:'changelist' %}"
+                       class="closelink">{% translate 'Close' %}</a>
+                {% endif %}
+            </div>
+        </details>
+    </div>
+{% endblock %}
+

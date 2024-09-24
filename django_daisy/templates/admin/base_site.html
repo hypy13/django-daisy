@@ -1,0 +1,20 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block title %}{{ site_title|default:_('Django site admin') }}{% endblock %}
+
+{% block branding %}
+    <h1 id="site-name">
+        <a href="{% url 'admin:index' %}">{{ site_title|default:_('Django administration') }}</a>
+    </h1>
+{% endblock %}
+
+{% block extrastyle %}
+    <style>
+        /* Add any additional styling if needed */
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h1>Welcome to {{ site_title|default:_('Django administration') }}</h1>
+{% endblock %}

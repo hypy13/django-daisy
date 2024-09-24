@@ -1,0 +1,16 @@
+{% load dash_tags %}
+{% load i18n %}
+<div class="inline-flex items-center ms-3">
+    {% block actions %}
+        <span class="me-1 font-bold text-sm">{% trans "Actions" %}:</span>
+        {% block actions-form %}
+            {% for field in action_form %}
+                {% if field.label %}<label> {% endif %}{{ field }}
+            {% if field.label %}</label>{% endif %}{% endfor %}
+        {% endblock %}
+        {% block actions-submit %}
+            <button type="submit" class="button btn-sm btn btn-dark mx-1" title="{% translate "Run the selected action" %}"
+                    name="index" value="{{ action_index|default:0 }}">{% translate "Go" %}</button>
+        {% endblock %}
+    {% endblock %}
+</div>
