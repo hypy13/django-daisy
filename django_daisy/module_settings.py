@@ -23,11 +23,12 @@ settings.STATICFILES_DIRS += [
 
 settings.X_FRAME_OPTIONS = 'SAMEORIGIN'
 
-settings.APPS_REORDER = {
-    'auth': {
-        'icon': 'fa-solid fa-person-military-pointing',
-        'name': _('Authentication'),
-        'hide': False,
-        'app': 'users',
-    },
-}
+if not hasattr(settings, 'APPS_REORDER'):
+    settings.APPS_REORDER = {
+        'auth': {
+            'icon': 'fa-solid fa-person-military-pointing',
+            'name': _('Authentication'),
+            'hide': False,
+            'app': 'users',
+        },
+    }

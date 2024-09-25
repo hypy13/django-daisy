@@ -18,7 +18,7 @@ Admin List Filter: Supports multi-value filtering for easier navigation.
 
 Compatibility
 
-    Supports Django 3.4 - 5.1.1.
+    Supports Django 3.2 - 5.1.1.
 
 Upcoming Features
 
@@ -36,7 +36,7 @@ Add django_daisy to your INSTALLED_APPS in the Django settings file.
 and comment the default django admin 'django.contrib.admin' app
 
     INSTALLED_APPS = [
-        'daisyui_dashboard',
+        'django_daisy',
         # 'django.contrib.admin',
         ...
     ]
