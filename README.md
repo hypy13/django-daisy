@@ -28,8 +28,12 @@ Installation
 
     pip install django-daisy
 
-    Add django_daisy to your INSTALLED_APPS in the Django settings file.
-    and comment the default django admin 'django.contrib.admin' app
+or as editable github source:
+
+    pip install -e git+https://github.com/hypy13/django-daisy.git#egg=django-daisy
+
+Add django_daisy to your INSTALLED_APPS in the Django settings file.
+and comment the default django admin 'django.contrib.admin' app
 
     INSTALLED_APPS = [
         'daisyui_dashboard',
