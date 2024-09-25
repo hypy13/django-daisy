@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "watch": "npx tailwindcss -i static/admin/css/styles.css -o static/admin/css/tailwind.css --watch"
+    "watch": "npx tailwindcss -i django_daisy/static/admin/css/styles.css -o django_daisy/static/admin/css/tailwind.css --minify --watch"
   },
   "keywords": [],
   "author": "",

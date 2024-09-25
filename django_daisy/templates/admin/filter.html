@@ -2,7 +2,7 @@
 {% load i18n %}
 <li class="card">
     <label class="navbar-nav-link dropdown-toggle legitRipple">
-        <b class="text-sm mb-1 inline-block">{% blocktranslate with filter_title=title %}{{ filter_title }} {% endblocktranslate %}:</b>
+        <b class="text-sm mb-1 inline-block capitalize">{% blocktranslate with filter_title=title %}{{ filter_title }} {% endblocktranslate %}:</b>
 
         <select multiple class="filter-select" data-key="{% firstof spec.lookup_kwarg spec.parameter_name %}">
             {% for choice in choices %}

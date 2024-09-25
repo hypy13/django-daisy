@@ -1,11 +1,11 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
     content: [
-        './templates/**/*.html',   // Scan HTML templates for Tailwind classes
-        './static/**/*.js',        // Include all JavaScript files in static directory
-        './static/admin/css/styles.css',  // Admin-specific CSS
-        '../**/*.py',              // Include Python files for possible Jinja-style Tailwind classes
-        './static/**/*.jsx',       // Include JSX files
+        './django_daisy/templates/**/*.html',   // Scan HTML templates for Tailwind classes
+        './django_daisy/static/**/*.js',        // Include all JavaScript files in static directory
+        './django_daisy/static/admin/css/styles.css',  // Admin-specific CSS
+        './django_daisy/**/*.py',              // Include Python files for possible Jinja-style Tailwind classes
+        './django_daisy/static/**/*.jsx',       // Include JSX files
     ],
 
     theme: {
