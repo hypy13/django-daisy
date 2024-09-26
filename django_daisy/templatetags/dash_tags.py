@@ -98,24 +98,30 @@ def get_value_by_key(query, key):
 
 @register.simple_tag
 def is_active_choice(choice, spec):
+    if choice.get('selected'):
+        return 'selected'
+
     if hasattr(spec, "lookup_kwarg"):
         filter_key = spec.lookup_kwarg
+
     elif hasattr(spec, "parameter_name"):
         filter_key = spec.parameter_name
+
     else:
         filter_key = spec.field_generic
-
-    if choice.get('selected') and spec.field.attname in choice['query_string']:
-        return 'selected'
 
     if hasattr(spec, 'request'):
         filter_values = spec.request.GET.get(filter_key.replace('__exact', '__in'))
     else:
         filter_values = ""
+
     current_choice_value = get_value_by_key(choice['query_string'], filter_key)
+
     if current_choice_value and filter_values:
         if current_choice_value in filter_values.split(','):
             return 'selected'
+
+    return ''
 
 
 @register.simple_tag
