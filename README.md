@@ -1,51 +1,102 @@
-Django Daisy
+Here’s the updated version with the **tabbed inline admin** feature added to the key features section:
 
-demo: http://hy3.ir/admin/
-<br>
-username: demo
-<br>
-password: demo
+# Django Daisy
 
-Django Daisy is a modern, lightweight, and responsive admin dashboard built with DaisyUI and TailwindCSS. It offers RTL
-support, multiple themes, and an optimized user experience for mobile, tablet, and PC users.
-Features
+[**Live Demo https://hy3.ir/admin/**](http://hy3.ir/admin/)  
+**Username:** demo  
+**Password:** demo
 
-Responsive Design: Adapts seamlessly to different screen sizes.
-RTL Support: Ensures proper layout for right-to-left languages.
-Multi-theme Support: Easily switch between themes.
-Enhanced UX/UI: Improved admin interface with tabbed inline admins and sidebar icons.
-Admin List Filter: Supports multi-value filtering for easier navigation.
+![ScreenShot](./screenshots/change_form.png)
 
-Compatibility
+---
 
-    Supports Django 3.2 - 5.1.1.
+Django Daisy is a modern, sleek, and highly responsive admin dashboard built with **DaisyUI** and **TailwindCSS**. It brings a polished and user-friendly interface that scales beautifully across devices, from mobile to desktop, making your admin experience fast and efficient.
 
-Upcoming Features
+---
 
-    Continuous improvements and new features added regularly.
+## ✨ Key Features
 
-Installation
+- 🌍 **Responsive Design**: Perfectly adapts to all screen sizes, ensuring a seamless user experience across mobile, tablet, and desktop devices.
+- 🔄 **RTL Support**: Complete right-to-left language support, with a clean and consistent layout for RTL users.
+- 🎨 **Multi-Theme Support**: Effortlessly switch between themes to match your brand identity or personal style.
+- 🚀 **Enhanced UX/UI**: Experience an optimized interface with **tabbed inline admin panels** for better organization and usability.
+- 📝 **Tabbed Inline Admin**: Manage related data more efficiently with tabbed inline admin sections, improving organization and accessibility.
+- 🔍 **Advanced Admin Filtering**: Utilize multi-value filters for fast and precise navigation through admin lists.
 
-    pip install django-daisy
+---
 
-or as editable github source:
+## ⚙️ Compatibility
 
-    pip install -e git+https://github.com/hypy13/django-daisy.git#egg=django-daisy
+- Django 3.2 - 5.1.1 are fully supported.
 
-Add django_daisy to your INSTALLED_APPS in the Django settings file.
-and comment the default django admin 'django.contrib.admin' app
+---
 
-    INSTALLED_APPS = [
-        'django_daisy',
-        # 'django.contrib.admin',
-        ...
-    ]
+## 🚧 Upcoming Features
 
-Enjoy the new theme!
+Stay tuned! Continuous improvements and new features are regularly added to enhance your experience.
 
-Contributing
+---
 
-Contributions are welcome! Feel free to submit issues or pull requests for improvements.
-License
+## 📦 Installation
 
-This project is open-source and free to use under the Apache 2.0 License.
+### Option 1: Install via PyPi
+
+```bash
+pip install django-daisy
+
+### Option 2: Install as an editable GitHub source
+
+```bash
+pip install -e git+https://github.com/hypy13/django-daisy.git#egg=django-daisy
+```
+
+After installation, add `django_daisy` to your `INSTALLED_APPS` in the Django settings file.  
+Make sure to comment out Django's default admin app (`django.contrib.admin`):
+
+```python
+INSTALLED_APPS = [
+    'django_daisy',
+    # 'django.contrib.admin',
+    ...
+]
+```
+
+Once you've made these changes, enjoy the fresh new theme!
+
+---
+
+## 🤝 Contributing
+
+We welcome contributions from the community! Feel free to submit any issues, suggestions, or pull requests to help improve Django Daisy.
+
+---
+
+## 📜 License
+
+This project is licensed under the **Apache 2.0 License**.  
+It's open-source, free to use, and always evolving!
+
+---
+
+## 📸 Screenshots
+
+##### Listing View:
+![Listing View](./screenshots/listing.png)
+
+
+##### Change Form:
+![Listing View](./screenshots/change_form.png)
+
+##### InlineAdmin Change Form:
+![Listing View](./screenshots/inline_admin.png)
+
+##### Mobile Responsive:
+![Listing View](./screenshots/mobile.png)
+
+##### Dark Theme:
+![Listing View](./screenshots/dark_theme.png)
+
+---
+
+Elevate your Django admin panel with **Django Daisy** – an elegant, powerful, and flexible solution for modern web applications!
+```

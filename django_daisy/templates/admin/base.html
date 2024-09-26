@@ -50,7 +50,7 @@
 
 <body class="bg-base-200 {% if LANGUAGE_BIDI %}font-vazir{% else %}font-cantarell{% endif %} ">
 
-<div class="flex h-screen">
+<div class="flex min-h-screen">
     {% if not is_popup and is_nav_sidebar_enabled %}
         {% block nav-sidebar %}
             {% include "admin/parts/sidebar.html" with app_list=available_apps %}
