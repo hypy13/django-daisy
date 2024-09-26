@@ -6,7 +6,7 @@ Here’s the updated version with the **tabbed inline admin** feature added to t
 **Username:** demo  
 **Password:** demo
 
-![ScreenShot](./screenshots/change_form.png)
+![ScreenShot](https://raw.githubusercontent.com/hypy13/django-daisy/refs/heads/main/screenshots/change_form.png)
 
 ---
 
@@ -81,20 +81,20 @@ It's open-source, free to use, and always evolving!
 ## 📸 Screenshots
 
 ##### Listing View:
-![Listing View](./screenshots/listing.png)
+![Listing View](https://raw.githubusercontent.com/hypy13/django-daisy/refs/heads/main/screenshots/listing.png)
 
 
 ##### Change Form:
-![Listing View](./screenshots/change_form.png)
+![Listing View](https://raw.githubusercontent.com/hypy13/django-daisy/refs/heads/main/screenshots/change_form.png)
 
 ##### InlineAdmin Change Form:
-![Listing View](./screenshots/inline_admin.png)
+![Listing View](https://raw.githubusercontent.com/hypy13/django-daisy/refs/heads/main/screenshots/inline_admin.png)
 
 ##### Mobile Responsive:
-![Listing View](./screenshots/mobile.png)
+![Listing View](https://raw.githubusercontent.com/hypy13/django-daisy/refs/heads/main/screenshots/mobile.png)
 
 ##### Dark Theme:
-![Listing View](./screenshots/dark_theme.png)
+![Listing View](https://raw.githubusercontent.com/hypy13/django-daisy/refs/heads/main/screenshots/dark_theme.png)
 
 ---
 
