@@ -16,8 +16,8 @@ Django Daisy is a modern, sleek, and highly responsive admin dashboard built wit
 
 
 ### Documentation:
-<br>
 https://hypy13.github.io/django-daisy-docs/
+
 ---
 
 ## ✨ Key Features
