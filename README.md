@@ -10,8 +10,13 @@ Here’s the updated version with the **tabbed inline admin** feature added to t
 
 ---
 
+
+
 Django Daisy is a modern, sleek, and highly responsive admin dashboard built with **DaisyUI** and **TailwindCSS**. It brings a polished and user-friendly interface that scales beautifully across devices, from mobile to desktop, making your admin experience fast and efficient.
 
+
+Documentation:
+https://hypy13.github.io/django-daisy-docs/
 ---
 
 ## ✨ Key Features
