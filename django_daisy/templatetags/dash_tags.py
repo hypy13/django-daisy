@@ -105,6 +105,9 @@ def is_active_choice(choice, spec):
     else:
         filter_key = spec.field_generic
 
+    if choice.get('selected') and spec.field.attname in choice['query_string']:
+        return 'selected'
+
     if hasattr(spec, 'request'):
         filter_values = spec.request.GET.get(filter_key.replace('__exact', '__in'))
     else:

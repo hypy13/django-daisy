@@ -3,26 +3,21 @@
 const QueryModule = (function () {
     let queryMap = {};
 
-    function extractValueFromQueryString(queryString, key) {
-        // Remove the leading '?' if present
-        const cleanedQueryString = queryString.startsWith('?') ? queryString.substring(1) : queryString;
+    function extractValueFromQueryString(queryString, data_key) {
+        const result = {}
+        const params = new URLSearchParams(queryString);
+        params.forEach((v, k) => {
+            if (k.startsWith(data_key)) {
+                result[k] = v;  // Store matching key-value pairs
+            }
+        })
 
-        // Create a regex pattern to match the key and capture its value
-        const pattern = new RegExp(`${escapeRegExp(key)}=([^&]*)`);
-
-        // Search for the pattern in the query string
-        const match = cleanedQueryString.match(pattern);
-
-        return match ? decodeURIComponent(match[1]) : null;  // Return the decoded value or null if not found
+        return result
     }
 
-    function escapeRegExp(string) {
-        return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-    }
 
     function addOrUpdateQueryParameter(value, key) {
         key = key.replace('__exact', '__in')
-        console.log(queryMap);
         if (queryMap[key]) {
             // Append new value to existing key with a comma separator
             if (!queryMap[key].includes(value)) {
@@ -37,7 +32,8 @@ const QueryModule = (function () {
     function buildQueryString() {
         return '?' + Object.keys(queryMap).map(key => {
             const formattedKey = key.replace('__exact', '__in');
-            return `${formattedKey}=${queryMap[key]}`;
+            const formattedVal = encodeURIComponent(queryMap[key])
+            return `${formattedKey}=${formattedVal}`;
         }).join('&');
     }
 
@@ -57,11 +53,7 @@ const QueryModule = (function () {
 
             if (selectedValues) {
                 selectedValues.forEach(option => {
-                    console.log(option, dataKey);
-                    const extractedValue = extractValueFromQueryString(option, dataKey);
-                    if (extractedValue) {
-                        addOrUpdateQueryParameter(extractedValue, dataKey);
-                    }
+                    queryMap = {...queryMap, ...extractValueFromQueryString(option, dataKey)}
                 });
             }
         });
