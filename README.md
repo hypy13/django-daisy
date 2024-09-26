@@ -43,7 +43,7 @@ Stay tuned! Continuous improvements and new features are regularly added to enha
 
 ```bash
 pip install django-daisy
-
+```
 ### Option 2: Install as an editable GitHub source
 
 ```bash
