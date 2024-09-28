@@ -16,14 +16,14 @@
             </svg>
         </div>
     </div>
-    <div class="navbar-center">
-        <a class="btn btn-ghost text-xl" href="{% url 'admin:index' %}">
+    <div class="navbar-center max-sm:hidden">
+        <a class="btn btn-ghost  text-xl" href="{% url 'admin:index' %}">
             {% trans "Dashboard" %}
         </a>
     </div>
     <div class="navbar-end">
-        <div class="dropdown dropdown-bottom">
-            <div tabindex="0" role="button" class="btn btn-sm m-1">
+        <div class="dropdown dropdown-bottom dropdown-end">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-sm m-1">
                 {% trans "Theme" %}
                 <svg
                         width="12px"
@@ -34,7 +34,7 @@
                     <path d="M1799 349l242 241-1017 1017L7 590l242-241 775 775 775-775z"></path>
                 </svg>
             </div>
-            <ul tabindex="0" class="dropdown-content  bg-base-300 rounded-box z-20 w-48 p-2 shadow-2xl">
+            <ul tabindex="0" class="dropdown-content  bg-base-300 rounded-md z-20 w-48 p-2 shadow-2xl">
                 <li>
                     <input
                             data-set-theme="light" data-act-class="ACTIVECLASS"
@@ -101,38 +101,31 @@
                 </li>
             </ul>
         </div>
-        <button class="btn btn-ghost btn-circle">
-            <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-5 w-5"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor">
-                <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-            </svg>
-        </button>
-        <button class="btn btn-ghost btn-circle">
-            <div class="indicator">
-                <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        class="h-5 w-5"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor">
-                    <path
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                            stroke-width="2"
-                            d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
-                </svg>
-                <span class="badge badge-xs badge-primary indicator-item"></span>
+        <div class="dropdown dropdown-bottom dropdown-end">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-circle m-1">
+                <i class="fa-regular fa-user text-lg"></i>
             </div>
-        </button>
+            <ul tabindex="0" class="dropdown-content rounded-md  bg-base-300 z-20 w-48 p-2 shadow-2xl">
+                <li>
+                    <a class="btn btn-sm btn-block btn-ghost justify-start"
+                       href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a>
+                </li>
+                <li>
+                    <a class="btn btn-sm btn-block btn-ghost justify-start" onclick="$('#logout-form').submit()"
+                       href="#">{% translate 'Log out' %}</a>
+                </li>
 
+                {% if site_url %}
+                    <a class="btn btn-sm btn-block btn-ghost justify-start" href="{{ site_url }}">{% translate 'View site' %}</a>
+                {% endif %}
 
+                {% if user.is_active and user.is_staff %}
+                    {% url 'django-admindocs-docroot' as docsroot %}
+                    {% if docsroot %}
+                        <a class="btn btn-sm btn-block btn-ghost justify-start" href="{{ docsroot }}">{% translate 'Documentation' %}</a>
+                    {% endif %}
+                {% endif %}
+            </ul>
+        </div>
     </div>
 </div>

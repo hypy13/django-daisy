@@ -1,0 +1,89 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <style>
+        .module table {
+            width: 100%;
+        }
+
+        .module table p {
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+{% endblock %}
+
+{% block breadcrumbs %}
+    <div class="flex items-center space-x-2 breadcrumbs">
+        <a class="text-blue-500 hover:underline" href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
+        <a class="text-blue-500 hover:underline"
+           href="{% url 'django-admindocs-docroot' %}">{% translate 'Documentation' %}</a>
+        <a class="text-blue-500 hover:underline"
+           href="{% url 'django-admindocs-models-index' %}">{% translate 'Models' %}</a>
+        <span class="text-gray-500">{{ name }}</span>
+    </div>
+{% endblock %}
+
+{% block title %}{% blocktranslate %}Model: {{ name }}{% endblocktranslate %}{% endblock %}
+
+{% block content %}
+    <div id="content-main">
+        <h1 class="text-2xl font-semibold mb-4">{{ name }}</h1>
+        <h2 class="text-xl text-gray-600 mb-4">{{ summary }}</h2>
+
+        <div class="prose mb-6">{{ description }}</div>
+
+        <h3 class="text-lg font-medium">{% translate 'Fields' %}</h3>
+        <div class="module">
+            <table class="table-auto w-full mt-4">
+                <thead>
+                <tr>
+                    <th class="text-left">{% translate 'Field' %}</th>
+                    <th class="text-left">{% translate 'Type' %}</th>
+                    <th class="text-left">{% translate 'Description' %}</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for field in fields|dictsort:"name" %}
+                    <tr>
+                        <td>{{ field.name }}</td>
+                        <td>{{ field.data_type }}</td>
+                        <td>{{ field.verbose }}{% if field.help_text %} - {{ field.help_text|safe }}{% endif %}</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% if methods %}
+            <h3 class="text-lg font-medium mt-6">{% translate 'Methods with arguments' %}</h3>
+            <div class="module">
+                <table class="table-auto w-full mt-4">
+                    <thead>
+                    <tr>
+                        <th class="text-left">{% translate 'Method' %}</th>
+                        <th class="text-left">{% translate 'Arguments' %}</th>
+                        <th class="text-left">{% translate 'Description' %}</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for method in methods|dictsort:"name" %}
+                        <tr>
+                            <td>{{ method.name }}</td>
+                            <td>{{ method.arguments }}</td>
+                            <td>{{ method.verbose }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
+
+        <p class="mt-6">
+            <a class="text-blue-500 hover:underline"
+               href="{% url 'django-admindocs-models-index' %}">&lsaquo; {% translate 'Back to Model documentation' %}</a>
+        </p>
+    </div>
+{% endblock %}
