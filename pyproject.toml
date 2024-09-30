@@ -14,8 +14,6 @@ dependencies = [
     "Django>=3.4",
 ]
 keywords = ["django", "admin", "dashboard", "daisyui", "tailwindcss"]
-homepage = "https://github.com/hypy13/django-daisy"
-documentation = "https://github.com/hypy13/django-daisy-docs"
 
 [tool.setuptools]
 package-dir = {"" = "django_daisy"}
