@@ -1,0 +1,221 @@
+{% extends "admin/base.html" %}
+{% load i18n admin_urls static admin_list %}
+{% load dash_tags %}
+
+{% block extrastyle %}
+    {#  <link rel="stylesheet" href="{% static "admin/css/changelists.css" %}">#}
+    {#  <link rel="stylesheet" href="{% static "admin/css/base.css" %}">#}
+
+    {{ block.super }}
+    {% if cl.formset or action_form %}
+        <script src="{% url 'admin:jsi18n' %}"></script>
+    {% endif %}
+    {{ media.css }}
+    {% if not actions_on_top and not actions_on_bottom %}
+        <style>
+            #changelist table thead th:first-child {
+                width: inherit
+            }
+        </style>
+    {% endif %}
+{% endblock %}
+
+{% block extrahead %}
+    {{ block.super }}
+    {{ media.js }}
+    <script src="{% static '/admin/js/query_filter.js' %}" defer></script>
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-list{% endblock %}
+
+{% if not is_popup %}
+    {% block breadcrumbs %}
+        <div class="text-sm max-md:hidden breadcrumbs">
+            <ul>
+                <li><a href="{% url 'admin:index' %}" class="link link-hover">{% trans 'Dashboard' %}</a></li>
+                <li><a href="{% url 'admin:app_list' app_label=cl.opts.app_label %}"
+                       class="link link-hover">{{ cl.opts.app_config.verbose_name }}</a></li>
+                <li><a class="disabled" href="#">{{ cl.opts.verbose_name_plural|capfirst }}</a></li>
+            </ul>
+        </div>
+    {% endblock %}
+{% endif %}
+{% block content %}
+    {% get_active_filters_count cl as active_filters_count %}
+    {% if cl.formset and cl.formset.errors %}
+        <div class="alert alert-error mb-5 rounded" role="alert">
+            <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="h-6 w-6 shrink-0 stroke-current"
+                    fill="none"
+                    viewBox="0 0 24 24">
+                <path
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            <div>
+                <p class="errornote">
+                    {% blocktranslate count counter=cl.formset.total_error_count %}Please correct the error below.
+                        {% plural %}Please correct the errors below.{% endblocktranslate %}
+                </p>
+                <ul>
+                    {{ cl.formset.non_form_errors }}
+                </ul>
+            </div>
+        </div>
+    {% endif %}
+
+    <!-- Start of drawer component -->
+    <div class="drawer drawer-end xl:drawer-open ">
+        <input id="filter-drawer" type="checkbox" class="drawer-toggle"/>
+
+        <!-- Main content section -->
+        <div class="drawer-content flex flex-col w-full h-full">
+            <div id="content-main" class="overflow-hidden mt-3 w-full h-full flex">
+                <div class="card bg-base-100 w-full card-bordered flex-col flex-1 ">
+                    <div class="hidden" id="hidden-search-form">
+                        <form method="get">
+                            {% search_form cl %}
+                        </form>
+                    </div>
+
+                    <form id="changelist-form" method="post"{% if cl.formset and cl.formset.is_multipart %}
+                          enctype="multipart/form-data"{% endif %} novalidate>
+                        {% csrf_token %}
+                        <div class="flex flex-wrap gap-2 flex-row items-center justify-between px-3 pt-3">
+                            {% block search %}{% search_form cl %}{% endblock %}
+                            {% if action_form and actions_on_top and cl.show_admin_actions %}
+                                {% admin_actions %}
+                            {% endif %}
+                            <div class="object-tools inline-flex ms-auto flex-wrap max-md:justify-center gap-2 justify-between p-4">
+                                {% block object-tools %}
+                                    {% if cl.list_editable %}
+                                        <button class="btn btn-sm btn-primary" type="submit"
+                                                name="_save">{% trans "Save" %}
+                                        </button>
+                                    {% endif %}
+                                    {% block object-tools-items %}
+                                        {% change_list_object_tools %}
+                                    {% endblock %}
+                                    <div class="indicator xl:hidden">
+                                        {% if active_filters_count %}
+                                            <span class="indicator-item badge badge-info">{{ active_filters_count }}</span>
+                                        {% endif %}
+                                        <button type="button" id="open-filter-drawer"
+                                                class="btn btn-sm btn-primary drawer-button">
+                                            <i class="fa fa-filter"></i>
+                                        </button>
+                                    </div>
+                                {% endblock %}
+                            </div>
+                        </div>
+                        <div class="card-body px-3 py-1 w-full">
+                            {% if cl.formset %}
+                                <div>{{ cl.formset.management_form }}</div>
+                            {% endif %}
+
+                            {% block result_list %}
+                                <div class="overflow-auto max-h-[60vh]">
+                                    {% result_list cl %}
+                                </div>
+                            {% endblock %}
+                            <div class="mt-4">
+                                {% block pagination %}{% pagination cl %}{% endblock %}
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+        {% if cl.has_filters %}
+            <!-- Filter section -->
+            <div id="changelist-filter" class="drawer-side mt-3 !overflow-visible card-bordered lg:ms-2 z-10 h-full">
+                <label for="filter-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+
+                <div class="card-body p-3 bg-base-100 w-80 h-full">
+                    <div class="card-header flex justify-between p-2">
+                        <h2 class="font-bold">{% translate 'Filter' %}</h2>
+                        <button id="apply-filter" type="button"
+                                class="btn btn-sm btn-primary">{% trans "Apply" %}</button>
+                    </div>
+                    {% if cl.is_facets_optional or active_filters_count %}
+                        <div id="changelist-filter-extra-actions" class="mb-2 flex justify-between">
+                            {% if cl.is_facets_optional %}
+                                <div class="form-control">
+                                    {% if cl.add_facets %}
+                                        <label class="label cursor-pointer text-sm">
+                                            <span class="label-text text-sm pe-2">{% translate "Show counts" %}</span>
+                                            <input checked value="{{ cl.remove_facet_link }}" type="checkbox"
+                                                   class="toggle toggle-sm filter_show_count"/>
+                                        </label>
+                                    {% else %}
+                                        <label class="label cursor-pointer">
+                                            <span class="label-text pe-2">{% translate "Show counts" %}</span>
+                                            <input value="{{ cl.add_facet_link }}" type="checkbox"
+                                                   class="toggle toggle-sm filter_show_count"/>
+                                        </label>
+                                    {% endif %}
+                                </div>
+                            {% endif %}
+                            {% if active_filters_count %}
+                                <h3 class="pt-1">
+                                    <a href="?"
+                                       class="link text-sm">
+                                        <i class="fa fa-times text-error"></i>
+                                        {% translate "Clear all filters" %}</a>
+                                </h3>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+                    {% for spec in cl.filter_specs %}
+                        {% admin_list_filter cl spec %}
+                    {% endfor %}
+                </div>
+            </div>
+        {% endif %}
+    </div>
+    <!-- End of drawer component -->
+
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script>
+        $(document).ready(function () {
+            $('.filter-select').each(function (i, elem) {
+                new TomSelect(elem, {
+                    plugins: ['remove_button'],
+                    create: false,
+                });
+            })
+
+            $('.filter_show_count').change(function () {
+                window.location.href = $(this).val()
+            })
+
+            document.getElementById("open-filter-drawer").addEventListener("click", function () {
+                const checkbox = document.getElementById("filter-drawer");
+                checkbox.checked = !checkbox.checked; // Toggles the 'checked' state
+            });
+
+            function submit_search_form() {
+                let search_val = $('#changelist-form #searchbar').val()
+                $('#hidden-search-form #searchbar').val(search_val)
+                $('#hidden-search-form form').submit()
+            }
+
+            $('#changelist-form #searchbar').keydown(function (event) {
+                if (event.key === "Enter") {
+                    event.preventDefault()
+                    submit_search_form()
+                }
+            })
+
+            $('#changelist-form .search-submit').click(submit_search_form)
+
+        })
+    </script>
+{% endblock %}

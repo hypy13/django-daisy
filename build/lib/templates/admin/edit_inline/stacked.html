@@ -1,0 +1,70 @@
+{% load i18n admin_urls static %}
+<div class="js-inline-admin-formset card inline-group"
+     id="{{ inline_admin_formset.formset.prefix }}-group"
+     data-inline-type="stacked"
+     data-inline-formset="{{ inline_admin_formset.inline_formset_data }}">
+    <fieldset id="{{ inline_admin_formset.opts.verbose_name_plural|capfirst | cut:" " }}"
+              class="module  mt-0 {{ inline_admin_formset.classes }}"
+              data-parent="#{{ inline_admin_formset.formset.prefix }}-group">
+
+        {{ inline_admin_formset.formset.management_form }}
+        {% if inline_admin_formset.formset.non_form_errors %}
+            <div class="bg-base-200 rounded-sm px-2 mt-2 capitalize">
+                {{ inline_admin_formset.formset.non_form_errors }}
+            </div>
+        {% endif %}
+
+        {% for inline_admin_form in inline_admin_formset %}
+            {% if not forloop.last %}
+                <div class="divider divider-start">{{ forloop.counter }}.</div>
+            {% endif %}
+            <div class="inline-related{% if inline_admin_form.original or inline_admin_form.show_url %} has_original{% endif %}{% if forloop.last and inline_admin_formset.has_add_permission %} empty-form last-related{% endif %}"
+                 id="{{ inline_admin_formset.formset.prefix }}-{% if not forloop.last %}{{ forloop.counter0 }}{% else %}empty{% endif %}">
+                <div class="w-full flex flex-row justify-between bg-base-200 rounded-sm p-1 text-sm">
+                    <span class="inline_label">
+                        {% if inline_admin_form.original %}{{ inline_admin_form.original }}
+                            {% if inline_admin_form.model_admin.show_change_link and inline_admin_form.model_admin.has_registered_model %}
+                                <a href="{% url inline_admin_form.model_admin.opts|admin_urlname:'change' inline_admin_form.original.pk|admin_urlquote %}"
+                                   class="{% if inline_admin_formset.has_change_permission %}inlinechangelink{% else %}inlineviewlink{% endif %}">
+                                    {% if inline_admin_formset.has_change_permission %}
+                                        {% translate "Change" %}
+                                    {% else %}
+                                        {% translate "View" %}
+                                    {% endif %}
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                    </span>
+
+                    {% if inline_admin_form.show_url %}
+                        <a href="{{ inline_admin_form.absolute_url }}">{% translate "View on site" %}</a>
+                    {% endif %}
+                    {% if inline_admin_formset.formset.can_delete and inline_admin_formset.has_delete_permission and inline_admin_form.original %}
+                        <span class="delete inline-flex align-middle gap-2 text-sm text-red-600">
+                            {{ inline_admin_form.deletion_field.field }}
+                            {{ inline_admin_form.deletion_field.label_tag }}
+                        </span>
+                    {% endif %}
+
+                </div>
+
+                {% if inline_admin_form.form.non_field_errors %}
+                    {{ inline_admin_form.form.non_field_errors }}
+                {% endif %}
+
+                {% for fieldset in inline_admin_form %}
+                    {% include "admin/includes/fieldset.html" %}
+                {% endfor %}
+
+                {% if inline_admin_form.needs_explicit_pk_field %}
+                    {{ inline_admin_form.pk_field.field }}
+                {% endif %}
+
+                {% if inline_admin_form.fk_field %}
+                    {{ inline_admin_form.fk_field.field }}
+                {% endif %}
+            </div>
+
+        {% endfor %}
+    </fieldset>
+</div>

@@ -1,0 +1,68 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block coltype %}colSM{% endblock %}
+{% block breadcrumbs %}
+<div class="flex items-center space-x-2">
+  <a class="text-blue-500 hover:underline" href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
+  <span class="text-gray-500">&rsaquo;</span>
+  <a class="text-blue-500 hover:underline" href="{% url 'django-admindocs-docroot' %}">{% translate 'Documentation' %}</a>
+  <span class="text-gray-500">&rsaquo;</span>
+  <span class="text-gray-500">{% translate 'Tags' %}</span>
+</div>
+{% endblock %}
+
+{% block title %}{% translate 'Template Tags' %}{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-semibold mb-4">{% translate 'Template Tag Documentation' %}</h1>
+
+<div id="content-main" class="space-y-6">
+  {% regroup tags|dictsort:"library" by library as tag_libraries %}
+  {% for library in tag_libraries %}
+    <div class="module">
+      <h2 class="text-xl font-medium">
+        {% firstof library.grouper _("Built-in tags") %}
+      </h2>
+      {% if library.grouper %}
+        <p class="text-gray-600">
+          {% blocktranslate with code="{"|add:"% load "|add:library.grouper|add:" %"|add:"}" %}
+            To use these tags, put <code class="text-blue-500">{{ code }}</code> in your template before using the tag.
+          {% endblocktranslate %}
+        </p>
+        <hr class="my-4">
+      {% endif %}
+      {% for tag in library.list|dictsort:"name" %}
+        <h3 id="{{ library.grouper|default:"built_in" }}-{{ tag.name }}" class="text-lg text-blue-500">{{ tag.name }}</h3>
+        <h4 class="text-md text-gray-700">{{ tag.title|striptags }}</h4>
+        <div class="text-gray-600">{{ tag.body }}</div>
+        {% if not forloop.last %}
+          <hr class="my-4">
+        {% endif %}
+      {% endfor %}
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}
+
+{% block sidebar %}
+<div id="content-related" class="space-y-6">
+  {% regroup tags|dictsort:"library" by library as tag_libraries %}
+  {% for library in tag_libraries %}
+    <div class="module">
+      <h2 class="text-lg font-medium">
+        {% firstof library.grouper _("Built-in tags") %}
+      </h2>
+      <ul class="list-disc pl-6 space-y-1">
+        {% for tag in library.list|dictsort:"name" %}
+          <li>
+            <a class="text-blue-500 hover:underline" href="#{{ library.grouper|default:"built_in" }}-{{ tag.name }}">
+              {{ tag.name }}
+            </a>
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endfor %}
+</div>
+{% endblock %}

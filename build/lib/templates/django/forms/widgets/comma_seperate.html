@@ -1,0 +1,11 @@
+{% load static %}
+<input data-fouc type="text" name="{{ widget.name }}"
+        {% if widget.value != None %}
+       value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}
+>
+
+<script>
+    $(document).ready(function () {
+        $('input[name="{{ widget.name }}"]').tokenfield()
+    })
+</script>

@@ -1,0 +1,65 @@
+{% extends "admin/base_site.html" %}
+{% load i18n admin_urls %}
+
+{% block breadcrumbs %}
+<div class="text-sm breadcrumbs">
+  <ul>
+    <li><a href="{% url 'admin:index' %}">{% translate 'Home' %}</a></li>
+    <li><a href="{% url 'admin:app_list' app_label=opts.app_label %}">{{ opts.app_config.verbose_name }}</a></li>
+    <li><a href="{% url opts|admin_urlname:'changelist' %}">{{ module_name }}</a></li>
+    <li><a href="{% url opts|admin_urlname:'change' object.pk|admin_urlquote %}">{{ object|truncatewords:"18" }}</a></li>
+    <li>{% translate 'History' %}</li>
+  </ul>
+</div>
+{% endblock %}
+
+{% block content %}
+<div id="content-main" class="p-4">
+  <div id="change-history" class="module bg-base-100 shadow rounded-lg p-6">
+
+    {% if action_list %}
+    <div class="overflow-x-auto">
+      <table class="table w-full">
+        <thead>
+          <tr>
+            <th scope="col" class="px-4 py-2">{% translate 'Date/time' %}</th>
+            <th scope="col" class="px-4 py-2">{% translate 'User' %}</th>
+            <th scope="col" class="px-4 py-2">{% translate 'Action' %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for action in action_list %}
+          <tr class="hover:bg-base-200">
+            <td class="px-4 py-2">{{ action.action_time|date:"DATETIME_FORMAT" }}</td>
+            <td class="px-4 py-2">{{ action.user.get_username }}{% if action.user.get_full_name %} ({{ action.user.get_full_name }}){% endif %}</td>
+            <td class="px-4 py-2">{{ action.get_change_message }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="paginator mt-4">
+      {% if pagination_required %}
+      <div class="btn-group">
+        {% for i in page_range %}
+        {% if i == action_list.paginator.ELLIPSIS %}
+        <button class="btn btn-sm">...</button>
+        {% elif i == action_list.number %}
+        <button class="btn btn-sm btn-active">{{ i }}</button>
+        {% else %}
+        <a href="?{{ page_var }}={{ i }}" class="btn btn-sm">{{ i }}</a>
+        {% endif %}
+        {% endfor %}
+      </div>
+      {% endif %}
+      <p class="p-4">
+        {{ action_list.paginator.count }} {% blocktranslate count counter=action_list.paginator.count %}entry{% plural %}entries{% endblocktranslate %}
+      </p>
+    </div>
+    {% else %}
+    <p class="text-error mt-4">{% translate 'This object doesn’t have a change history. It probably wasn’t added via this admin site.' %}</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

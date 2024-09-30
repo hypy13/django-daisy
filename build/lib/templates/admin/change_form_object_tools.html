@@ -1,0 +1,15 @@
+{% load i18n admin_urls %}
+
+<div class="text-start grid grid-cols-1 gap-2">
+    {% url opts|admin_urlname:'history' original.pk|admin_urlquote as history_url %}
+    <a href="{% add_preserved_filters history_url %}" class="historylink btn-sm btn rounded-md">
+        {% translate "History" %}
+        <i class="fa fa-history"></i>
+    </a>
+    {% if has_absolute_url %}
+        <a href="{{ absolute_url }}"
+           class="viewsitelink btn btn-sm">{% translate "View on site" %}</a>
+    {% endif %}
+</div>
+
+

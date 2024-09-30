@@ -1,0 +1,2 @@
+{% if widget.wrap_label %}
+<label {% if widget.type == "checkbox" %}class="form-check-label" style="width: 100%;"{% endif %} {% if widget.attrs.id %} for="{{ widget.attrs.id }}"{% endif %}>{% endif %} {% include "django/forms/widgets/input.html" %} {% if widget.wrap_label %} {{ widget.label }}</label>{% endif %}

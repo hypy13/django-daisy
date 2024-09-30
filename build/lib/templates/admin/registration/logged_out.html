@@ -1,0 +1,22 @@
+{% extends "admin/base.html" %}
+{% load i18n %}
+
+{% block breadcrumbs %}
+{% endblock %}
+
+{% block nav-sidebar %}{% endblock %}
+
+{% block content %}
+
+    <div class="card bg-base-100 w-96 shadow-xl m-auto">
+        <div class="card-body items-center text-center">
+            <h2 class="card-title">{% trans "Logged Out" %}</h2>
+            <p>{% translate "Thanks for spending some quality time with the Web site today." %}</p>
+
+            <div class="card-actions">
+                <a href="{% url 'admin:index' %}" class="btn btn-primary">{% translate 'Log in again' %}</a>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

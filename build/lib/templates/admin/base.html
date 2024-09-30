@@ -1,0 +1,181 @@
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html data-theme="light" class="custom-scrollbars" lang="{{ LANGUAGE_CODE|default:"en-us" }}"
+      {% if LANGUAGE_BIDI %}dir="rtl"
+      {% else %}dir="ltr"{% endif %}>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>
+        {% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
+    </title>
+
+    <link href="{% static 'admin/css/tailwind.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'admin/fonts/fontawesome-free-6.6.0-web/css/all.min.css' %}"/>
+
+    <link rel="stylesheet" href="{% static "/admin/css/custom-dashboard-style.css" %}">
+    <script src="{% static "/admin/js/vendor/jquery/jquery.min.js" %}"></script>
+    <script src="{% static "/admin/js/jquery.init.js" %}"></script>
+    <link href="{% static "admin/css/tom-select.min.css" %}" rel="stylesheet">
+    <script src="{% static "admin/js/tom-select.complete.min.js.js" %}"></script>
+    <script src="{% static "admin/js/theme-change.js" %}"></script>
+    {% block body_font %}
+        {% if LANGUAGE_BIDI %}
+            <style>
+                @font-face {
+                    font-family: 'Vazir';
+                    src: url("{% static 'admin/fonts/Vazir.woff2' %}") format('woff2');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+            </style>
+        {% else %}
+            <style>
+                @font-face {
+                    font-family: 'Cantarell';
+                    src: url("{% static 'admin/fonts/Cantarell/Cantarell-Regular.ttf' %}") format('truetype');
+                    font-weight: normal;
+                    font-style: normal;
+                }
+            </style>
+        {% endif %}
+    {% endblock %}
+
+
+    {% block extrahead %}{% endblock %}
+    {% block extrastyle %}{% endblock %}
+</head>
+
+<body class="bg-base-200 {% if LANGUAGE_BIDI %}font-vazir{% else %}font-cantarell{% endif %} ">
+
+<div class="flex min-h-screen">
+    {% if not is_popup and is_nav_sidebar_enabled %}
+        {% block nav-sidebar %}
+            {% include "admin/parts/sidebar.html" with app_list=available_apps %}
+        {% endblock %}
+    {% endif %}
+    <!-- Main content -->
+    <div id="content" class="w-full h-full main-wrapper transition-all duration-200 ease-in-out">
+        <div class="h-full flex flex-col">
+            {% block top-navbar %}
+                {% include 'admin/parts/navbar.html' %}
+            {% endblock %}
+
+            <div class="content-wrapper h-full max-md:p-3 p-5">
+                <div class="flex items-center justify-between">
+
+                    <h3 class="text-lg font-medium">
+                        {% block content_title %}{{ cl.opts.app_config.verbose_name }}{% endblock %}</h3>
+
+                    {% block breadcrumbs %}{% endblock %}
+                </div>
+
+                <div class="main-content h-full">
+                    {% block messages %}
+                        {% if messages %}
+                            <ul class="messagelist mb-5">
+                                {% for message in messages %}
+                                    <div role="alert" class="alert {% if message.tags %}{{ message.tags }} {% endif %} alert-info rounded mb-1">
+                                        <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                fill="none"
+                                                viewBox="0 0 24 24"
+                                                class="h-6 w-6 shrink-0 stroke-current">
+                                            <path
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="2"
+                                                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                        {{ message|capfirst }}
+                                    </div>
+                                {% endfor %}
+                            </ul>
+                        {% endif %}
+                    {% endblock messages %}
+                    {% block content %}
+                        {{ content }}
+                    {% endblock %}
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>
+<form id="logout-form" class="hidden" method="post" action="{% url 'admin:logout' %}">
+    {% csrf_token %}
+    <button type="submit"></button>
+</form>
+<dialog id="generalModal" class="modal modal-backdrop">
+    <div class="modal-box w-11/12 max-w-5xl h-full p-0 flex justify-center items-center">
+        <button class="btn">
+            <span class="loading loading-spinner"></span>
+            loading
+        </button>
+    </div>
+    <form method="dialog" class="modal-backdrop">
+        <button>close</button>
+    </form>
+</dialog>
+
+
+<script>
+    /* set selected theme */
+    document.documentElement.setAttribute(
+        'data-theme', localStorage.getItem('theme') || "light"
+    )
+
+
+    $('#menu-toggle').click(() => {
+        let sidebar = $('#sidebar')
+
+        if (sidebar.is(":visible")) {
+            sidebar.removeClass('!block')
+            sidebar.addClass('!hidden')
+        } else {
+            sidebar.addClass('!block')
+            sidebar.removeClass('!hidden')
+        }
+
+    });
+
+
+    // jquery toggle whole attribute
+    $.fn.toggleAttr = function (attr, val) {
+        var test = $(this).attr(attr);
+        if (test) {
+            // if attrib exists with ANY value, still remove it
+            $(this).removeAttr(attr);
+        } else {
+            $(this).attr(attr, val);
+        }
+        return this;
+    };
+
+    // jquery toggle just the attribute value
+    $.fn.toggleAttrVal = function (attr, val1, val2) {
+        var test = $(this).attr(attr);
+        if (test === val1) {
+            $(this).attr(attr, val2);
+            return this;
+        }
+        if (test === val2) {
+            $(this).attr(attr, val1);
+            return this;
+        }
+        // default to val1 if neither
+        $(this).attr(attr, val1);
+        return this;
+    };
+
+</script>
+
+{% block scripts %}
+
+{% endblock %}
+
+</body>
+</html>

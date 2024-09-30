@@ -1,0 +1,9 @@
+.json-view-editor .row .form-group {
+    display: flex;
+    align-items: baseline;
+}
+
+.json-view-editor .row .form-group label {
+    margin-bottom: 0;
+    margin-right: 10px;
+}

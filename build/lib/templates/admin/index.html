@@ -1,0 +1,155 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+
+
+{% block content %}
+    <div class="flex gap-3">
+        <div class="stat shadow-md bg-base-100 rounded-md">
+            <div class="stat-figure text-primary">
+                <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        class="inline-block h-8 w-8 stroke-current">
+                    <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"></path>
+                </svg>
+            </div>
+            <div class="stat-title">Total Likes</div>
+            <div class="stat-value text-primary">25.6K</div>
+            <div class="stat-desc">21% more than last month</div>
+        </div>
+
+        <div class="stat shadow-md bg-base-100 rounded-md">
+            <div class="stat-figure text-secondary">
+                <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        class="inline-block h-8 w-8 stroke-current">
+                    <path
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                            stroke-width="2"
+                            d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                </svg>
+            </div>
+            <div class="stat-title">Page Views</div>
+            <div class="stat-value text-secondary">2.6M</div>
+            <div class="stat-desc">21% more than last month</div>
+        </div>
+
+        <div class="stat shadow-md bg-base-100 rounded-md">
+            <div class="stat-figure text-secondary">
+                <div class="avatar online">
+                    <div class="w-16 rounded-full">
+                        <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"/>
+                    </div>
+                </div>
+            </div>
+            <div class="stat-value">86%</div>
+            <div class="stat-title">Tasks done</div>
+            <div class="stat-desc text-secondary">31 tasks remaining</div>
+        </div>
+    </div>
+    <div class="divider"></div>
+
+    <div class="mt-3 grid gap-6 xl:grid-cols-12">
+        <div class="xl:col-span-7">
+            <div aria-label="Card" class="card bg-base-100 card-bordered p-3" id="chart"></div>
+        </div>
+        <div class="xl:col-span-5">
+            <div aria-label="Card" class="card bg-base-100 card-bordered">
+                <div class="card-body">
+                    <div class="flex items-center justify-between">
+                        <span class="font-medium">{% trans "History" %}</span>
+                        <a class="btn btn-link" href="">{% trans "Show All" %}</a>
+                    </div>
+                    <div class="overflow-auto">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th class="w-100">{% trans "In" %}</th>
+                                <th>{% trans "Action" %}</th>
+                                <th>{% trans "At Time" %}</th>
+                                <th>{% trans "Admin" %}</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for history in latest_history %}
+                                <tr>
+                                    <td>
+                                        <a href="{{ history.get_admin_url }}"
+                                           class="text-primary">
+                                            {{ history.content_type }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <div class="text-muted fs-sm">{{ history.get_action_flag_display }}</div>
+                                    </td>
+                                    <td>
+                                    <span class="text-muted">
+                                        {{ history.action_time|timesince }} {% trans 'ago' %}
+                                    </span>
+                                    </td>
+                                    <td>
+                                        <strong>{{ history.user }}</strong>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block scripts %}
+    {{ block.super }}
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script>
+        // Sample data for the demo chart
+        var options = {
+            chart: {
+                height: 350,
+                type: 'line',
+                zoom: {
+                    enabled: false
+                }
+            },
+            series: [{
+                name: 'Sales',
+                data: [450, 480, 530, 580, 600, 700, 750]
+            }],
+            xaxis: {
+                categories: ['January', 'February', 'March', 'April', 'May', 'June', 'July']
+            },
+            title: {
+                text: 'Sales Trend Over Time',
+                align: 'center'
+            },
+            yaxis: {
+                title: {
+                    text: 'Sales (in USD)'
+                }
+            },
+            stroke: {
+                curve: 'smooth'
+            },
+            markers: {
+                size: 4
+            }
+        };
+
+        // Render the chart
+        var chart = new ApexCharts(document.querySelector("#chart"), options);
+        chart.render();
+    </script>
+{% endblock %}

@@ -1,0 +1,36 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block breadcrumbs %}
+<div class="flex items-center space-x-2 breadcrumbs">
+  <a class="text-blue-500 hover:underline" href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
+  <span class="text-gray-500">&rsaquo;</span>
+  <a class="text-blue-500 hover:underline" href="{% url 'django-admindocs-docroot' %}">{% translate 'Documentation' %}</a>
+  <span class="text-gray-500">&rsaquo;</span>
+  <span class="text-gray-500">{% translate 'Templates' %}</span>
+  <span class="text-gray-500">&rsaquo;</span>
+  <span class="text-gray-500">{{ name }}</span>
+</div>
+{% endblock %}
+
+{% block title %}{% blocktranslate %}Template: {{ name }}{% endblocktranslate %}{% endblock %}
+
+{% block content %}
+<h1 class="text-2xl font-semibold mb-4">{% blocktranslate %}Template: <q>{{ name }}</q>{% endblocktranslate %}</h1>
+
+<h2 class="text-xl font-medium mt-6">{% blocktranslate %}Search path for template <q>{{ name }}</q>:{% endblocktranslate %}</h2>
+<ol class="list-decimal pl-6">
+  {% for template in templates|dictsort:"order" %}
+    <li class="text-gray-700">
+      <code class="text-blue-500">{{ template.file }}</code>
+      {% if not template.exists %}
+        <em class="text-red-500">{% translate '(does not exist)' %}</em>
+      {% endif %}
+    </li>
+  {% endfor %}
+</ol>
+
+<p class="mt-6">
+  <a class="text-blue-500 hover:underline" href="{% url 'django-admindocs-docroot' %}">&lsaquo; {% translate 'Back to Documentation' %}</a>
+</p>
+{% endblock %}

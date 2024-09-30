@@ -1,0 +1,210 @@
+{% extends "admin/base.html" %}
+{% load dash_tags %}
+{% load i18n admin_urls static admin_modify %}
+
+{% block extrahead %}
+    {{ block.super }}
+    <script src="{% url 'admin:jsi18n' %}"></script>
+    {{ media }}
+    {#        <link rel="stylesheet" href="{% static "admin/css/widgets.css" %}">#}
+{% endblock %}
+
+{% block extrastyle %}
+    {{ block.super }}
+    <link rel="stylesheet" href="{% static "admin/css/forms.css" %}">
+    {#            <link rel="stylesheet" href="{% static "admin/css/base.css" %}">#}
+{% endblock %}
+
+
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
+
+{% if not is_popup %}
+    {% block breadcrumbs %}
+        <div class="text-sm max-sm:hidden breadcrumbs">
+            <ul>
+                <li><a href="{% url 'admin:index' %}" class="link link-hover">{% trans 'Dashboard' %}</a></li>
+                {% if has_view_permission %}
+                    <li><a class="link link-hover"
+                           href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>
+                    </li>
+                {% else %}
+                    <li><a class="disabled" href="#">{{ cl.opts.verbose_name_plural|capfirst }}</a></li>
+                {% endif %}
+
+                <li>{% if add %}{% blocktranslate with name=opts.verbose_name %}Add {{ name }}
+                {% endblocktranslate %}{% else %}{{ original|truncatewords:"18" }}{% endif %}</li>
+            </ul>
+        </div>
+    {% endblock %}
+{% endif %}
+
+{% block content_title %}
+    <div class="px-2">
+        {% if add %}{% blocktranslate with name=opts.verbose_name %}Add {{ name }}
+        {% endblocktranslate %}{% else %}{{ original }}{% endif %}
+    </div>
+{% endblock %}
+
+
+{% block content %}
+    <div id="content-main" class="border-base-200 mt-3">
+        <form
+                {% if has_file_field %}enctype="multipart/form-data" {% endif %}
+                {% if form_url %}action="{{ form_url }}"{% else %} action="{{ request.path }}" {% endif %}
+                method="post"
+                id="{{ opts.model_name }}_form"
+                novalidate
+                class="w-full h-full">
+
+            {% csrf_token %}
+            {% block form_top %}{% endblock %}
+            <div class="grid grid-cols-1 xl:grid-cols-[1fr_auto] gap-4">
+                {% if is_popup %}<input type="hidden" name="{{ is_popup_var }}" value="1">{% endif %}
+                {% if to_field %}<input type="hidden" name="{{ to_field_var }}" value="{{ to_field }}">{% endif %}
+                {% if save_on_top %}
+                    {% block submit_buttons_top %}
+                        <div class="justify-end space-x-2">
+                            {% submit_row %}
+                        </div>
+                    {% endblock %}
+                {% endif %}
+
+                <div class="w-full">
+                    {% if errors %}
+                        <div class="alert alert-error mb-5 rounded" role="alert">
+                            <i class="fa fa-exclamation"></i>
+                            <div>
+                                <p class="errornote">
+                                    {% blocktranslate count counter=errors|length %}
+                                        Please correct the error below.
+                                        {% plural %}
+                                        Please correct the errors below.
+                                    {% endblocktranslate %}
+                                </p>
+                                <ul>
+                                    {{ adminform.form.non_field_errors }}
+                                </ul>
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div role="tablist" class="w-full items-start tabs tabs-lifted overflow-x-auto">
+                        {% block field_sets %}
+                            <a class="indicator tab tab-active">
+                                {{ fieldset.name|default:opts.object_name }}
+                                <i class="text-base-info opacity-50 fa mx-1 {% firstof adminform.model_admin.icon opts.app_config.icon %} p-1 rounded"></i>
+                                {% with total_errors=adminform.form|sum_errors %}
+                                    {% if total_errors > 0 %}
+                                        <span class="indicator-item indicator-bottom indicator-center badge badge-error  badge-sm">{{ total_errors }}</span>
+                                    {% endif %}
+                                {% endwith %}
+                            </a>
+
+                            <div role="tabpanel" class="tab-content">
+                                {% for fieldset in adminform %}
+                                    <fieldset class="mb-3 collapse w-full collapse-arrow fieldset card bg-base-100 p-1">
+                                        <input type="checkbox" name="fieldsets-{{ forloop.counter }}" checked/>
+                                        <div class="collapse-title text-xl font-medium">
+                                            {{ fieldset.name|default:opts.object_name }}
+                                        </div>
+                                        <div class="mb-3 collapse-content w-full">
+                                            {% include "admin/includes/fieldset.html" %}
+                                        </div>
+                                    </fieldset>
+                                {% endfor %}
+
+                                {% for inline_admin_formset in inline_admin_formsets %}
+                                    {% if not inline_admin_formset.opts.is_navtab %}
+                                        <fieldset
+                                                class="mb-3 overflow-hidden collapse-arrow fieldset card bg-base-100 p-1">
+                                            <div class="overflow-x-auto overflow-y-visible">
+                                                {% include inline_admin_formset.opts.template %}
+                                            </div>
+                                        </fieldset>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        {% endblock %}
+
+                        {% block after_field_sets %}{% endblock %}
+
+                        {% block inline_field_sets %}
+                            {% for inline_admin_formset in inline_admin_formsets %}
+                                {% if inline_admin_formset.opts.is_navtab %}
+                                    <a class="indicator tab">
+                                        {{ inline_admin_formset.opts.verbose_name_plural }}
+                                        <i class="text-base-info  opacity-50 fa mx-1 {{ inline_admin_formset.opts.icon }} p-1 rounded"></i>
+
+                                        {% with total_errors=inline_admin_formset|sum_errors %}
+                                            {% if total_errors > 0 %}
+                                                <span class="badge badge-error  badge-sm indicator-item indicator-bottom indicator-center">{{ total_errors }}</span>
+                                            {% endif %}
+                                        {% endwith %}
+                                    </a>
+
+                                    <fieldset role="tabpanel"
+                                              class="mb-3 tab-content overflow-hidden collapse-arrow fieldset card bg-base-100 p-1">
+                                        <div class="p-3 overflow-x-auto overflow-y-visible">
+                                            {% include inline_admin_formset.opts.template %}
+                                        </div>
+                                    </fieldset>
+                                {% endif %}
+                            {% endfor %}
+                        {% endblock %}
+
+                        {% block after_related_objects %}{% endblock %}
+                    </div>
+                </div>
+
+                {% block submit_buttons_bottom %}
+                    <div class="xl:w-96 w-full xl:mt-5 z-10 sticky bottom-2">
+                        <div>
+                            {% submit_row %}
+                        </div>
+
+                        {% block object-tools %}
+                            {% if change and not is_popup %}
+                                <div class="object-tools p-3 card bg-base-100 grid grid-cols-1 mt-3 gap-3 sticky top-3 max-lg:hidden">
+                                    {% block object-tools-items %}
+                                        {% change_form_object_tools %}
+                                    {% endblock %}
+                                </div>
+                            {% endif %}
+                        {% endblock %}
+
+                    </div>
+
+                {% endblock %}
+
+            </div>
+        </form>
+    </div>
+    {% block admin_change_form_document_ready %}
+        <script id="django-admin-form-add-constants"
+                src="{% static 'admin/js/change_form.js' %}"
+                {% if adminform and add %}
+                data-model-name="{{ opts.model_name }}"
+                {% endif %}
+                async>
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('.tab').each(function (index) {
+                    $(this).on('click', function () {
+                        // Remove 'tab-active' from all tabs
+                        $('.tab').removeClass('tab-active');
+                        // Hide all tab content
+                        $('.tab-content').addClass('hidden');
+                        // Add 'tab-active' to the clicked tab
+                        $(this).addClass('tab-active');
+                        // Show the corresponding tab content
+                        $('.tab-content').eq(index).removeClass('hidden');
+                    });
+                });
+            });
+        </script>
+    {% endblock %}
+{% endblock %}
+
+
+{# JavaScript for prepopulated fields #}
+{% prepopulated_fields_js %}

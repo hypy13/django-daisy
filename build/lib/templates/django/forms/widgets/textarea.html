@@ -1,0 +1,6 @@
+{% load dash_tags %}
+{% with widget=widget|apply_class_to_widget:'textarea textarea-bordered w-full min-w-24 focus:outline-0 transition-all focus:outline-offset-0' %}
+    <textarea name="{{ widget.name }}" {% if widget.attrs.rows == "10" %}
+              rows="5" {% endif %} {% include "django/forms/widgets/attrs.html" %}>
+{% if widget.value %}{{ widget.value }}{% endif %}</textarea>
+{% endwith %}

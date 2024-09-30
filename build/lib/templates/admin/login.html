@@ -1,0 +1,92 @@
+{% extends "admin/base.html" %}
+{% load dash_tags %}
+{% load i18n static %}
+
+{% block extrastyle %}
+
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} login{% endblock %}
+
+{% block usertools %}{% endblock %}
+
+{% block nav-global %}{% endblock %}
+
+{% block nav-sidebar %}{% endblock %}
+
+{% block content_title %}{% endblock %}
+
+{% block nav-breadcrumbs %}{% endblock %}
+
+{% block top-navbar %}
+	
+{% endblock %}
+
+{% block content %}
+    {% if form.errors and not form.non_field_errors %}
+        <p class="errornote alert alert-error">
+            {% blocktranslate count counter=form.errors.items|length %}Please correct the error below.{% plural %}Please
+                correct the errors below.{% endblocktranslate %}
+        </p>
+    {% endif %}
+
+    {% if form.non_field_errors %}
+        {% for error in form.non_field_errors %}
+            <p class="errornote alert alert-error">
+                {{ error }}
+            </p>
+        {% endfor %}
+    {% endif %}
+
+    <div id="content-main" class="flex justify-center items-center h-full">
+        <div class="card w-96 shadow-lg bg-base-100">
+            <div class="card-body">
+                <h2 class="text-2xl font-bold text-center mb-6">{% translate "Admin Login" %}</h2>
+
+                {% if user.is_authenticated %}
+                    <p class="errornote alert alert-warning">
+                        {% blocktranslate trimmed %}
+                            You are authenticated as {{ username }}, but are not authorized to access this page. Would
+                            you like to login to a different account?
+                        {% endblocktranslate %}
+                    </p>
+                {% endif %}
+
+                <form action="{{ app_path }}" method="post" id="login-form">{% csrf_token %}
+                    <!-- Username Field -->
+                    <div class="form-control">
+                        {{ form.username.errors }}
+                        <label class="label">
+                            <span class="label-text">{{ form.username.label }}</span>
+                        </label>
+                        {{ form.username|add_class:"input input-bordered w-full" }}
+                    </div>
+
+                    <!-- Password Field -->
+                    <div class="form-control mt-4">
+                        {{ form.password.errors }}
+                        <label class="label">
+                            <span class="label-text">{{ form.password.label }}</span>
+                        </label>
+                        {{ form.password|add_class:"input input-bordered w-full" }}
+                        <input type="hidden" name="next" value="{{ next }}">
+                    </div>
+
+                    <!-- Forgotten Password -->
+                    {% url 'admin_password_reset' as password_reset_url %}
+                    {% if password_reset_url %}
+                        <div class="mt-2">
+                            <a href="{{ password_reset_url }}"
+                               class="link link-primary text-sm">{% translate 'Forgotten your password or username?' %}</a>
+                        </div>
+                    {% endif %}
+
+                    <!-- Submit Button -->
+                    <div class="form-control mt-6">
+                        <button type="submit" class="btn btn-primary w-full">{% translate 'Log in' %}</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

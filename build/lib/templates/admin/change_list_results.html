@@ -1,0 +1,79 @@
+{% load i18n %}
+{% load dash_tags %}
+
+{% get_active_filters_count cl as active_filters_count %}
+
+{% if result_hidden_fields %}
+    <div class="hiddenfields hidden">{# DIV for HTML validation #}
+        {% for item in result_hidden_fields %}{{ item }}{% endfor %}
+    </div>
+{% endif %}
+
+<table class="table table-sm border border-base-200">
+    <!-- head -->
+    <thead class="bg-base-300 text-gray-950">
+    <tr>
+        {% for header in result_headers %}
+            <th scope="col" {{ header.class_attrib }}>
+
+                <div class="flex flex-row indicator">
+                    {% if header.sortable and header.sort_priority > 0 %}
+                        <a class="sortremove text-orange-500 pe-1.5" href="{{ header.url_remove }}"
+                           title="{% translate "Remove from sorting" %}">
+                            <i class="fas fa-times"></i>
+                        </a>
+                    {% endif %}
+                    <div class="text text-base-content">
+                        {% if header.sortable %}
+                            <a href="{{ header.url_primary }}"
+                               class="hover:underline">
+                                {{ header.text|capfirst }}
+                            </a>
+                        {% else %}
+                            <span>{{ header.text|capfirst }}</span>
+                        {% endif %}
+                    </div>
+                    {% if header.sortable and header.sort_priority > 0 %}
+                        <div class="ms-5">
+                            <a href="{{ header.url_toggle }}"
+                               class=" {{ header.ascending|yesno:'ascending,descending' }}"
+                               title="{% translate "Toggle sorting" %}">
+                                <i class="fas fa-chevron-{{ header.ascending|yesno:'up,down' }}"></i>
+                            </a>
+                            {% if num_sorted_fields > 1 %}
+                                <span class="sortpriority text-xs ps-1 text-gray-400"
+                                     title="{% blocktranslate with priority_number=header.sort_priority %}Sorting priority: {{ priority_number }}{% endblocktranslate %}">
+                                    {{ header.sort_priority }}
+                                </span>
+                            {% endif %}
+
+                        </div>
+                    {% endif %}
+                </div>
+
+
+            </th>
+        {% endfor %}
+
+
+    </tr>
+    </thead>
+    <tbody>
+    {% for result in results %}
+        <tr>
+            {% for item in result %}{{ item|safe }}{% endfor %}
+        </tr>
+    {% empty %}
+        <tr>
+            <th colspan="100%" class="text-center">
+                {% trans "Empty Result" %}
+                {% if active_filters_count or cl.query %}
+                    <a class="link link-primary px-1 text-primary" href="?">
+                        {% trans "Remove Filters" %}
+                    </a>
+                {% endif %}
+            </th>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>

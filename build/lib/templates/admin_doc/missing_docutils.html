@@ -1,0 +1,32 @@
+{% extends "admin/base_site.html" %}
+{% load i18n %}
+
+{% block breadcrumbs %}
+    <div class="flex items-center space-x-2 breadcrumbs">
+        <a class="text-blue-500 hover:underline" href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
+        <span class="text-gray-500">&rsaquo;</span>
+        <span class="text-gray-500">{% translate 'Documentation' %}</span>
+    </div>
+{% endblock %}
+
+{% block title %}{% translate 'Please install docutils' %}{% endblock %}
+
+{% block content %}
+    <h1 class="text-2xl font-semibold mb-4">{% translate 'Documentation' %}</h1>
+
+    <div id="content-main" class="space-y-4">
+        <h3 class="text-xl text-gray-600">
+            {% blocktranslate with "https://docutils.sourceforge.io/" as link %}
+                The admin documentation system requires Python’s
+                <a class="text-blue-500 hover:underline" href="{{ link }}">docutils</a> library.
+            {% endblocktranslate %}
+        </h3>
+
+        <p class="text-gray-700">
+            {% blocktranslate with "https://pypi.org/project/docutils/" as link %}
+                Please ask your administrators to install
+                <a class="text-blue-500 hover:underline" href="{{ link }}">docutils</a>.
+            {% endblocktranslate %}
+        </p>
+    </div>
+{% endblock %}

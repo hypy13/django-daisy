@@ -1,14 +1,13 @@
-import subprocess
-import versioneer
 from setuptools import setup, find_packages
 
-
+from setuptools_scm import get_version
 
 setup(
     name='django_daisy',
-    version=versioneer.get_version(),
-    cmdclass=versioneer.get_cmdclass(),
+    version=get_version(),
     packages=find_packages(),
+    use_scm_version=True,
+    setup_requires=['setuptools-scm'],
     include_package_data=True,
     install_requires=[],  # Add dependencies here
     description='A modern django dashboard built with daisyui',

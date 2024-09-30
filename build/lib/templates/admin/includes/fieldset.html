@@ -1,0 +1,44 @@
+{% load dash_tags %}
+<fieldset class="module aligned  {{ fieldset.classes }} mb-4 overflow-visible">
+    {% for line in fieldset %}
+        <div class="form-row flex flex-wrap justify-start gap-4 mb-3 {% if not line.has_visible_field %}hidden{% endif %} {% for field in line %} {% if field.field.name %}field-{{ field.field.name }}{% endif %} {% endfor %}">
+            {% for field in line %}
+                <div class="mb-1 basis-full md:flex-1">
+                    <div class="{% if not line.fields|length == 1 %}fieldBox{% if field.field.name %} field-{{ field.field.name }}{% endif %} {% if not field.is_readonly and field.errors %}text-red-600{% endif %} {% if field.field.is_hidden %}hidden{% endif %}{% elif field.is_checkbox %}{% endif %}">
+                        {% if field.is_checkbox %}
+                            <div class="mt-2 flex align-center gap-4">
+                                {{ field.label_tag|add_class:'label-text  !inline-block relative' }}
+                                {{ field.field }}
+                            </div>
+
+                        {% else %}
+                            {{ field.label_tag|add_class:'label-text py-2 px-1 !inline-block relative' }}
+                            {% if field.is_readonly %}
+                                <div class="readonly bg-gray-100 p-2 rounded">{{ field.contents }}</div>
+                            {% else %}
+                                <div class="form-control flex flex-wrap ">
+                                    {{ field.field }}
+                                </div>
+
+                            {% endif %}
+                        {% endif %}
+                        {% if not line.fields|length == 1 and not field.is_readonly %}
+                            <div class="text-red-600">{{ field.errors }}</div>
+                        {% endif %}
+                        {% if line.fields|length == 1 %}
+                            {{ line.errors }}
+                        {% endif %}
+                    </div>
+
+                    {% if field.field.help_text %}
+                        <div class="text-sm text-gray-500 me-1 mt-1"{% if field.field.id_for_label %}
+                             id="{{ field.field.id_for_label }}_helptext"{% endif %}>
+                            {{ field.field.help_text|safe }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+        </div>
+    {% endfor %}
+</fieldset>

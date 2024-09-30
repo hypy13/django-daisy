@@ -1,0 +1,104 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:focus {
+    outline: none;
+}
+
+.errorlist {
+    @apply label px-0;
+}
+
+.errorlist li {
+    @apply label-text text-error font-bold;
+}
+
+
+.card {
+    @apply rounded-md shadow-sm;
+}
+
+.input, .select, .checkbox, .radio {
+    @apply focus:outline-0 transition-all focus:outline-offset-0 border-base-content/20;
+    @apply rounded-md;
+}
+
+.empty-form {
+    @apply hidden;
+}
+
+.add-row a {
+    @apply btn-link  text-primary;
+}
+
+label.required::after {
+    content: ' *';
+    @apply text-error px-1.5 text-base absolute;
+}
+
+.selector input {
+    @apply input input-sm border;
+}
+
+.selector select {
+    @apply select select-sm border min-h-64 w-full;
+}
+
+.selector ul.selector-chooser {
+    @apply flex flex-col justify-center items-center w-20 bg-base-200;
+}
+
+.selector h2 {
+    @apply font-bold p-2 text-sm;
+}
+
+.selector a {
+    @apply text-sm link link-hover;
+}
+
+.selector-chosen h2 {
+    @apply bg-indigo-400;
+}
+
+span.select2-container {
+    @apply select-sm border max-h-20 rounded-md select-bordered;
+}
+.select2-search--dropdown{
+    @apply bg-base-200;
+}
+span.select2-search input.select2-search__field {
+    @apply focus:outline-0 transition-all focus:outline-offset-0 border-base-content/20;
+    @apply rounded-md input input-sm border;
+}
+
+.select2-container .select2-selection--single {
+    @apply p-0 !important;
+}
+.select2-results{
+    @apply bg-base-200;
+}
+
+span.select2-selection__clear {
+    @apply p-1 font-bold text-red-500 text-sm;
+}
+
+span.select2-selection__clear:hover {
+    @apply text-lg animate-ping;
+}
+
+.select2-results .select2-results__options{
+    @apply max-h-64 overflow-x-auto;
+}
+
+a.inline-deletelink:hover {
+    @apply text-red-500 animate-pulse text-lg;
+}
+
+a.tab-active i {
+    @apply animate-bounce-once opacity-85 !important;
+}
+
+.ts-wrapper .ts-control {
+    @apply bg-base-200 border border-base-300 !important;
+}

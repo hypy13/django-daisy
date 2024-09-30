@@ -1,0 +1,13 @@
+{% load i18n admin_urls %}
+{% block layout-buttons %}
+    <div class="dtr-inline">
+        {% url opts|admin_urlname:'history' original.pk|admin_urlquote as history_url %}
+        <a href="{% add_preserved_filters history_url %}" class="historylink btn btn-outline btn-info">
+            {% translate "History" %}
+            <i class="fa fa-history"></i>
+        </a>
+        {% if has_absolute_url %}
+            <a href="{{ absolute_url }}" class="viewsitelink float-right btn bg-indigo-300 legitRipple mr-3 ml-3">{% translate "View on site" %}</a>
+        {% endif %}
+    </div>
+{% endblock %}

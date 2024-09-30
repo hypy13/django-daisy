@@ -1,0 +1,48 @@
+{% load dash_tags %}
+{% load admin_list %}
+{% load i18n %}
+<nav class="paginator flex flex-wrap max-md:justify-center gap-2 justify-between p-4">
+    <!-- Left section: Empty or could be used for a "Previous" button if desired -->
+    <div class="">
+        {% if pagination_required and cl.page_num > 1 %}
+            <a href="?p={{ cl.page_num|add:"-1"|replace:',' }}"
+               class="btn btn-sm btn-outline">{% trans "Previous" %}</a>
+        {% endif %}
+        {% if pagination_required and cl.page_num < cl.paginator.num_pages %}
+            <a href="?p={{ cl.page_num|add:"1"|replace:',' }}" class="btn btn-sm btn-outline">{% trans "Next" %}</a>
+        {% endif %}
+    </div>
+
+    <!-- Center section: Pagination -->
+    <div class="join overflow-x-auto">
+        {% if pagination_required %}
+            {% for i in page_range %}
+                {% if i == cl.page_num %}
+                    <button class="join-item btn-sm btn btn-primary btn-active">{{ i }}</button>
+                {% else %}
+                    <a href="?p={{ i | replace:',' }}" class="join-item btn btn-sm">{{ i }}</a>
+                {% endif %}
+            {% endfor %}
+        {% endif %}
+    </div>
+
+    <!-- Right section: Total results -->
+    <div class="text-end">
+        <button class="btn btn-sm quiet ml-3">
+            {% blocktranslate count counter=cl.result_count %}{{ counter }} result
+                {% plural %}{{ counter }} results{% endblocktranslate %}
+            <a class="badge" href="?
+                    {% if cl.is_popup %}{{ is_popup_var }}=1{% if cl.add_facets %}&{% endif %}{% endif %}
+                    {% if cl.add_facets %}{{ is_facets_var }}{% endif %}">
+                {% if cl.full_result_count != cl.result_count %}
+                    {% if cl.show_full_result_count %}
+                        {% blocktranslate with full_result_count=cl.full_result_count %}{{ full_result_count }} total
+                        {% endblocktranslate %}
+                    {% else %}
+                        {% translate "Show all" %}
+                    {% endif %}
+                {% endif %}
+            </a>
+        </button>
+    </div>
+</nav>

@@ -1,0 +1,15 @@
+{% load dash_tags %}
+{% load i18n %}
+<li class="card">
+    <label class="navbar-nav-link dropdown-toggle legitRipple">
+        <b class="text-sm mb-1 inline-block capitalize">{% blocktranslate with filter_title=title %}{{ filter_title }} {% endblocktranslate %}:</b>
+        <select multiple class="filter-select" data-key="{% firstof spec.lookup_kwarg spec.parameter_name spec.field_generic %}">
+            {% for choice in choices %}
+                <option {% is_active_choice choice spec %} value="{{ choice.query_string|iriencode }}">
+                    {{ choice.display }}
+                </option>
+            {% endfor %}
+        </select>
+    </label>
+</li>
+

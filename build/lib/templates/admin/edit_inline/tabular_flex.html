@@ -1,0 +1,85 @@
+{% load dash_tags %}
+{% load admin_urls %}
+{% load i18n %}
+<div class="flex flex-col md:flex-row flex-wrap gap-4 p-4">
+    <!-- Column Headers (acting as thead) -->
+    <div class="hidden md:flex md:w-full bg-gray-200 p-2 rounded-lg">
+        <div class="flex-1 font-bold uppercase">{% trans "Original" %}</div>
+        {% for field in inline_admin_formset.fields %}
+            {% if not field.widget.is_hidden %}
+                <div class="flex-1 font-bold uppercase">
+                    {{ field.label|capfirst }}
+                </div>
+            {% endif %}
+        {% endfor %}
+        {% if inline_admin_formset.formset.can_delete and inline_admin_formset.has_delete_permission %}
+            <div class="flex-1 font-bold uppercase">
+                {% translate "Delete?" %}
+            </div>
+        {% endif %}
+    </div>
+
+    <!-- Data Rows (acting as tbody) -->
+    {% for inline_admin_form in inline_admin_formset %}
+        <div class="flex flex-col md:flex-row flex-wrap gap-2 border-b border-gray-300 py-4">
+            <!-- Original Column -->
+            <div class="flex-1 font-medium">
+                {% if inline_admin_form.original or inline_admin_form.show_url %}
+                    <div>
+                        {{ inline_admin_form.original }}
+                        {% if inline_admin_form.model_admin.show_change_link and inline_admin_form.model_admin.has_registered_model %}
+                            <a href="{% url inline_admin_form.model_admin.opts|admin_urlname:'change' inline_admin_form.original.pk|admin_urlquote %}"
+                               class="text-blue-500 hover:underline">
+                                {% if inline_admin_formset.has_change_permission %}
+                                    {% translate "Change" %}
+                                {% else %}
+                                    {% translate "View" %}
+                                {% endif %}
+                            </a>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <div>-</div>
+                {% endif %}
+            </div>
+
+            <!-- Fields -->
+            {% for fieldset in inline_admin_form %}
+                {% for line in fieldset %}
+                    {% for field in line %}
+                        {% if field.is_readonly or not field.field.is_hidden %}
+                            <div class="flex-1">
+                                <div class="form-control">
+                                    <label class="block md:hidden text-sm font-bold mb-1">
+                                        {{ field.label_tag|add_class:'label-text  !inline-block relative' }}
+                                    </label>
+                                    {% if field.is_readonly %}
+                                        <p>{{ field.contents }}</p>
+                                    {% else %}
+                                        {{ field.field }}
+                                    {% endif %}
+                                    {% if field.field.errors %}
+                                        <div class="text-red-500 mt-1">
+                                            {{ field.field.errors.as_ul }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% endif %}
+                    {% endfor %}
+                {% endfor %}
+            {% endfor %}
+
+            <!-- Delete Column -->
+            {% if inline_admin_formset.formset.can_delete and inline_admin_formset.has_delete_permission %}
+                <div class="flex-1">
+                    {% if inline_admin_form.original %}
+                        <div class="form-control">
+                            {{ inline_admin_form.deletion_field.field }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>

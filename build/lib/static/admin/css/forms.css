@@ -1,0 +1,50 @@
+@import url('widgets.css');
+
+/* MONOSPACE TEXTAREAS */
+
+fieldset.monospace textarea {
+    font-family: "Bitstream Vera Sans Mono", Monaco, "Courier New", Courier, monospace;
+}
+
+/* SUBMIT ROW */
+
+.inline-related {
+    position: relative;
+}
+
+.inline-related h3 {
+    margin: 0;
+    color: #666;
+    padding: 5px;
+    font-size: 13px;
+    background: #f8f8f8;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+
+.empty-form {
+    display: none;
+}
+
+/* RELATED FIELD ADD ONE / LOOKUP */
+
+.related-lookup {
+    margin-left: 5px;
+    display: inline-block;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-size: 14px;
+}
+
+.related-lookup {
+    width: 16px;
+    height: 16px;
+    background-image: url(../img/search.svg);
+}
+
+
+
+.clearable-file-input input {
+    margin-top: 0;
+}

@@ -1,0 +1,11 @@
+{% load i18n admin_urls %}
+
+{% block navigte_tools %}
+    {% if has_add_permission %}
+        {% url cl.opts|admin_urlname:'add' as add_url %}
+        <a href="{% add_preserved_filters add_url is_popup to_field %}" class="float-right btn bg-indigo-400 legitRipple mr-3 ml-3">
+            {% blocktranslate with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktranslate %}
+            <i class="icon-plus2"></i>
+        </a>
+    {% endif %}
+{% endblock %}
