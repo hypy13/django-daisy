@@ -47,7 +47,7 @@
 
 
 {% block content %}
-    <div id="content-main" class="border-base-200">
+    <div id="content-main" class="border-base-200 mt-3">
         <form
                 {% if has_file_field %}enctype="multipart/form-data" {% endif %}
                 {% if form_url %}action="{{ form_url }}"{% else %} action="{{ request.path }}" {% endif %}

@@ -72,8 +72,8 @@
         <input id="filter-drawer" type="checkbox" class="drawer-toggle"/>
 
         <!-- Main content section -->
-        <div class=" drawer-content flex flex-col w-full h-full">
-            <div id="content-main" class="overflow-hidden w-full h-full flex">
+        <div class="drawer-content flex flex-col w-full h-full">
+            <div id="content-main" class="overflow-hidden mt-3 w-full h-full flex">
                 <div class="card bg-base-100 w-full card-bordered flex-col flex-1 ">
                     <div class="hidden" id="hidden-search-form">
                         <form method="get">
@@ -132,7 +132,7 @@
         </div>
         {% if cl.has_filters %}
             <!-- Filter section -->
-            <div id="changelist-filter" class="drawer-side !overflow-visible card-bordered lg:ms-2 z-10 h-full">
+            <div id="changelist-filter" class="drawer-side mt-3 !overflow-visible card-bordered lg:ms-2 z-10 h-full">
                 <label for="filter-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
 
                 <div class="card-body p-3 bg-base-100 w-80 h-full">
