@@ -28,6 +28,11 @@ class DaisyAdminSite(admin.AdminSite):
 
     index_template = 'admin/index.htmls'
 
+    def get_log_entries(self, request):
+        from django.contrib.admin.models import LogEntry
+
+        return LogEntry.objects.select_related("content_type", "user")
+
     def index(self, request, extra_context=None):
         """
         Display the main admin index page, which lists all of the installed
