@@ -21,7 +21,7 @@ classifiers = [
 ]
 
 # Declare fields that are dynamically set
-dynamic = ["classifiers", "version"]
+dynamic = ["version"]
 
 [tool.setuptools]
 package-dir = {"" = "django_daisy"}
