@@ -3,7 +3,7 @@ requires = ["setuptools>=64", "wheel", "setuptools-scm>=8"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "django_daisy"
+name = "django-daisy"
 description = "A modern Django dashboard built with DaisyUI"
 authors = [
     { name="Hossein Yaghoubi", email="hossein.yaghoubi13@gmail.com" }
@@ -24,10 +24,7 @@ classifiers = [
 dynamic = ["version"]
 
 [tool.setuptools]
-package-dir = {"" = "django_daisy"}
-
-[tool.setuptools.packages.find]
-where = ["django_daisy"]
+packages = ["django_daisy"]
 
 [tool.setuptools_scm]
 version_file = "django_daisy/_version.py"
