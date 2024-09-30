@@ -1,5 +1,7 @@
 from setuptools import setup, find_packages
 
+version = "0.1.7"
+
 setup(
     name='django_daisy',
     version='0.1.7',
