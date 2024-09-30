@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=42", "wheel", "setuptools_scm"]
+requires = ["setuptools>=42", "wheel", "versioneer"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -29,6 +29,10 @@ package-dir = {"" = "django_daisy"}
 [tool.setuptools.packages.find]
 where = ["django_daisy"]
 
-[tool.setuptools_scm]
-version_scheme = "guess-next-dev"
-local_scheme = "no-local-version"
+[tool.versioneer]
+VCS = "git"
+style = "pep440"
+versionfile_source = "django_daisy/_version.py"
+versionfile_build = "django_daisy/_version.py"
+tag_prefix = "v"  # Git tag prefix (e.g., v1.0.0)
+parentdir_prefix = "django_daisy-"  # Directory prefix (e.g., django_daisy-1.0.0)

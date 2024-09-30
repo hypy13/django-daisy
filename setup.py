@@ -1,39 +1,13 @@
-import os
 import subprocess
-
+import versioneer
 from setuptools import setup, find_packages
 
-
-# def get_version():
-#     try:
-#         # Run the git describe command to get the latest tag
-#         version = subprocess.check_output(["git", "describe", "--tags", "--abbrev=0"]).strip().decode('utf-8')
-#     except subprocess.CalledProcessError:
-#         # If there is an error (e.g., no git or no tags), fall back to a default version
-#         version = "0.0.0"
-#
-#     return version
-#
-
-def get_version():
-    version = "0.0.1"  # Default version if no git tag is found
-    try:
-        # Try to get the current Git tag
-        version = subprocess.check_output(["git", "describe", "--tags", "--abbrev=0"]).strip().decode('utf-8')
-    except Exception as e:
-        print("FAILED TO FETCH VERSION:", e)
-        pass
-
-    # Write the version to your_package/__version__.py so that it's available in the installed package
-    with open(os.path.join("django_daisy", "__version__.py"), "w") as version_file:
-        version_file.write(f'__version__ = "{version}"\n')
-
-    return version
 
 
 setup(
     name='django_daisy',
-    version=get_version(),
+    version=versioneer.get_version(),
+    cmdclass=versioneer.get_cmdclass(),
     packages=find_packages(),
     include_package_data=True,
     install_requires=[],  # Add dependencies here
