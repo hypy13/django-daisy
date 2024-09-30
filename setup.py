@@ -1,10 +1,22 @@
+import subprocess
+
 from setuptools import setup, find_packages
 
-version = "0.1.7"
+
+def get_version():
+    try:
+        # Run the git describe command to get the latest tag
+        version = subprocess.check_output(["git", "describe", "--tags", "--abbrev=0"]).strip().decode('utf-8')
+    except subprocess.CalledProcessError:
+        # If there is an error (e.g., no git or no tags), fall back to a default version
+        version = "0.0.1"
+
+    return version
+
 
 setup(
     name='django_daisy',
-    version='0.1.7',
+    version=get_version(),
     packages=find_packages(),
     include_package_data=True,
     install_requires=[],  # Add dependencies here
