@@ -21,7 +21,7 @@ classifiers = [
 ]
 
 # Declare fields that are dynamically set
-dynamic = ["readme", "classifiers", "version"]
+dynamic = ["classifiers", "version"]
 
 [tool.setuptools]
 package-dir = {"" = "django_daisy"}
