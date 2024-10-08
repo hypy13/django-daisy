@@ -6,7 +6,7 @@
     </div>
     <!-- Dropdown for links -->
     {% if can_change_related or can_add_related or can_delete_related or can_view_related %}
-        <div class="dropdown dropdown-end dropdown-open dropdown-hover">
+        <div class="dropdown dropdown-start dropdown-hover">
             {% block links %}
                 {% spaceless %}
                     <!-- Render the dropdown button only if there are related actions available -->
