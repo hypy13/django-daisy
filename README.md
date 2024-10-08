@@ -1,5 +1,3 @@
-Here’s the updated version with the **tabbed inline admin** feature added to the key features section:
-
 # Django Daisy
 
 [**Live Demo https://hy3.ir/admin/**](http://hy3.ir/admin/)  
