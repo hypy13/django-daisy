@@ -21,6 +21,10 @@ settings.STATICFILES_DIRS += [
     app_path / "static",
 ]
 
+settings.LOCALE_PATHS += [
+    app_path / "locale"
+]
+
 settings.X_FRAME_OPTIONS = 'SAMEORIGIN'
 
 if not hasattr(settings, 'APPS_REORDER'):

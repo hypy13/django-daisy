@@ -98,6 +98,12 @@ def get_value_by_key(query, key):
 
 @register.simple_tag
 def is_active_choice(choice, spec):
+    try:
+        if spec.lookup_kwarg not in choice['query_string']:
+            return ''
+    except Exception:
+        pass
+
     if choice.get('selected'):
         return 'selected'
 
@@ -130,3 +136,13 @@ def get_active_filters_count(cl):
         return len(cl.filter_params)
 
     return 0
+
+
+@register.simple_tag
+def is_multiple_filter_choice(spec):
+    not_multiple = []
+    if hasattr(spec, 'field_generic'):
+        if spec.field_generic.endswith('__'):
+            return ''
+
+    return 'multiple'

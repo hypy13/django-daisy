@@ -87,7 +87,7 @@
                             </div>
                         </div>
                     {% endif %}
-                    <div role="tablist" class="w-full items-start tabs tabs-lifted overflow-x-auto">
+                    <div role="tablist" class="w-full items-start tabs overflow-visible tabs-lifted">
                         {% block field_sets %}
                             <a class="indicator tab tab-active">
                                 {{ fieldset.name|default:opts.object_name }}
@@ -101,7 +101,7 @@
 
                             <div role="tabpanel" class="tab-content">
                                 {% for fieldset in adminform %}
-                                    <fieldset class="mb-3 collapse w-full collapse-arrow fieldset card bg-base-100 p-1">
+                                    <fieldset class="mb-3 ltr:!rounded-tl-none rtl:!rounded-tr-none collapse w-full collapse-arrow overflow-visible fieldset card bg-base-100 p-1">
                                         <input type="checkbox" name="fieldsets-{{ forloop.counter }}" checked/>
                                         <div class="collapse-title text-xl font-medium">
                                             {{ fieldset.name|default:opts.object_name }}
@@ -156,7 +156,7 @@
                 </div>
 
                 {% block submit_buttons_bottom %}
-                    <div class="xl:w-96 w-full xl:mt-5 z-10 sticky bottom-2">
+                    <div class="xl:w-96 w-full xl:mt-5 z-10 sticky max-lg:fixed max-lg:-ml-3 bottom-0">
                         <div>
                             {% submit_row %}
                         </div>

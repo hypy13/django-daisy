@@ -6,15 +6,14 @@
     </div>
     <!-- Dropdown for links -->
     {% if can_change_related or can_add_related or can_delete_related or can_view_related %}
-        <div onclick="isElementInViewport(this)" class="dropdown dropdown-right dropdown-hover">
+        <div class="dropdown dropdown-end dropdown-open dropdown-hover">
             {% block links %}
                 {% spaceless %}
-
                     <!-- Render the dropdown button only if there are related actions available -->
                     <div tabindex="0" role="button" class="btn btn-sm dropdown-btn">
                         {% trans "Options" %}
                     </div>
-                    <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-10 w-52 p-2 shadow">
+                    <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-20 w-52 p-2 shadow">
                         {% if can_change_related %}
                             <li>
                                 <a class="related-widget-wrapper-link change-related" id="change_id_{{ name }}"

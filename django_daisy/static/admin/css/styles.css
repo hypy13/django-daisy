@@ -102,3 +102,7 @@ a.tab-active i {
 .ts-wrapper .ts-control {
     @apply bg-base-200 border border-base-300 !important;
 }
+
+.ts-wrapper .ts-control > div{
+    @apply border-base-300 border bg-base-300 text-base-content !important ;
+}

@@ -1,5 +1,7 @@
 {% load i18n %}
 {% load static %}
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+
 <!DOCTYPE html>
 <html data-theme="light" class="custom-scrollbars" lang="{{ LANGUAGE_CODE|default:"en-us" }}"
       {% if LANGUAGE_BIDI %}dir="rtl"
@@ -60,7 +62,9 @@
     <div id="content" class="w-full h-full main-wrapper transition-all duration-200 ease-in-out">
         <div class="h-full flex flex-col">
             {% block top-navbar %}
-                {% include 'admin/parts/navbar.html' %}
+                {% if not is_popup %}
+                    {% include 'admin/parts/navbar.html' %}
+                {% endif %}
             {% endblock %}
 
             <div class="content-wrapper h-full max-md:p-3 p-5">

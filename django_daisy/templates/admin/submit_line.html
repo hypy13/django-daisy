@@ -64,14 +64,14 @@
                     <button class="btn-sm bg-blue-300 text-black btn rounded-md legitRipple" type="submit" name="_continue">
                         {% if can_change %}{% translate 'Save and continue editing' %}{% else %}
                             {% translate 'Save and view' %}{% endif %}
-                        <i class="fas fa-sync"></i>
+                        <i class="max-sm:!hidden fas fa-sync"></i>
                     </button>
                 {% endif %}
                 {% if show_save_and_add_another %}
                     <button class="btn-sm  bg-blue-300 text-black rounded-md btn legitRipple" type="submit"
                             name="_addanother">
                         {% translate 'Save and add another' %}
-                        <i class="fas fa-plus-circle"></i>
+                        <i class="max-sm:!hidden fas fa-plus-circle"></i>
                     </button>
                 {% endif %}
                 {% if show_delete_link and original or can_delete_popup %}

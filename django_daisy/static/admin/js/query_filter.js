@@ -4,19 +4,30 @@ const QueryModule = (function () {
     let queryMap = {};
 
     function extractValueFromQueryString(queryString, data_key) {
-        const result = {}
         const params = new URLSearchParams(queryString);
+        let val = null
         params.forEach((v, k) => {
             if (k.startsWith(data_key)) {
-                result[k] = v;  // Store matching key-value pairs
+                val = v;
             }
         })
+        return val
+    }
 
-        return result
+    function extractTheShitOutOfIt(queryString, data_key) {
+        const all_params = new URLSearchParams(queryString);
+        let this_params = ""
+        all_params.forEach((v, k) => {
+            v = encodeURIComponent(v)
+            if (k.startsWith(data_key)) {
+                this_params += `&${k}=${v}`;
+            }
+        })
+        return this_params
     }
 
 
-    function addOrUpdateQueryParameter(value, key) {
+    function addOrUpdateQueryParameter(value, key, option) {
         key = key.replace('__exact', '__in')
         if (queryMap[key]) {
             // Append new value to existing key with a comma separator
@@ -29,13 +40,14 @@ const QueryModule = (function () {
         }
     }
 
-    function buildQueryString() {
-        return '?' + Object.keys(queryMap).map(key => {
-            const formattedKey = key.replace('__exact', '__in');
-            const formattedVal = encodeURIComponent(queryMap[key])
+    function buildQueryString(queryObj) {
+        return '?' + Object.keys(queryObj).map(key => {
+            let formattedKey = key.replace('__exact', '__in');
+            let formattedVal = encodeURIComponent(queryObj[key])
             return `${formattedKey}=${formattedVal}`;
         }).join('&');
     }
+
 
     function applyFilters() {
         const urlParams = new URLSearchParams(window.location.search);
@@ -44,22 +56,26 @@ const QueryModule = (function () {
         if (facets) {
             queryMap['_facets'] = true
         }
-
-        let queryString = "";
-
+        let single_query_string = ""
         $('.filter-select').each(function () {
-            const selectedValues = $(this).val();
-            const dataKey = $(this).data('key');
-
-            if (selectedValues) {
+            let selectedValues = $(this).val();
+            let dataKey = $(this).data('key');
+            if (dataKey && dataKey.includes('__exact') && selectedValues) {
                 selectedValues.forEach(option => {
-                    queryMap = {...queryMap, ...extractValueFromQueryString(option, dataKey)}
+                    let v = extractValueFromQueryString(option, dataKey)
+                    addOrUpdateQueryParameter(v, dataKey, option)
                 });
+            } else if (dataKey && selectedValues) {
+                if (selectedValues instanceof Array) {
+                    selectedValues = selectedValues[0]
+                }
+                single_query_string += extractTheShitOutOfIt(selectedValues, dataKey)
             }
         });
 
-        queryString = buildQueryString();
-        console.log(queryString);
+        let multQueryString = buildQueryString(queryMap);
+
+        let queryString = multQueryString + single_query_string
         window.location.href = queryString;
     }
 
