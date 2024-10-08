@@ -77,13 +77,6 @@ We welcome contributions from the community! Feel free to submit any issues, sug
 
 ---
 
-## 📜 License
-
-This project is licensed under the **Apache 2.0 License**.  
-It's open-source, free to use, and always evolving!
-
----
-
 ## 📸 Screenshots
 
 ##### Listing View:
