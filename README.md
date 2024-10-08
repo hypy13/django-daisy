@@ -1,6 +1,6 @@
 # Django Daisy
 
-[**Live Demo https://hy3.ir/admin/**](http://hy3.ir/admin/)  
+[**Live Demo https://hy3.ir/admin/**](https://hy3.ir/admin/)  
 **Username:** demo  
 **Password:** demo
 
