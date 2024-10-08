@@ -93,7 +93,6 @@ We welcome contributions from the community! Feel free to submit any issues, sug
 ##### Dark Theme:
 ![Listing View](https://raw.githubusercontent.com/hypy13/django-daisy/refs/heads/main/screenshots/dark_theme.png)
 
----
 
 Elevate your Django admin panel with **Django Daisy** – an elegant, powerful, and flexible solution for modern web applications!
-```
+
