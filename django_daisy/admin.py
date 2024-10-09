@@ -52,7 +52,6 @@ class DaisyAdminSite(admin.AdminSite):
             **self.each_context(request),
             'latest_history': self.get_log_entries(request)[:15],
             "title": self.index_title,
-            "logo": self.get_logo(request),
             "app_list": app_list,
             'logentry_changelist_url': logentry_changelist_url,
             **(extra_context or {}),
@@ -98,6 +97,13 @@ class DaisyAdminSite(admin.AdminSite):
                 app_info.update(settings.APPS_REORDER[app_label])
 
         return modified_app_dict
+
+    def each_context(self, request):
+        context = super().each_context(request)
+        return {
+            **context,
+            'logo': self.get_logo(request)
+        }
 
     def get_logo(self, request):
         return self.logo
