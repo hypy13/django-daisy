@@ -3,12 +3,11 @@
     <!-- Sidebar header with logo -->
     <a class="flex h-16 items-center justify-center" href="{% url 'admin:index' %}">
         <div class="inline">
-            <img alt="logo-dark" loading="lazy" width="50" height="24" class="hidden dark:inline"
-                 src="https://img.daisyui.com/images/daisyui-logo/daisyui-logomark.svg">
-            <img alt="logo-light" loading="lazy" width="50" height="24" class="inline dark:hidden"
-                 src="https://img.daisyui.com/images/daisyui-logo/daisyui-logomark.svg">
+            <img loading="lazy" width="50" height="24" class="inline" src="{{ logo }}">
         </div>
-        <div class="inline">HyPy</div>
+        <div class="inline">
+            {{ site_title|default:'Django Daisy' }}
+        </div>
     </a>
 
     <!-- Sidebar menu -->
@@ -24,10 +23,8 @@
         <!-- App list -->
         {% for app in app_list %}
             <!-- If the app has sub-apps, handle it here -->
-            {% if app.apps %}
+            {% if not app.apps %}
                 <!-- Placeholder or specific handling for sub-apps -->
-                <h1>Sub-apps placeholder</h1>
-            {% else %}
                 <!-- Divider between apps, if needed -->
                 {% if app.divider_title %}
                     <div class="divider menu-title divider-start text-info-content/50">{{ app.divider_title|safe }}</div>

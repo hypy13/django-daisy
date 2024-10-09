@@ -3,6 +3,8 @@ from urllib.parse import unquote
 
 from django import template
 from django.contrib.admin.templatetags import admin_list
+from django.contrib.auth import get_user_model
+from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 
@@ -146,3 +148,14 @@ def is_multiple_filter_choice(spec):
             return ''
 
     return 'multiple'
+
+
+@register.simple_tag
+def get_user_admin_change_url(user):
+    try:
+        User = get_user_model()
+        app_label = User._meta.app_label
+        model_name = User._meta.model_name
+        return reverse(f"admin:{app_label}_{model_name}_change", args=[user.pk])
+    except Exception:
+        return '#'

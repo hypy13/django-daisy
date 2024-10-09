@@ -41,7 +41,7 @@
 
 
             {% if show_close and not is_popup %}
-                <a href="{% url opts|admin_urlname:'changelist' %}" class="closelink">{% translate 'Close' %}</a>
+                <a href="{% url opts|admin_urlname:'changelist' %}" class="btn-sm btn-block btn mt-1 btn rounded-md place-self-end closelink">{% translate 'Close' %}</a>
             {% endif %}
         </div>
     </div>
@@ -89,7 +89,7 @@
 
                 {% if show_close and not is_popup %}
                     <a href="{% url opts|admin_urlname:'changelist' %}"
-                       class="closelink">{% translate 'Close' %}</a>
+                       class="btn-sm btn-block mt-1 btn rounded-md place-self-end closelink">{% translate 'Close' %}</a>
                 {% endif %}
             </div>
         </details>

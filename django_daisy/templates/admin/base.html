@@ -17,7 +17,7 @@
     <link href="{% static 'admin/css/tailwind.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'admin/fonts/fontawesome-free-6.6.0-web/css/all.min.css' %}"/>
 
-    <link rel="stylesheet" href="{% static "/admin/css/custom-dashboard-style.css" %}">
+{#    <link rel="stylesheet" href="{% static "/admin/css/custom-dashboard-style.css" %}">#}
     <script src="{% static "/admin/js/vendor/jquery/jquery.min.js" %}"></script>
     <script src="{% static "/admin/js/jquery.init.js" %}"></script>
     <link href="{% static "admin/css/tom-select.min.css" %}" rel="stylesheet">
@@ -71,8 +71,8 @@
                 <div class="flex items-center justify-between">
 
                     <h3 class="text-lg font-medium">
-                        {% block content_title %}{{ cl.opts.app_config.verbose_name }}{% endblock %}</h3>
-
+                        {% block content_title %}{{ cl.opts.app_config.verbose_name }}{% endblock %}
+                    </h3>
                     {% block breadcrumbs %}{% endblock %}
                 </div>
 

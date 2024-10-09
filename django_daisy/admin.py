@@ -3,6 +3,8 @@ from django.conf import settings
 from django.contrib import admin
 from django.db import models
 from django.shortcuts import render
+from django.templatetags.static import static
+from django.urls import reverse
 
 
 # Helper function to get the author's full name
@@ -22,11 +24,11 @@ admin.options.FORMFIELD_FOR_DBFIELD_DEFAULTS.pop(models.TimeField, None)
 class DaisyAdminSite(admin.AdminSite):
     password_change_template = 'admin/registration/password_change_form.html'
     password_change_done_template = 'admin/registration/password_change_done.html'
-    site_title = ""
+    site_title = "Django Admin"
     site_header = "Administration"
     index_title = "Hi, Welcome to your dashboard"
-
-    index_template = 'admin/index.htmls'
+    index_template = 'admin/index.html'
+    logo = static('admin/img/daisyui-logomark.svg')
 
     def get_log_entries(self, request):
         from django.contrib.admin.models import LogEntry
@@ -38,17 +40,21 @@ class DaisyAdminSite(admin.AdminSite):
         Display the main admin index page, which lists all of the installed
         apps that have been registered in this site.
         """
-        extra_context = {
-            'latest_history': self.get_log_entries(request)[:15]
-        }
+
+        try:
+            logentry_changelist_url = reverse('admin:admin_logentry_changelist')
+        except Exception:
+            logentry_changelist_url = ''
 
         app_list = self.get_app_list(request)
 
         context = {
             **self.each_context(request),
+            'latest_history': self.get_log_entries(request)[:15],
             "title": self.index_title,
-            "subtitle": None,
+            "logo": self.get_logo(request),
             "app_list": app_list,
+            'logentry_changelist_url': logentry_changelist_url,
             **(extra_context or {}),
         }
 
@@ -92,3 +98,6 @@ class DaisyAdminSite(admin.AdminSite):
                 app_info.update(settings.APPS_REORDER[app_label])
 
         return modified_app_dict
+
+    def get_logo(self, request):
+        return self.logo
