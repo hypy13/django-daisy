@@ -25,8 +25,3 @@ class LogentryAdmin(admin.ModelAdmin):
     @admin.display(description=_('Action'))
     def _action(self, obj):
         return obj.get_action_flag_display()
-
-    def get_urls(self):
-        u = super().get_urls()
-        print(u)
-        return u
