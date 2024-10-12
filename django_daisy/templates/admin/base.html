@@ -16,15 +16,7 @@
 
     <link href="{% static 'admin/css/tailwind.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'admin/fonts/fontawesome-free-6.6.0-web/css/all.min.css' %}"/>
-
-{#    <link rel="stylesheet" href="{% static "/admin/css/custom-dashboard-style.css" %}">#}
-    <script src="{% static "/admin/js/vendor/jquery/jquery.min.js" %}"></script>
-    <script src="{% static "/admin/js/jquery.init.js" %}"></script>
     <link href="{% static "admin/css/tom-select.min.css" %}" rel="stylesheet">
-    <script src="{% static "admin/js/tom-select.complete.min.js.js" %}"></script>
-    <script src="{% static "admin/js/theme-change.js" %}"></script>
-    <script src="{% static 'admin/tinymce/tinymce.min.js' %}"></script>
-
     {% block body_font %}
         {% if LANGUAGE_BIDI %}
             <style>
@@ -83,7 +75,11 @@
                         {% if messages %}
                             <ul class="messagelist mb-5">
                                 {% for message in messages %}
-                                    <div role="alert" class="alert {% if message.tags %}{{ message.tags }} {% endif %} alert-info rounded mb-1">
+                                    <div role="alert" class="alert
+
+
+
+                                            {% if message.tags %}{{ message.tags }} {% endif %} alert-info rounded mb-1">
                                         <svg
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 fill="none"
@@ -126,6 +122,13 @@
         <button>close</button>
     </form>
 </dialog>
+
+
+<script src="{% static "/admin/js/vendor/jquery/jquery.min.js" %}"></script>
+<script src="{% static "/admin/js/jquery.init.js" %}"></script>
+<script src="{% static "admin/js/tom-select.complete.min.js.js" %}"></script>
+<script src="{% static "admin/js/theme-change.js" %}"></script>
+<script defer src="{% static 'admin/tinymce/tinymce.min.js' %}"></script>
 
 
 <script>

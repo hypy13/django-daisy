@@ -61,7 +61,6 @@ class DaisyAdminSite(admin.AdminSite):
 
         return render(
             request, [
-                "admin/dashboard.html",
                 "admin/index.html"
             ], context
         )
