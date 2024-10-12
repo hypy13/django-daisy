@@ -6,14 +6,8 @@
     {{ block.super }}
     <script src="{% url 'admin:jsi18n' %}"></script>
     {{ media }}
-    {#        <link rel="stylesheet" href="{% static "admin/css/widgets.css" %}">#}
 {% endblock %}
 
-{% block extrastyle %}
-    {{ block.super }}
-    <link rel="stylesheet" href="{% static "admin/css/forms.css" %}">
-    {#            <link rel="stylesheet" href="{% static "admin/css/base.css" %}">#}
-{% endblock %}
 
 
 {% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
@@ -90,7 +84,7 @@
                     <div role="tablist" class="w-full items-start tabs overflow-visible tabs-lifted">
                         {% block field_sets %}
                             <a class="indicator tab tab-active">
-                                {{ fieldset.name|default:opts.object_name }}
+                                {{ fieldset.name|default:opts.verbose_name }}
                                 <i class="text-base-info opacity-50 fa mx-1 {% firstof adminform.model_admin.icon opts.app_config.icon %} p-1 rounded"></i>
                                 {% with total_errors=adminform.form|sum_errors %}
                                     {% if total_errors > 0 %}
@@ -104,7 +98,7 @@
                                     <fieldset class="mb-3 ltr:!rounded-tl-none rtl:!rounded-tr-none collapse w-full collapse-arrow overflow-visible fieldset card bg-base-100 p-1">
                                         <input type="checkbox" name="fieldsets-{{ forloop.counter }}" checked/>
                                         <div class="collapse-title text-xl font-medium">
-                                            {{ fieldset.name|default:opts.object_name }}
+                                            {{ fieldset.name|default:opts.verbose_name }}
                                         </div>
                                         <div class="mb-3 collapse-content w-full">
                                             {% include "admin/includes/fieldset.html" %}
