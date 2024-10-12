@@ -1,0 +1,11 @@
+<textarea class="django-json-editor-field hidden"  name="{{ widget.name }}"
+        {% include "django/forms/widgets/attrs.html" %}
+>{% if widget.value %}{{ widget.value }}{% endif %}</textarea>
+{% with schema_id=widget.attrs.id|add:"-schema-template" %}
+    {{ schema_template|json_script:schema_id }}
+{% endwith %}
+{% with viewer_id=widget.attrs.id|add:"-viewer" %}
+    <div id="{{ viewer_id }}"></div>
+{% endwith %}
+
+
