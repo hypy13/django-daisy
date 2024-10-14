@@ -5,7 +5,7 @@
     {{ schema_template|json_script:schema_id }}
 {% endwith %}
 {% with viewer_id=widget.attrs.id|add:"-viewer" %}
-    <div id="{{ viewer_id }}"></div>
+    <div class="json-field-viewer-wrapper" id="{{ viewer_id }}"></div>
 {% endwith %}
 
 
