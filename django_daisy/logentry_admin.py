@@ -1,9 +1,7 @@
 from django.contrib import admin
-from django.contrib.admin.models import LogEntry
 from django.utils.translation import gettext_lazy as _
 
 
-@admin.register(LogEntry)
 class LogentryAdmin(admin.ModelAdmin):
     list_display = (
         'content_type', '_action', 'action_time', 'user'

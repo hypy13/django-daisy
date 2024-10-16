@@ -2,6 +2,7 @@ from django.apps import AppConfig
 from django.contrib import admin
 from django.contrib.admin import sites
 
+from . import module_settings  # noqa, load module settings
 from .admin import DaisyAdminSite
 
 

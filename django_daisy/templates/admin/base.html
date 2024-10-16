@@ -1,5 +1,6 @@
 {% load i18n %}
 {% load static %}
+{% load dash_tags %}
 {% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
 
 <!DOCTYPE html>
@@ -13,8 +14,17 @@
     <title>
         {% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
     </title>
+    {% should_load_full_daisyui_styles as should_load %}
+    {% if should_load %}
+        <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.13/dist/full.min.css" rel="stylesheet"
+              type="text/css"/>
+        <script src="https://cdn.tailwindcss.com"></script>
+        {#        <link href="{% static 'admin/css/customized_tailwind.css' %}" rel="stylesheet">#}
+        <link href="{% static 'admin/css/tailwind.css' %}" rel="stylesheet">
+    {% else %}
+        <link href="{% static 'admin/css/tailwind.css' %}" rel="stylesheet">
+    {% endif %}
 
-    <link href="{% static 'admin/css/tailwind.css' %}" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'admin/fonts/fontawesome-free-6.6.0-web/css/all.min.css' %}"/>
     <link href="{% static "admin/css/tom-select.min.css" %}" rel="stylesheet">
     {% block body_font %}
@@ -76,6 +86,13 @@
                             <ul class="messagelist mb-5">
                                 {% for message in messages %}
                                     <div role="alert" class="alert
+
+
+
+
+
+
+
                                             {% if message.tags %}{{ message.tags }} {% endif %} alert-info rounded mb-1">
                                         <svg
                                                 xmlns="http://www.w3.org/2000/svg"

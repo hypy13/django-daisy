@@ -95,7 +95,8 @@
 
                             <div role="tabpanel" class="tab-content">
                                 {% for fieldset in adminform %}
-                                    <fieldset class="mb-3 ltr:!rounded-tl-none rtl:!rounded-tr-none collapse w-full collapse-arrow overflow-visible fieldset card bg-base-100 p-1">
+                                    <fieldset
+                                            class="mb-3 ltr:!rounded-tl-none rtl:!rounded-tr-none collapse w-full collapse-arrow overflow-visible fieldset card bg-base-100 p-1">
                                         <input type="checkbox" name="fieldsets-{{ forloop.counter }}" checked/>
                                         <div class="collapse-title text-xl font-medium">
                                             {{ fieldset.name|default:opts.verbose_name }}
@@ -145,8 +146,9 @@
                             {% endfor %}
                         {% endblock %}
 
-                        {% block after_related_objects %}{% endblock %}
                     </div>
+                    {% block after_related_objects %}{% endblock %}
+
                 </div>
 
                 {% block submit_buttons_bottom %}

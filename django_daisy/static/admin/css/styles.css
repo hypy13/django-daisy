@@ -1,22 +1,13 @@
-@tailwind base;
-@layer base {
-    *:focus-visible {
-        outline: none !important;
-    }
+
+/*
+[dir="rtl"] .file-input::-webkit-file-upload-button {
+    margin-right: 0; !* For WebKit browsers in RTL *!
 }
 
-@layer utilities {
-    [dir="rtl"] .file-input::-webkit-file-upload-button {
-        margin-right: 0; /* For WebKit browsers in RTL */
-    }
-
-    [dir="rtl"] .file-input::file-selector-button {
-        margin-right: 0; /* For modern browsers in RTL */
-    }
+[dir="rtl"] .file-input::file-selector-button {
+    margin-right: 0; !* For modern browsers in RTL *!
 }
-
-@tailwind components;
-@tailwind utilities;
+*/
 
 
 .errorlist {
