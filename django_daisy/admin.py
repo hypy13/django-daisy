@@ -3,17 +3,7 @@ from django.conf import settings
 from django.contrib import admin
 from django.db import models
 from django.shortcuts import render
-from django.templatetags.static import static
 from django.urls import reverse
-
-
-# Helper function to get the author's full name
-def get_author_name(self, obj):
-    return obj.author.get_full_name() if obj.author else '-'
-
-
-# Registering the get_author_name function to the admin's ModelAdmin class
-admin.ModelAdmin.get_author_name = get_author_name
 
 # Remove default form fields for specific date and time fields
 admin.options.FORMFIELD_FOR_DBFIELD_DEFAULTS.pop(models.DateTimeField, None)
@@ -27,8 +17,7 @@ class DaisyAdminSite(admin.AdminSite):
     site_title = "Django Admin"
     site_header = "Administration"
     index_title = "Hi, Welcome to your dashboard"
-    index_template = 'admin/index.html'
-    logo = static('admin/img/daisyui-logomark.svg')
+    logo = '/static/admin/img/daisyui-logomark.svg'
 
     def get_log_entries(self, request):
         from django.contrib.admin.models import LogEntry
@@ -41,10 +30,10 @@ class DaisyAdminSite(admin.AdminSite):
         apps that have been registered in this site.
         """
 
-        try:
-            logentry_changelist_url = reverse('admin:admin_logentry_changelist')
-        except Exception:
-            logentry_changelist_url = ''
+        # try:
+        logentry_changelist_url = reverse('admin:admin_logentry_changelist')
+        # except Exception:
+        #     logentry_changelist_url = ''
 
         app_list = self.get_app_list(request)
 

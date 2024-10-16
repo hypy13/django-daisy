@@ -123,10 +123,14 @@ a.tab-active i {
     @apply border-base-300 border bg-base-300 text-base-content !important ;
 }
 
-.json-field-viewer-wrapper input{
+.json-field-viewer-wrapper input {
     @apply input-sm;
 }
 
 div[data-theme="tailwind"] div[data-schematype]:not([data-schematype="object"]):hover {
-  background-color: initial !important;
+    background-color: initial !important;
+}
+
+input[data-jdp] {
+    @apply input input-sm;
 }
