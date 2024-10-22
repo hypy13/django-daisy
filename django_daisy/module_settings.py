@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
-settings.DAISY_LOAD_FULL_STYLES = getattr(settings, 'DAISY_LOAD_FULL_STYLES', False)
+settings.DAISY_LOAD_FULL_STYLES = getattr(settings, 'DAISY_LOAD_FULL_STYLES', True)
 
 # overriding template
 settings.FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
