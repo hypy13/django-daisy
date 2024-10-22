@@ -55,12 +55,11 @@ pip install -e git+https://github.com/hypy13/django-daisy.git#egg=django-daisy
 ```
 
 After installation, add `django_daisy` to your `INSTALLED_APPS` in the Django settings file.  
-Make sure to comment out Django's default admin app (`django.contrib.admin`):
 
 ```python
 INSTALLED_APPS = [
     'django_daisy',
-    # 'django.contrib.admin',
+    'django.contrib.admin',
     ...
 ]
 ```
