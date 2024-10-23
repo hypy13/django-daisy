@@ -10,8 +10,7 @@
     {% endif %}
     <br>
 {% endif %}
-<input type="{{ widget.type }}" class="file-input file-input-bordered file-input-sm w-full max-w-xs" data-fouc
-       name="{{ widget.name }}"{% include "django/forms/widgets/attrs.html" %}>
+{% include 'django/forms/widgets/file.html' %}
 {% if widget.is_initial %}
     </p>
     <a class="link text-xs p-2" target="_blank" href="{{ widget.value.url }}">

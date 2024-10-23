@@ -1,14 +1,16 @@
-
-/*
-[dir="rtl"] .file-input::-webkit-file-upload-button {
-    margin-right: 0; !* For WebKit browsers in RTL *!
+[dir="rtl"] .file-input-sm::file-selector-button {
+    margin-right: 0;
+}
+[dir="rtl"] .file-input-md::file-selector-button {
+    margin-right: 0;
+}
+[dir="rtl"] .file-input-lg::file-selector-button {
+    margin-right: 0;
 }
 
-[dir="rtl"] .file-input::file-selector-button {
-    margin-right: 0; !* For modern browsers in RTL *!
+:focus-visible {
+    outline: none !important;
 }
-*/
-
 
 .errorlist {
     @apply label px-0;
@@ -17,7 +19,6 @@
 .errorlist li {
     @apply label-text text-error font-bold;
 }
-
 
 .card {
     @apply rounded-md shadow-sm;
