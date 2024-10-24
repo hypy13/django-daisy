@@ -18,6 +18,6 @@
         }
 
     } catch (e) {
-        window.parent.fallbackDismissChangeRelatedObjectPopup();
+        window.parent.fallbackDismissChangeRelatedObjectPopup(e);
     }
 }

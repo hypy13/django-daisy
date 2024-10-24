@@ -19,6 +19,7 @@
                                 <a class="related-widget-wrapper-link change-related" id="change_id_{{ name }}"
                                    data-href-template="{{ change_related_template_url }}?{{ url_params }}"
                                    data-popup="yes"
+                                   data-field-name="{{ name }}"
                                    title="{% blocktranslate %}Change selected {{ model }}{% endblocktranslate %}">
                                     <i class="fa fa-pen-alt text-warning"></i> {% trans "Change" %}
                                 </a>
@@ -28,6 +29,7 @@
                             <li>
                                 <a class="related-widget-wrapper-link add-related" id="add_id_{{ name }}"
                                    data-popup="yes"
+                                   data-field-name="{{ name }}"
                                    href="{{ add_related_url }}?{{ url_params }}"
                                    title="{% blocktranslate %}Add another {{ model }}{% endblocktranslate %}">
                                     <i class="fa fa-plus text-success"></i> {% trans "Add" %}
@@ -39,6 +41,7 @@
                                 <a class="related-widget-wrapper-link delete-related" id="delete_id_{{ name }}"
                                    data-href-template="{{ delete_related_template_url }}?{{ url_params }}"
                                    data-popup="yes"
+                                   data-field-name="{{ name }}"
                                    title="{% blocktranslate %}Delete selected {{ model }}{% endblocktranslate %}">
                                     <i class="fa fa-trash text-danger"></i> {% trans "Delete" %}
                                 </a>
