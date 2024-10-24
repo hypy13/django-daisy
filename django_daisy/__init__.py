@@ -17,7 +17,6 @@ from django.contrib.admin.options import (
     HORIZONTAL,
     VERTICAL,
     ModelAdmin,
-    ShowFacets,
     StackedInline,
     TabularInline,
 )
@@ -25,6 +24,14 @@ from django.contrib.admin.sites import AdminSite
 from django.contrib.admin.sites import site as admin_site
 from django.utils.functional import LazyObject
 from django.utils.module_loading import autodiscover_modules, import_string
+
+support_show_facet = False
+try:
+    from django.contrib.admin.options import ShowFacets
+
+    support_show_facet = True
+except Exception:
+    pass
 
 
 class DefaultAdminSite(LazyObject):
@@ -58,9 +65,11 @@ __all__ = [
     "AllValuesFieldListFilter",
     "EmptyFieldListFilter",
     "RelatedOnlyFieldListFilter",
-    "ShowFacets",
     "autodiscover",
 ]
+
+if support_show_facet:
+    __all__ += ['ShowFacets']
 
 
 def autodiscover():
