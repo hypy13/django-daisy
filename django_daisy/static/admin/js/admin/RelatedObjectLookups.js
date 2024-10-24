@@ -56,7 +56,7 @@
                 });
 
                 // Append the iframe to your container
-                $('#generalModal .modal-box').html(iframe);
+                $('.generalModal .modal-box').html(iframe);
 
                 // Write the response to the iframe's document
                 var iframeDoc = iframe[0].contentDocument || iframe[0].contentWindow.document;
@@ -72,7 +72,7 @@
         });
 
 
-        document.getElementById('generalModal').showModal()
+        $('.modal-toggle').click()
 
         // const win = window.open(href, name, 'height=500,width=800,resizable=yes,scrollbars=yes');
         // relatedWindows.push(win);
