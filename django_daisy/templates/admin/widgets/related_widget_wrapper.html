@@ -1,19 +1,19 @@
 {% load i18n static %}
-<div class="related-widget-wrapper flex flex-row max-sm:flex-wrap justify-start gap-1 w-full"
+<div class="related-widget-wrapper flex flex-row max-sm:flex-wrap justify-start gap-1"
      {% if not model_has_limit_choices_to %}data-model-ref="{{ model }}"{% endif %}>
-    <div class="border-base-200 rounded-md items-center flex w-full">
+    <div class="border-base-200 rounded-md flex w-full max-lg:max-w-md max-sm:max-w-xs ">
         {{ rendered_widget }}
     </div>
     <!-- Dropdown for links -->
     {% if can_change_related or can_add_related or can_delete_related or can_view_related %}
-        <div class="dropdown dropdown-start dropdown-hover">
+        <div class="dropdown w-40 inline-flex align-middle">
             {% block links %}
                 {% spaceless %}
                     <!-- Render the dropdown button only if there are related actions available -->
                     <div tabindex="0" role="button" class="btn btn-sm dropdown-btn">
                         {% trans "Options" %}
                     </div>
-                    <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-20 w-52 p-2 shadow">
+                    <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-20 w-full p-2 shadow">
                         {% if can_change_related %}
                             <li>
                                 <a class="related-widget-wrapper-link change-related" id="change_id_{{ name }}"

@@ -87,6 +87,16 @@ span.select2-search input.select2-search__field {
     @apply bg-base-200;
 }
 
+
+.select2-results li{
+    @apply border;
+}
+
+
+.select2-results li:hover{
+    @apply bg-blue-100;
+}
+
 span.select2-selection__clear {
     @apply p-1 font-bold text-red-500 text-sm;
 }

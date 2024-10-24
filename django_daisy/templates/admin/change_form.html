@@ -14,7 +14,7 @@
 
 {% if not is_popup %}
     {% block breadcrumbs %}
-        <div class="text-sm max-sm:hidden breadcrumbs">
+        <div class="text-sm  breadcrumbs">
             <ul>
                 <li><a href="{% url 'admin:index' %}" class="link link-hover">{% trans 'Dashboard' %}</a></li>
                 {% if has_view_permission %}
@@ -26,16 +26,18 @@
                 {% endif %}
 
                 <li>{% if add %}{% blocktranslate with name=opts.verbose_name %}Add {{ name }}
-                {% endblocktranslate %}{% else %}{{ original|truncatewords:"18" }}{% endif %}</li>
+                {% endblocktranslate %}{% else %}{{ original|truncatechars:40 }}{% endif %}</li>
             </ul>
         </div>
     {% endblock %}
 {% endif %}
 
 {% block content_title %}
-    <div class="px-2">
+    <div class="max-w-sm max-sm:hidden">
         {% if add %}{% blocktranslate with name=opts.verbose_name %}Add {{ name }}
-        {% endblocktranslate %}{% else %}{{ original }}{% endif %}
+        {% endblocktranslate %}{% else %}
+            <p class="text-ellipsis text-nowrap overflow-hidden">{{ original }}</p>
+        {% endif %}
     </div>
 {% endblock %}
 
