@@ -22,15 +22,11 @@
 
         <!-- App list -->
         {% for app in app_list %}
-            <!-- If the app has sub-apps, handle it here -->
             {% if not app.apps %}
-                <!-- Placeholder or specific handling for sub-apps -->
-                <!-- Divider between apps, if needed -->
                 {% if app.divider_title %}
-                    <div class="divider menu-title divider-start text-info-content/50">{{ app.divider_title|safe }}</div>
+                    <div class="divider text-base-content/40 menu-title divider-start">{{ app.divider_title|safe }}</div>
                 {% endif %}
 
-                <!-- Single model in app -->
                 {% if app.models|length == 1 %}
                     <li>
                         <a class="{% if app.models.0.admin_url in request.path|urlencode %} active{% endif %}" href="{{ app.models.0.admin_url }}">
@@ -39,7 +35,6 @@
                         </a>
                     </li>
 
-                    <!-- Multiple models in app -->
                 {% else %}
                     <li class="mb-2">
                         <details {% if app.app_url in request.path|urlencode %} open {% endif %}>
