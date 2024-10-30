@@ -6,7 +6,7 @@ from django.utils.module_loading import import_string
 
 from . import module_settings  # noqa, load module settings
 
-if default_admin_site := getattr(settings, 'DEFAULT_ADMIN_SITE_CLASS'):
+if default_admin_site := getattr(settings, 'DEFAULT_ADMIN_SITE_CLASS', None):
     AdminSiteClass = import_string(default_admin_site)
 else:
     AdminSiteClass = import_string('django_daisy.admin.DaisyAdminSite')
