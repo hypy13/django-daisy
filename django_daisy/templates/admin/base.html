@@ -110,17 +110,9 @@
                         {% if messages %}
                             <ul class="messagelist mb-5">
                                 {% for message in messages %}
-                                    <div role="alert" class="alert
-
-
-
-
-
-
-
-
-
-                                            {% if message.tags %}{{ message.tags }} {% endif %} alert-info rounded mb-1">
+                                    <div role="alert"
+                                         class="alert {% if message.tags %}{{ message.tags }}{% endif %}
+                                         alert-info rounded mb-1">
                                         <svg
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 fill="none"

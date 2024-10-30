@@ -10,7 +10,7 @@ authors = [
 ]
 license = { text = "Apache-2.0" }
 dependencies = [
-    "Django>=3.4",
+    "Django>=3.2",
 ]
 keywords = ["django", "admin", "dashboard", "daisyui", "tailwindcss"]
 readme = { file = "README.md", content-type = "text/markdown" }
