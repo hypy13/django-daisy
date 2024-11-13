@@ -1,6 +1,6 @@
 # Django Daisy
 
-[**Live Demo https://hypy13-django-daisy.hf.space/en/admin/**]([https://hy3.ir/admin/](https://hypy13-django-daisy.hf.space/en/admin/))  
+[**Live Demo https://hypy13-django-daisy.hf.space/en/admin/**](https://hypy13-django-daisy.hf.space/en/admin/)  
 **Username:** demo  
 **Password:** demo
 
