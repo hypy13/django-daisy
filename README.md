@@ -1,8 +1,12 @@
 # Django Daisy
 
-[**Live Demo https://hy3.ir/admin/**](https://hy3.ir/admin/)  
+[**Live Demo https://hypy13-django-daisy.hf.space/en/admin/**]([https://hy3.ir/admin/](https://hypy13-django-daisy.hf.space/en/admin/))  
 **Username:** demo  
 **Password:** demo
+
+
+for RTL mode:
+https://hypy13-django-daisy.hf.space/fa/admin/
 
 ![ScreenShot](https://raw.githubusercontent.com/hypy13/django-daisy/refs/heads/main/screenshots/change_form.png)
 
