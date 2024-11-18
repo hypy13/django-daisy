@@ -2,7 +2,7 @@ from django import forms
 from django.db import models
 
 
-class TinyWidget(forms.Textarea):
+class TinyEditorWidget(forms.Textarea):
     class Media:
         js = (
             'admin/fields/tiny_init.js',
@@ -20,7 +20,7 @@ class TinyEditorField(models.TextField):
 
     def formfield(self, **kwargs):
         _class = "editor-field" if not self.inline else "editor-inline-field"
-        kwargs['widget'] = TinyWidget(attrs={'class': _class})
+        kwargs['widget'] = TinyEditorWidget(attrs={'class': _class})
         return super().formfield(**{
             'max_length': self.max_length,
             **({} if self.choices is not None else {'widget': forms.Textarea}),
