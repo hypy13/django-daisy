@@ -4,7 +4,7 @@ from django.contrib import admin
 from django.contrib.admin import sites
 from django.utils.module_loading import import_string
 
-from . import module_settings  # noqa, load module settings
+from django_daisy import module_settings  # noqa, load module settings
 
 if default_admin_site := getattr(settings, 'DEFAULT_ADMIN_SITE_CLASS', None):
     AdminSiteClass = import_string(default_admin_site)

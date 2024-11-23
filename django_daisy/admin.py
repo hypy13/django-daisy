@@ -5,7 +5,7 @@ from django.db import models
 from django.shortcuts import render
 from django.urls import reverse
 
-from module_settings import DAISY_SETTINGS
+from django_daisy.module_settings import DAISY_SETTINGS
 
 # Remove default form fields for specific date and time fields
 admin.options.FORMFIELD_FOR_DBFIELD_DEFAULTS.pop(models.DateTimeField, None)
