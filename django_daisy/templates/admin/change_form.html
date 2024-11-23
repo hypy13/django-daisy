@@ -101,12 +101,12 @@
                             <div role="tabpanel" class="tab-content">
                                 {% for fieldset in adminform %}
                                     <fieldset
-                                            class="mb-3 ltr:!rounded-tl-none rtl:!rounded-tr-none collapse w-full collapse-arrow overflow-visible fieldset card bg-base-100 p-1">
+                                            class="mb-3  ltr:!rounded-tl-none rtl:!rounded-tr-none collapse w-full collapse-arrow overflow-visible fieldset card bg-base-100 p-1">
                                         <input type="checkbox" name="fieldsets-{{ forloop.counter }}" checked/>
                                         <div class="collapse-title text-xl font-medium">
                                             {{ fieldset.name|default:opts.verbose_name }}
                                         </div>
-                                        <div class="mb-3 collapse-content w-full">
+                                        <div class="mb-3 collapse-content w-full max-w-screen-lg">
                                             {% include "admin/includes/fieldset.html" %}
                                         </div>
                                     </fieldset>
