@@ -14,7 +14,7 @@
                         {% else %}
                             {{ field.label_tag|add_class:'label-text py-2 px-1 !inline-block relative' }}
                             {% if field.is_readonly %}
-                                <div class="readonly bg-gray-100 p-2 rounded">{{ field.contents }}</div>
+                                <div class="readonly bg-base-300 p-2 rounded">{{ field.contents }}</div>
                             {% else %}
                                 <div class="form-control flex flex-wrap ">
                                     {{ field.field }}
