@@ -1,40 +1,31 @@
+import pathlib
+
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
-settings.DAISY_LOAD_FULL_STYLES = getattr(settings, 'DAISY_LOAD_FULL_STYLES', True)
-
-# overriding template
-settings.FORM_RENDERER = 'django.forms.renderers.TemplatesSetting'
-
-import pathlib
-
-app_path = pathlib.Path(__file__).parent.absolute()
-
-settings.TEMPLATES[0]['DIRS'] += [
-    app_path / 'templates',
-]
-
-settings.TEMPLATES[0]['OPTIONS']['libraries'] = {
-    'dash_tags': 'django_daisy.templatetags.dash_tags'
+# Define defaults for DAISY_SETTINGS
+DEFAULT_DAISY_SETTINGS = {
+    "LOAD_FULL_STYLES": True,
+    "SHOW_CHANGELIST_FILTER": False,
+    "FORM_RENDERER": "django.forms.renderers.TemplatesSetting",
+    "X_FRAME_OPTIONS": "SAMEORIGIN",
+    "APPS_REORDER": {
+        "auth": {
+            "icon": "fa-solid fa-person-military-pointing",
+            "name": _("Authentication"),
+            "hide": False,
+            "app": "users",
+        },
+    },
 }
 
-# add dashboard static files dir
-settings.STATICFILES_DIRS += [
-    app_path / "static",
-]
+# Get DAISY_SETTINGS from settings.py or fall back to defaults
+DAISY_SETTINGS = getattr(settings, "DAISY_SETTINGS", DEFAULT_DAISY_SETTINGS)
 
-settings.LOCALE_PATHS += [
-    app_path / "locale"
-]
+# Ensure any missing keys from defaults are included
+for key, value in DEFAULT_DAISY_SETTINGS.items():
+    DAISY_SETTINGS.setdefault(key, value)
 
-settings.X_FRAME_OPTIONS = 'SAMEORIGIN'
+settings.FORM_RENDERER = DAISY_SETTINGS["FORM_RENDERER"]
 
-if not hasattr(settings, 'APPS_REORDER'):
-    settings.APPS_REORDER = {
-        'auth': {
-            'icon': 'fa-solid fa-person-military-pointing',
-            'name': _('Authentication'),
-            'hide': False,
-            'app': 'users',
-        },
-    }
+settings.X_FRAME_OPTIONS = DAISY_SETTINGS["X_FRAME_OPTIONS"]

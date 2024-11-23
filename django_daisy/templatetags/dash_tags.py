@@ -2,12 +2,13 @@ import re
 from urllib.parse import unquote
 
 from django import template
-from django.conf import settings
 from django.contrib.admin.templatetags import admin_list
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
+
+from django_daisy.module_settings import DAISY_SETTINGS
 
 
 def custom_boolean_icon(field_val):
@@ -161,7 +162,3 @@ def get_user_admin_change_url(user):
     except Exception:
         return '#'
 
-
-@register.simple_tag
-def should_load_full_daisyui_styles():
-    return settings.DAISY_LOAD_FULL_STYLES

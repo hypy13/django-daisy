@@ -68,7 +68,7 @@
     {% endif %}
 
     <!-- Start of drawer component -->
-    <div class="drawer drawer-end xl:drawer-open ">
+    <div class="drawer drawer-end  {% if SHOW_CHANGELIST_FILTER %} xl:drawer-open {% endif %} ">
         <input id="filter-drawer" type="checkbox" class="drawer-toggle"/>
 
         <!-- Main content section -->
@@ -89,7 +89,7 @@
                             {% if action_form and actions_on_top and cl.show_admin_actions %}
                                 {% admin_actions %}
                             {% endif %}
-                            <div class="object-tools inline-flex ms-auto flex-wrap max-md:justify-center gap-2 justify-between p-4">
+                            <div class="object-tools inline-flex ms-auto flex-wrap max-md:justify-center gap-2 justify-between p-4 pe-1">
                                 {% block object-tools %}
                                     {% if cl.list_editable %}
                                         <button class="btn btn-sm btn-primary" type="submit"
@@ -99,7 +99,7 @@
                                     {% block object-tools-items %}
                                         {% change_list_object_tools %}
                                     {% endblock %}
-                                    <div class="indicator xl:hidden">
+                                    <div class="indicator {% if SHOW_CHANGELIST_FILTER %} xl:hidden {% endif %}">
                                         {% if active_filters_count %}
                                             <span class="indicator-item badge badge-info">{{ active_filters_count }}</span>
                                         {% endif %}
@@ -132,7 +132,7 @@
         </div>
         {% if cl.has_filters %}
             <!-- Filter section -->
-            <div id="changelist-filter" class="drawer-side mt-3 !overflow-visible card-bordered lg:ms-2 z-10 h-full">
+            <div id="changelist-filter" class="drawer-side {% if SHOW_CHANGELIST_FILTER %} mt-3 lg:ms-2 card-bordered {% endif %} !overflow-visible  z-10 h-full">
                 <label for="filter-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
 
                 <div class="card-body p-3 bg-base-100 w-80 h-full">

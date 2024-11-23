@@ -14,7 +14,7 @@
 
 {% if not is_popup %}
     {% block breadcrumbs %}
-        <div class="text-sm  breadcrumbs">
+        <div class="text-sm breadcrumbs">
             <ul>
                 <li><a href="{% url 'admin:index' %}" class="link link-hover">{% trans 'Dashboard' %}</a></li>
                 {% if has_view_permission %}
@@ -29,17 +29,18 @@
                 {% endblocktranslate %}{% else %}{{ original|truncatechars:40 }}{% endif %}</li>
             </ul>
         </div>
+
+        {% block object-tools %}
+            {% if change and not is_popup %}
+                <div class="object-tools max-lg:hidden">
+                    {% block object-tools-items %}
+                        {% change_form_object_tools %}
+                    {% endblock %}
+                </div>
+            {% endif %}
+        {% endblock %}
     {% endblock %}
 {% endif %}
-
-{% block content_title %}
-    <div class="max-w-sm max-sm:hidden">
-        {% if add %}{% blocktranslate with name=opts.verbose_name %}Add {{ name }}
-        {% endblocktranslate %}{% else %}
-            <p class="text-ellipsis text-nowrap overflow-hidden">{{ original }}</p>
-        {% endif %}
-    </div>
-{% endblock %}
 
 
 {% block content %}
@@ -53,8 +54,10 @@
                 class="w-full h-full">
 
             {% csrf_token %}
-            {% block form_top %}{% endblock %}
-            <div class="grid grid-cols-1 xl:grid-cols-[1fr_auto] gap-4">
+            {% block form_top %}
+
+            {% endblock %}
+            <div class="grid grid-cols-1 gap-4">
                 {% if is_popup %}<input type="hidden" name="{{ is_popup_var }}" value="1">{% endif %}
                 {% if to_field %}<input type="hidden" name="{{ to_field_var }}" value="{{ to_field }}">{% endif %}
                 {% if save_on_top %}
@@ -154,23 +157,9 @@
                 </div>
 
                 {% block submit_buttons_bottom %}
-                    <div class="xl:w-96 w-full xl:mt-5 z-10 sticky max-lg:fixed max-lg:-ml-3 bottom-0">
-                        <div>
-                            {% submit_row %}
-                        </div>
-
-                        {% block object-tools %}
-                            {% if change and not is_popup %}
-                                <div class="object-tools p-3 card bg-base-100 grid grid-cols-1 mt-3 gap-3 sticky top-3 max-lg:hidden">
-                                    {% block object-tools-items %}
-                                        {% change_form_object_tools %}
-                                    {% endblock %}
-                                </div>
-                            {% endif %}
-                        {% endblock %}
-
+                    <div class="w-full z-40 sticky max-lg:fixed max-lg:-ml-5 bottom-0 ">
+                        {% submit_row %}
                     </div>
-
                 {% endblock %}
 
             </div>
