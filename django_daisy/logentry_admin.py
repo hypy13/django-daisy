@@ -6,6 +6,10 @@ class LogentryAdmin(admin.ModelAdmin):
     list_display = (
         'content_type', '_action', 'action_time', 'user'
     )
+    list_filter = (
+        'content_type', 'user',
+    )
+    search_fields = ('user__username', )
     list_per_page = 50
 
     def has_change_permission(self, request, obj=None):

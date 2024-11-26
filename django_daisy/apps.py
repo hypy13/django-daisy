@@ -12,11 +12,6 @@ else:
     AdminSiteClass = import_string('django_daisy.admin.DaisyAdminSite')
 
 
-class LogEntryAdmin(admin.ModelAdmin):
-    def get_model_perms(self, request):
-        return {}
-
-
 class DefaultAppConfig(AppConfig):
     name = "django_daisy"
     default = True
@@ -29,7 +24,7 @@ class DefaultAppConfig(AppConfig):
         admin.site = site
         sites.site = site
 
-        admin.site.register(LogEntry, LogEntryAdmin)
+        admin.site.register(LogEntry, LogentryAdmin)
 
 
 class BasicAppConfig(AppConfig):
