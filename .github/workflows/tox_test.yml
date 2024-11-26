@@ -12,23 +12,31 @@ jobs:
     strategy:
       matrix:
         python-version: [3.7, 3.8, 3.9, 3.11, 3.12]
-        django-version: ['3.2', '4.0', '4.1', '5.0']
-        exclude:
-          - python-version: 3.8
-            django-version: '3.2'
-          - python-version: 3.9
-            django-version: '3.2'
-          - python-version: 3.11
-            django-version: '3.2'
-          - python-version: 3.12
+        django-version: ['3.2', '4.1', '5.0']
+        include:
+          # Python 3.7 only with Django 3.2
+          - python-version: 3.7
             django-version: '3.2'
 
-          # Exclude Django 5.0 on Python versions below 3.10
-          - python-version: 3.7
-            django-version: '5.0'
+          # Python 3.8 with Django 3.2 and 4.2
           - python-version: 3.8
-            django-version: '5.0'
+            django-version: '3.2'
+          - python-version: 3.8
+            django-version: '4.2'
+
+
+          # Python 3.9 with Django 3.2 and 4.2
           - python-version: 3.9
+            django-version: '3.2'
+          - python-version: 3.9
+            django-version: '4.2'
+
+          # Python 3.10, 3.11, 3.12 with Django 5.0
+          - python-version: 3.10
+            django-version: '5.0'
+          - python-version: 3.11
+            django-version: '5.0'
+          - python-version: 3.12
             django-version: '5.0'
 
     steps:
