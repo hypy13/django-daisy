@@ -23,6 +23,14 @@ jobs:
           - python-version: 3.12
             django-version: '3.2'
 
+          # Exclude Django 5.0 on Python versions below 3.10
+          - python-version: 3.7
+            django-version: '5.0'
+          - python-version: 3.8
+            django-version: '5.0'
+          - python-version: 3.9
+            django-version: '5.0'
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
