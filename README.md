@@ -1,4 +1,5 @@
 # Django Daisy
+![Test Status](https://github.com/hypy13/django-daisy/actions/workflows/tox_test.yml/badge.svg)
 
 [**Live Demo https://hypy13-django-daisy.hf.space/en/admin/**](https://hypy13-django-daisy.hf.space/en/admin/)  
 **Username:** demo  
