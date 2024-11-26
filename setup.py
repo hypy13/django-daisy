@@ -9,7 +9,7 @@ setup(
     use_scm_version=True,
     setup_requires=['setuptools-scm'],
     include_package_data=True,
-    install_requires=[],  # Add dependencies here
+    install_requires=[],
     description='A modern django dashboard built with daisyui',
     long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
