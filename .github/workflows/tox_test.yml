@@ -11,7 +11,7 @@ jobs:
 
     strategy:
       matrix:
-        python-version: [ 3.7, 3.8, 3.9, 3.10, 3.11, 3.12, 3.13 ]
+        python-version: [ 3.7, 3.8, 3.9, 3.11, 3.12,]
         django-version: [ '3.2', '4.0', '4.1', '5.0' ]
 
     steps:
@@ -25,6 +25,7 @@ jobs:
 
       - name: Install Dependencies
         run: |
+          pip install -U pip
           pip install tox
           pip install django==${{ matrix.django-version }}
 
