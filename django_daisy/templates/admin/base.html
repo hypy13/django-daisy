@@ -40,10 +40,11 @@
         <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.13/dist/full.min.css" rel="stylesheet"
               type="text/css"/>
         <script src="{% static "admin/js/tailwind-3.4.5.js" %}"></script>
-        <link href="{% static 'admin/css/tailwind.css' %}" rel="stylesheet">
     {% else %}
-        <link href="{% static 'admin/css/tailwind.css' %}" rel="stylesheet">
+        <link href="{% static 'admin/css/base_tailwind.css' %}" rel="stylesheet">
     {% endif %}
+
+    <link href="{% static 'admin/css/customized_tailwind.css' %}" rel="stylesheet">
 
     <link rel="stylesheet" href="{% static 'admin/fonts/fontawesome-free-6.6.0-web/css/all.min.css' %}"/>
     <link href="{% static "admin/css/tom-select.min.css" %}" rel="stylesheet">
@@ -78,58 +79,57 @@
 
 <body class="bg-base-200 {% if LANGUAGE_BIDI %}font-vazir{% else %}font-cantarell{% endif %} ">
 
-<div class="flex min-h-screen">
+<div class="flex">
     {% if not is_popup and is_nav_sidebar_enabled %}
         {% block nav-sidebar %}
             {% include "admin/parts/sidebar.html" with app_list=available_apps %}
         {% endblock %}
     {% endif %}
     <!-- Main content -->
-    <div id="content" class="w-full h-auto main-wrapper transition-all duration-200 ease-in-out">
-        <div class="h-full flex flex-col">
-            {% block top-navbar %}
-                {% if not is_popup %}
-                    {% include 'admin/parts/navbar.html' %}
-                {% endif %}
-            {% endblock %}
 
-            <div class="content-wrapper max-md:p-3 p-5">
-                <div class="flex items-center flex-wrap px-2 justify-between">
-                    {% comment %}<h3 class="text-lg font-medium">
+
+    <div id="content"
+         class="content-wrapper w-full flex flex-col min-h-screen  main-wrapper transition-all duration-200 ease-in-out">
+        {% block top-navbar %}
+            {% if not is_popup %}
+                {% include 'admin/parts/navbar.html' %}
+            {% endif %}
+        {% endblock %}
+        <div class="flex items-center max-md:p-3 p-5 pb-0 flex-wrap justify-between">
+            {% comment %}<h3 class="text-lg font-medium">
                         {% block content_title %}{{ cl.opts.app_config.verbose_name }}{% endblock %}
                     </h3>{% endcomment %}
 
-                    {% block breadcrumbs %}{% endblock %}
+            {% block breadcrumbs %}{% endblock %}
 
-                </div>
+        </div>
 
-                <div class="main-content h-full">
-                    {% block messages %}
-                        {% if messages %}
-                            <div class="toast z-20 whitespace-normal toast-top toast-end">
-                                {% for message in messages %}
-                                    <div class="alert alert-info info-content
+        <div class="main-content h-full max-md:p-3 p-5 pt-2 pb-0">
+            {% block messages %}
+                {% if messages %}
+                    <div class="toast z-20 whitespace-normal toast-top toast-end">
+                        {% for message in messages %}
+                            <div class="alert alert-info info-content
                         {% if message.tags %}alert-{{ message.tags }} {{ message.tags }}-content{% endif %} shadow-lg mb-2 relative">
-                                    <div class="p-1 pe-2">
-                                        <span>{{ message|capfirst }}</span>
-                                    </div>
-                                    <button class="btn btn-xs btn-circle absolute top-2 ltr:right-2 rtl:left-2"
-                                            onclick="this.parentElement.remove();">
-                                        <i class="fa fa-times"></i>
-                                    </button>
-                                {% endfor %}
-                                </div>
+                            <div class="p-1 pe-2">
+                                <span>{{ message|capfirst }}</span>
                             </div>
-                        {% endif %}
-                    {% endblock messages %}
+                            <button class="btn btn-xs btn-circle absolute top-2 ltr:right-2 rtl:left-2"
+                                    onclick="this.parentElement.remove();">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endblock messages %}
 
-                    {% block content %}
-                        {{ content }}
-                    {% endblock %}
-                </div>
-            </div>
+            {% block content %}
+                {{ content }}
+            {% endblock %}
         </div>
     </div>
+
 </div>
 <form id="logout-form" class="hidden" method="post" action="{% url 'admin:logout' %}">
     {% csrf_token %}

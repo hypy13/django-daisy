@@ -1,11 +1,9 @@
-import pathlib
-
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
 # Define defaults for DAISY_SETTINGS
 DEFAULT_DAISY_SETTINGS = {
-    "LOAD_FULL_STYLES": True,
+    "LOAD_FULL_STYLES": False,
     "SHOW_CHANGELIST_FILTER": False,
     "FORM_RENDERER": "django.forms.renderers.TemplatesSetting",
     "X_FRAME_OPTIONS": "SAMEORIGIN",
@@ -15,6 +13,7 @@ DEFAULT_DAISY_SETTINGS = {
             "name": _("Authentication"),
             "hide": False,
             "app": "users",
+            # 'order': 1, # higher value will
         },
     },
 }

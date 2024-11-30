@@ -4,7 +4,6 @@ from django.contrib import admin
 from django.db import models
 from django.shortcuts import render
 from django.urls import reverse
-from django.utils.timezone import override
 
 from django_daisy.module_settings import DAISY_SETTINGS
 
@@ -77,7 +76,7 @@ class DaisyAdminSite(admin.AdminSite):
             return app_dict
 
         modified_app_dict = app_dict.copy()
-        override_apps_config = getattr(settings, 'APPS_REORDER', {})
+        override_apps_config = DAISY_SETTINGS.get('APPS_REORDER', {})
 
         for app_label, app_info in app_dict.items():
             # Add icon and divider title to each app
@@ -86,7 +85,7 @@ class DaisyAdminSite(admin.AdminSite):
 
             # Apply additional settings to individual apps from APPS_REORDER in settings.py
             if app_label in override_apps_config:
-                app_info.update(settings.APPS_REORDER[app_label])
+                app_info.update(override_apps_config[app_label])
 
         return modified_app_dict
 

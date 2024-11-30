@@ -1,7 +1,13 @@
 /** @type {import('tailwindcss').Config} */
-
 module.exports = {
-    content: [],
+    content: [
+        './django_daisy/templates/**/*.html',   // Scan HTML templates for Tailwind classes
+        './django_daisy/static/**/*.js',        // Include all JavaScript files in static directory
+        './django_daisy/static/admin/css/styles.css',  // Admin-specific CSS
+        './django_daisy/**/*.py',              // Include Python files for possible Jinja-style Tailwind classes
+        './django_daisy/static/**/*.jsx',       // Include JSX files
+    ],
+
     theme: {
         extend: {
             fontFamily: {
@@ -23,15 +29,7 @@ module.exports = {
             "autumn",
             "lemonade",
         ],  // Include themes from DaisyUI
-        darkTheme: "dark", // name of one of the included themes for dark mode
-        base: true, // applies background color and foreground color for root element by default
-        styled: true, // include daisyUI colors and design decisions for all components
-        utils: true, // adds responsive and modifier utility classes
     },
-    safelist: [
-        "flex",
-        // List all potential classes that you expect to be dynamically generated
-    ],
 
     plugins: [
         require('daisyui'),  // DaisyUI for additional UI components
