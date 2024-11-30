@@ -70,9 +70,6 @@ INSTALLED_APPS = [
 Once you've made these changes, enjoy the fresh new theme!
 
 ---
-Here's a refined version of your README file with a more polished structure and explanation for each section:
-
----
 
 # Project Customizations
 
