@@ -71,9 +71,9 @@ Once you've made these changes, enjoy the fresh new theme!
 
 ---
 
-# Project Customizations
+## Project Customizations
 
-## 1. App Configuration in `apps.py`
+### 1. App Configuration in `apps.py`
 
 You can configure app-specific settings in the `apps.py` file for each application within your Django project. Below is an example of how to customize the `Polls` app:
 
