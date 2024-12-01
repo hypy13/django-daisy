@@ -160,6 +160,6 @@ We welcome contributions from the community! Feel free to submit any issues, sug
 ![Listing View](https://raw.githubusercontent.com/hypy13/django-daisy/refs/heads/main/screenshots/dark_theme.png)
 
 ## Acknowledgments
-Special thanks to [Cloud With Django](https://www.youtube.com/@CloudWithDjango) for featuring my theme in their video. Your support means a lot!
-Demo Video: https://www.youtube.com/watch?v=-ouECXRNX1I
+Special thanks to [Cloud With Django](https://www.youtube.com/@CloudWithDjango) for featuring my theme in their video. Your support means a lot! <br>
+Demo Video: https://www.youtube.com/watch?v=WEKTXu1la9M
 
