@@ -158,3 +158,24 @@ div[data-theme="tailwind"] div[data-schematype]:not([data-schematype="object"]):
 input[data-jdp] {
     @apply input input-sm;
 }
+
+/*auth selector admin widget */
+.related-widget-wrapper div.selector{
+    @apply w-full flex flex-wrap ;
+}
+
+.related-widget-wrapper div.selector a{
+    @apply btn btn-xs my-1;
+}
+.related-widget-wrapper div.selector ul.selector-chooser{
+    @apply bg-transparent;
+}
+.related-widget-wrapper div.selector .selector-available{
+    @apply flex-1;
+}
+.related-widget-wrapper div.selector .selector-available input{
+    @apply w-full;
+}
+.related-widget-wrapper div.selector .selector-chosen{
+    @apply flex-1;
+}
