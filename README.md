@@ -70,13 +70,10 @@ INSTALLED_APPS = [
 Once you've made these changes, enjoy the fresh new theme!
 
 ---
-Here's a refined version of your README file with a more polished structure and explanation for each section:
 
----
+## Project Customizations
 
-# Project Customizations
-
-## 1. App Configuration in `apps.py`
+### 1. App Configuration in `apps.py`
 
 You can configure app-specific settings in the `apps.py` file for each application within your Django project. Below is an example of how to customize the `Polls` app:
 
@@ -162,6 +159,7 @@ We welcome contributions from the community! Feel free to submit any issues, sug
 ##### Dark Theme:
 ![Listing View](https://raw.githubusercontent.com/hypy13/django-daisy/refs/heads/main/screenshots/dark_theme.png)
 
-
-Elevate your Django admin panel with **Django Daisy** – an elegant, powerful, and flexible solution for modern web applications!
+## Acknowledgments
+Special thanks to [Cloud With Django](https://www.youtube.com/@CloudWithDjango) for featuring my theme in their video. Your support means a lot! <br>
+Demo Video: https://www.youtube.com/watch?v=WEKTXu1la9M
 
