@@ -29,7 +29,8 @@
 
                 {% if app.models|length == 1 %}
                     <li>
-                        <a class="{% if app.models.0.admin_url in request.path|urlencode %} active{% endif %}" href="{{ app.models.0.admin_url }}">
+                        <a class="{% if app.models.0.admin_url in request.path|urlencode %} active{% endif %}"
+                           href="{{ app.models.0.admin_url }}">
                             <i class="{{ app.icon }}"></i>
                             {{ app.name }}
                         </a>
@@ -45,7 +46,8 @@
                             <ul>
                                 {% for model in app.models %}
                                     <li class="model-{{ model.object_name|lower }}">
-                                        <a class="{% if model.admin_url in request.path|urlencode %} active {% endif %}" href="{{ model.admin_url }}">
+                                        <a class="{% if model.admin_url in request.path|urlencode %} active {% endif %}"
+                                           href="{{ model.admin_url }}">
                                             {{ model.name }}
                                         </a>
                                     </li>
@@ -57,8 +59,11 @@
             {% endif %}
         {% endfor %}
     </ul>
+
+    {% if not app_list %}
+        <ul class="menu rounded-box w-56">
+            <li>{% translate 'You don’t have permission to view or edit anything.' %}</li>
+        </ul>
+    {% endif %}
 </div>
 
-{% if not app_list %}
-    <p>{% translate 'You don’t have permission to view or edit anything.' %}</p>
-{% endif %}
