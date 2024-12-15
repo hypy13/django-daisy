@@ -15,7 +15,7 @@
             </button>
         </div>
     {% else %}
-        <div class="p-3 card bordered bg-base-100 justify-between flex flex-row-reverse mt-3 gap-15 sticky top-3 max-md:hidden">
+        <div class="p-3 bg-base-100 justify-between flex flex-row-reverse  gap-15 sticky top-3 max-md:hidden">
             <div class="text-start flex  gap-2">
                 {% if show_save_as_new %}
                     <input type="submit" value="{% translate 'Save as new' %}" name="_saveasnew">
@@ -60,7 +60,7 @@
         </div>
     {% endif %}
 
-    <div class="p-3 card bg-base-100 grid grid-cols-2 mt-3 md:hidden gap-3 md:visible border !shadow-lg">
+    <div class="p-3 card bg-base-100 grid grid-cols-2 md:hidden gap-3 md:visible border !shadow-lg">
         {% if is_popup %}
             <button onclick="window.parent.close_modal()" type="button" class="btn-sm  px-4 btn rounded-md legitRipple">
                 {% translate 'Close' %}
