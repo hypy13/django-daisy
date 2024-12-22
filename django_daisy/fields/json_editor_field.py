@@ -35,7 +35,7 @@ class JsonEditorField(models.JSONField):
 
     def formfield(self, **kwargs):
         kwargs.update({
-            'widget': JsonEditorWidget(schema_template=json.dumps(self.schema)),
+            'widget': JsonEditorWidget(schema_template=self.schema),
         })
         return super(JsonEditorField, self).formfield(**kwargs)
 
