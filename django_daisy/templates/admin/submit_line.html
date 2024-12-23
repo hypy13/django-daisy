@@ -2,7 +2,7 @@
 {% load i18n admin_urls %}
 {% block submit-row %}
     {% if is_popup %}
-        <div class="p-3 card bg-base-100 grid grid-cols-2 max-lg:hidden gap-3">
+        <div class="p-3 card bg-base-100 hidden grid-cols-2 md:grid gap-3">
             {% if show_save %}
                 <button type="submit" class="btn-sm btn-primary px-4 btn rounded-md legitRipple" name="_save">
                     {% translate 'Save' %}
@@ -15,7 +15,7 @@
             </button>
         </div>
     {% else %}
-        <div class="p-3 bg-base-100 justify-between flex flex-row-reverse  gap-15 sticky top-3 max-md:hidden">
+        <div class="p-3 bg-base-100 justify-between flex flex-row-reverse gap-15 sticky top-3 max-md:hidden">
             <div class="text-start flex  gap-2">
                 {% if show_save_as_new %}
                     <input type="submit" value="{% translate 'Save as new' %}" name="_saveasnew">
@@ -60,7 +60,7 @@
         </div>
     {% endif %}
 
-    <div class="p-3 card bg-base-100 grid grid-cols-2 md:hidden gap-3 md:visible border !shadow-lg">
+    <div class="p-3 card bg-base-100 hidden grid-cols-2 max-md:grid gap-3 border !shadow-lg">
         {% if is_popup %}
             <button onclick="window.parent.close_modal()" type="button" class="btn-sm  px-4 btn rounded-md legitRipple">
                 {% translate 'Close' %}
