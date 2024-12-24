@@ -109,6 +109,8 @@ DAISY_SETTINGS = {
     'EXTRA_SCRIPTS': [],  # List of extra script URLs to be loaded in base.html (optional)
     'LOAD_FULL_STYLES': False,  # If True, loads full DaisyUI components in the admin (useful if you have custom template overrides)
     'SHOW_CHANGELIST_FILTER': False,  # If True, the filter sidebar will open by default on changelist views
+    'DONT_SUPPORT_ME': False, # Hide github link in sidebar footer
+    'SIDEBAR_FOOTNOTE': '', # add footnote to sidebar
     'APPS_REORDER': {
         # Custom configurations for third-party apps that can't be modified directly in their `apps.py`
         'auth': {
@@ -134,6 +136,8 @@ DAISY_SETTINGS = {
 - **EXTRA_SCRIPTS**: A list of additional JavaScript files to be loaded into the admin interface.
 - **LOAD_FULL_STYLES**: If set to `True`, loads the full DaisyUI library for styling, which can be useful if you have overridden the admin templates.
 - **SHOW_CHANGELIST_FILTER**: Controls whether the changelist filter sidebar is shown by default.
+- **DONT_SUPPORT_ME**: Hide github link in sidebar footer.
+- **SIDEBAR_FOOTNOTE**: Add footnote to sidebar.
 - **APPS_REORDER**: This allows you to reorder, customize, and modify third-party apps. For example, you can change the name of the `auth` app to `users`, provide a custom icon, or hide it from the sidebar entirely.
 
 ---

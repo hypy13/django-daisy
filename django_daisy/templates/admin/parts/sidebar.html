@@ -1,5 +1,5 @@
 {% load i18n %}
-<div id="sidebar" class="sidebar bg-base-100 border-base-200 border-e w-56  hidden xl:block lg:block">
+<div id="sidebar" class="relative sidebar bg-base-100 border-base-200 border-e w-56  hidden xl:block lg:block">
     <!-- Sidebar header with logo -->
     <a class="flex h-16 items-center p-2" href="{% url 'admin:index' %}">
         <div class="inline">
@@ -11,7 +11,7 @@
     </a>
 
     <!-- Sidebar menu -->
-    <ul class="menu rounded-box w-56">
+    <ul class="menu rounded-box mb-auto w-56">
         <!-- Dashboard link -->
         <li>
             <a href="{% url 'admin:index' %}">
@@ -65,5 +65,25 @@
             <li>{% translate 'You don’t have permission to view or edit anything.' %}</li>
         </ul>
     {% endif %}
+
+    <div class="absolute bottom-2 text-center right-0 text-xs left-0 mx-auto">
+        <span>
+            {{ SIDEBAR_FOOTNOTE|safe }}
+        </span>
+        {% if not DONT_SUPPORT_ME %}
+            <a target="_blank" class="block p-2 text-base-content/70  hover:underline"
+               href="https://github.com/hypy13/django-daisy">
+                Made with
+                <svg class="inline animate-heartbeat" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="red"
+                     width="12px" height="12px">
+                    <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                </svg>
+                on GitHub
+
+            </a>
+
+        {% endif %}
+    </div>
 </div>
+
 

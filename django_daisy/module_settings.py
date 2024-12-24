@@ -11,6 +11,8 @@ DEFAULT_DAISY_SETTINGS = {
     "EXTRA_SCRIPTS": [],
     "LOAD_FULL_STYLES": False,
     "SHOW_CHANGELIST_FILTER": False,
+    'DONT_SUPPORT_ME': False,
+    'SIDEBAR_FOOTNOTE': '',
     "FORM_RENDERER": "django.forms.renderers.TemplatesSetting",
     "X_FRAME_OPTIONS": "SAMEORIGIN",
     "APPS_REORDER": {

@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.db import models
 from django.shortcuts import render
 from django.urls import reverse
+from setuptools_scm import get_version
 
 from django_daisy.module_settings import DAISY_SETTINGS
 
