@@ -103,10 +103,12 @@
                                         {% if active_filters_count %}
                                             <span class="indicator-item badge badge-info">{{ active_filters_count }}</span>
                                         {% endif %}
-                                        <button type="button" id="open-filter-drawer"
-                                                class="btn btn-sm btn-primary drawer-button">
-                                            <i class="fa fa-filter"></i>
-                                        </button>
+                                        {% if cl.list_filter %}
+                                            <button type="button" id="open-filter-drawer"
+                                                    class="btn btn-sm btn-primary drawer-button">
+                                                <i class="fa fa-filter"></i>
+                                            </button>
+                                        {% endif %}
                                     </div>
                                 {% endblock %}
                             </div>
@@ -132,7 +134,8 @@
         </div>
         {% if cl.has_filters %}
             <!-- Filter section -->
-            <div id="changelist-filter" class="drawer-side {% if SHOW_CHANGELIST_FILTER %} mt-3 lg:ms-2 card-bordered {% endif %} !overflow-visible  z-10 h-full">
+            <div id="changelist-filter"
+                 class="drawer-side {% if SHOW_CHANGELIST_FILTER %} mt-3 lg:ms-2 card-bordered {% endif %} !overflow-visible  z-10 h-full">
                 <label for="filter-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
 
                 <div class="card-body p-3 bg-base-100 w-80 h-full">
