@@ -3,7 +3,7 @@
 
     <div class=" items-center sm:w-80 w-full">
 
-        <div data-tip="{{ cl.search_help_text }}" id="changelist-search" role="search" class="flex tooltip tooltip-bottom items-center w-full">
+        <div {% if cl.search_help_text %} data-tip="{{ cl.search_help_text|default:"" }}" {% endif %} id="changelist-search" role="search" class="flex tooltip tooltip-bottom items-center w-full">
             <div  class="form-control  flex flex-row items-center rounded-sm border border-base-content/20 ps-3 w-full">
                 <label for="searchbar" class="flex items-center">
                     <i class="fa fa-search text-gray-400"></i>
