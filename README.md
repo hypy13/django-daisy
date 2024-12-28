@@ -142,6 +142,33 @@ DAISY_SETTINGS = {
 
 ---
 
+### Using Tabbed Inline Admin
+
+To create a tabbed inline admin interface in your Django project, follow these steps:
+
+1. **Import the necessary modules**:
+    import NavTabMixin in your `admin.py` file:
+   ```python
+   from django_daisy.mixins import NavTabMixin
+   ```
+
+2. **Extend `NavTabMixin` in your `InlineAdmin` class**:
+   Create your inline admin class by extending `NavTabMixin` along with `admin.TabularInline` or `admin.StackedInline` for a different layout:
+   ```python
+   class ChoiceInline(admin.TabularInline, NavTabMixin):  # or admin.StackedInline for a different layout
+       model = Choice
+       extra = 1
+   ```
+
+3. **Register your inline admin class**:
+   Use the inline admin class in your `ModelAdmin` class:
+   ```python
+   @admin.register(Poll)
+   class PollAdmin(admin.ModelAdmin):
+       inlines = [ChoiceInline]
+   ```
+
+
 
 ## 🤝 Contributing
 
