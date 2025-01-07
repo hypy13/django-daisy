@@ -3,7 +3,6 @@ from django.contrib import admin
 from django.db import models
 from django.shortcuts import render
 from django.urls import reverse
-
 from django_daisy.module_settings import DAISY_SETTINGS
 
 # Remove default form fields for specific date and time fields
@@ -31,10 +30,11 @@ class DaisyAdminSite(admin.AdminSite):
         apps that have been registered in this site.
         """
 
-        # try:
         logentry_changelist_url = reverse('admin:admin_logentry_changelist')
-        # except Exception:
-        #     logentry_changelist_url = ''
+        try:
+            change_language_url = reverse('set_language')
+        except:
+            change_language_url = None
 
         app_list = self.get_app_list(request)
 
@@ -43,6 +43,7 @@ class DaisyAdminSite(admin.AdminSite):
             'latest_history': self.get_log_entries(request)[:15],
             "title": self.index_title,
             "app_list": app_list,
+            "change_language_url": change_language_url,
             'logentry_changelist_url': logentry_changelist_url,
             **(extra_context or {}),
         }

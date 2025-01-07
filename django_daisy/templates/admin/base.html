@@ -30,6 +30,14 @@
         document.documentElement.setAttribute(
             'data-theme', localStorage.getItem('theme') || getSystemColorScheme()
         )
+
+        {% if change_language_url %}
+            function switchLanguage(elem) {
+                let lang_id = $(elem).find('span.lang-id').html();
+                $("form#setlang input[name='language']").val(lang_id);
+                $("form#setlang").submit();
+            }
+        {% endif %}
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -137,6 +145,14 @@
     {% csrf_token %}
     <button type="submit"></button>
 </form>
+
+{% if change_language_url %}
+    <form id="setlang" class="hidden" action="{{ change_language_url }}" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="language" value="">
+        <input type="submit" value="Go"/>
+    </form>
+{% endif %}
 
 <input type="checkbox" id="generalModal" class="modal-toggle"/>
 <dialog class="modal generalModal">
