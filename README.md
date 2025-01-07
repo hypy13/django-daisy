@@ -168,7 +168,38 @@ To create a tabbed inline admin interface in your Django project, follow these s
        inlines = [ChoiceInline]
    ```
 
+### 🌐 Enabling Language Change in Admin Panel
 
+To enable language switching directly from the admin panel, follow these steps:
+
+1. **Include Django's `set_language` URL**  
+   Add the following line to your `urls.py` file:
+   ```python
+   urlpatterns = [
+       ...,
+       path("i18n/", include("django.conf.urls.i18n")),  # Add this line
+   ]
+   ```
+
+2. **Ensure `LocaleMiddleware` is Enabled**  
+   Confirm that the following middleware is included in your `MIDDLEWARE` settings:
+   ```python
+   MIDDLEWARE = [
+       ...,
+       'django.middleware.locale.LocaleMiddleware',
+       ...
+   ]
+   ```
+
+3. **Define Supported Language**   
+   Specify the languages your application supports in `settings.py`:
+   ```python
+   LANGUAGES = [
+       ('en', 'English'),
+       ('fa', 'Farsi'),
+       # Add other languages as needed
+   ]
+   ```
 
 ## 🤝 Contributing
 
