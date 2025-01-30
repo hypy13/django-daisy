@@ -31,10 +31,6 @@ class DaisyAdminSite(admin.AdminSite):
         """
 
         logentry_changelist_url = reverse('admin:admin_logentry_changelist')
-        try:
-            change_language_url = reverse('set_language')
-        except:
-            change_language_url = None
 
         app_list = self.get_app_list(request)
 
@@ -43,7 +39,6 @@ class DaisyAdminSite(admin.AdminSite):
             'latest_history': self.get_log_entries(request)[:15],
             "title": self.index_title,
             "app_list": app_list,
-            "change_language_url": change_language_url,
             'logentry_changelist_url': logentry_changelist_url,
             **(extra_context or {}),
         }
@@ -90,10 +85,15 @@ class DaisyAdminSite(admin.AdminSite):
 
     def each_context(self, request):
         context = super().each_context(request)
+        try:
+            change_language_url = reverse('set_language')
+        except:
+            change_language_url = None
 
         return {
             **context,
             **DAISY_SETTINGS,
+            "change_language_url": change_language_url,
             'logo': self.get_logo(request)
         }
 
