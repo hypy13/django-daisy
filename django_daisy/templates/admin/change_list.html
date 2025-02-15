@@ -199,8 +199,8 @@
                 window.location.href = $(this).val()
             })
 
-            document.getElementById("open-filter-drawer").addEventListener("click", function () {
-                const checkbox = document.getElementById("filter-drawer");
+            $("#open-filter-drawer").on("click", function () {
+                const checkbox = $("#filter-drawer");
                 checkbox.checked = !checkbox.checked; // Toggles the 'checked' state
             });
 
