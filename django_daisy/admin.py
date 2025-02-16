@@ -94,7 +94,8 @@ class DaisyAdminSite(admin.AdminSite):
             **context,
             **DAISY_SETTINGS,
             "change_language_url": change_language_url,
-            'logo': self.get_logo(request)
+            'logo': self.get_logo(request),
+            'can_delete_popup': '',
         }
 
     def get_logo(self, request):

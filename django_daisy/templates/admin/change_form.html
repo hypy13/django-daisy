@@ -89,8 +89,8 @@
                     <div role="tablist" class="w-full  items-start tabs overflow-visible tabs-lifted">
                         {% block field_sets %}
                             <a class="indicator tab tab-active">
-                                {{ fieldset.name|default:opts.verbose_name }}
-                                <i class="text-base-info opacity-50 fa mx-1 {% firstof adminform.model_admin.icon opts.app_config.icon %} p-1 rounded"></i>
+                                {{  adminform.fieldsets.0.0|default:opts.verbose_name }}
+                                <i class="text-base-info opacity-50 fa mx-1 {% get_app_icon adminform.model_admin opts.app_config %} p-1 rounded"></i>
                                 {% with total_errors=adminform.form|sum_errors %}
                                     {% if total_errors > 0 %}
                                         <span class="indicator-item indicator-bottom indicator-center badge badge-error  badge-sm">{{ total_errors }}</span>
