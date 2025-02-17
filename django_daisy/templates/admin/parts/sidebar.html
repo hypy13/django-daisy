@@ -22,40 +22,39 @@
 
         <!-- App list -->
         {% for app in app_list %}
-            {% if not app.apps %}
-                {% if app.divider_title %}
-                    <div class="divider text-base-content/40 menu-title divider-start">{{ app.divider_title|safe }}</div>
-                {% endif %}
 
-                {% if app.models|length == 1 %}
-                    <li>
-                        <a class="{% if app.models.0.admin_url in request.path|urlencode %} active{% endif %}"
-                           href="{{ app.models.0.admin_url }}">
+            {% if app.divider_title %}
+                <div class="divider text-base-content/40 menu-title divider-start">{{ app.divider_title|safe }}</div>
+            {% endif %}
+
+            {% if app.models|length == 1 %}
+                <li>
+                    <a class="{% if app.models.0.admin_url in request.path|urlencode %} active{% endif %}"
+                       href="{{ app.models.0.admin_url }}">
+                        <i class="{{ app.icon }}"></i>
+                        {{ app.name }}
+                    </a>
+                </li>
+
+            {% else %}
+                <li class="mb-2">
+                    <details {% if app.app_url in request.path|urlencode %} open {% endif %}>
+                        <summary>
                             <i class="{{ app.icon }}"></i>
                             {{ app.name }}
-                        </a>
-                    </li>
-
-                {% else %}
-                    <li class="mb-2">
-                        <details {% if app.app_url in request.path|urlencode %} open {% endif %}>
-                            <summary>
-                                <i class="{{ app.icon }}"></i>
-                                {{ app.name }}
-                            </summary>
-                            <ul>
-                                {% for model in app.models %}
-                                    <li class="model-{{ model.object_name|lower }}">
-                                        <a class="{% if model.admin_url in request.path|urlencode %} active {% endif %}"
-                                           href="{{ model.admin_url }}">
-                                            {{ model.name }}
-                                        </a>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </details>
-                    </li>
-                {% endif %}
+                        </summary>
+                        <ul>
+                            {% for model in app.models %}
+                                <li class="model-{{ model.object_name|lower }}">
+                                    <a class="{% if model.admin_url in request.path|urlencode %} active {% endif %}"
+                                       href="{{ model.admin_url }}">
+                                        {{ model.name }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </details>
+                </li>
             {% endif %}
         {% endfor %}
     </ul>

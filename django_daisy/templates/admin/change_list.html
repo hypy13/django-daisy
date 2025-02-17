@@ -58,7 +58,7 @@
             <div>
                 <p class="errornote">
                     {% blocktranslate count counter=cl.formset.total_error_count %}Please correct the error below.
-                        {% plural %}Please correct the errors below.{% endblocktranslate %}
+                    {% plural %}Please correct the errors below.{% endblocktranslate %}
                 </p>
                 <ul>
                     {{ cl.formset.non_form_errors }}
@@ -199,9 +199,11 @@
                 window.location.href = $(this).val()
             })
 
-            document.getElementById("open-filter-drawer").addEventListener("click", function () {
-                const checkbox = document.getElementById("filter-drawer");
-                checkbox.checked = !checkbox.checked; // Toggles the 'checked' state
+            $("#open-filter-drawer").on("click", function () {
+                const checkbox = $("#filter-drawer")[0];
+                if (checkbox) {
+                    checkbox.checked = !checkbox.checked; // Toggles the 'checked' state
+                }
             });
 
             function submit_search_form() {
