@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.db import models
 from django.shortcuts import render
 from django.urls import reverse
+
 from django_daisy.module_settings import DAISY_SETTINGS
 
 # Remove default form fields for specific date and time fields
@@ -46,9 +47,7 @@ class DaisyAdminSite(admin.AdminSite):
         request.current_app = self.name
 
         return render(
-            request, [
-                "admin/index.html"
-            ], context
+            request, "admin/index.html", context
         )
 
     # Overriding the get_app_list method to sort apps and exclude hidden ones
