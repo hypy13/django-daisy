@@ -45,7 +45,7 @@
                         {% if inline_admin_form.original or inline_admin_form.show_url %}has_original{% endif %}
                         {% if forloop.last and inline_admin_formset.has_add_permission %} empty-form {% endif %}"
                         id="{{ inline_admin_formset.formset.prefix }}-{% if not forloop.last %}{{ forloop.counter0 }}{% else %}empty{% endif %}">
-                        <td class="original pb-5 pt-1">
+                        <td class="original align-middle">
                             {% if inline_admin_form.original or inline_admin_form.show_url %}
                                 <p>
                                     {% if inline_admin_form.original %}
@@ -91,7 +91,7 @@
                                 {% for field in line %}
                                     {% if field.is_readonly or not field.field.is_hidden %}
                                         <td{% if field.field.name %}
-                                            class="pb-5 pt-1 field-{{ field.field.name }}"{% endif %}>
+                                            class="align-middle field-{{ field.field.name }}"{% endif %}>
                                             {% if field.is_readonly %}
                                                 <p>{{ field.contents }}</p>
                                             {% else %}
@@ -106,7 +106,7 @@
                             {% endfor %}
                         {% endfor %}
                         {% if inline_admin_formset.formset.can_delete and inline_admin_formset.has_delete_permission %}
-                            <td class="delete pb-5 pt-1">
+                            <td class="delete align-middle">
                                 {% if inline_admin_form.original %}
                                     {{ inline_admin_form.deletion_field.field }}{% endif %}
                             </td>

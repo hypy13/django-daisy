@@ -45,9 +45,8 @@ class DaisyAdminSite(admin.AdminSite):
         }
 
         request.current_app = self.name
-
         return render(
-            request, "admin/index.html", context
+            request, self.index_template or "admin/index.html", context
         )
 
     # Overriding the get_app_list method to sort apps and exclude hidden ones
