@@ -1,4 +1,72 @@
+function getCookie(name) {
+    // Split document.cookie into individual cookie strings
+    const cookies = document.cookie.split(';');
+
+    // Iterate through each cookie
+    for (let cookie of cookies) {
+        // Trim whitespace and split into name-value pair
+        const [cookieName, cookieValue] = cookie.trim().split('=');
+
+        // Check if this is the cookie we're looking for
+        if (cookieName === name) {
+            // Return the decoded value
+            return decodeURIComponent(cookieValue);
+        }
+    }
+
+    // Return null if cookie not found
+    return null;
+}
+
 $(document).ready(function () {
+
+    JSONEditor.defaults.callbacks.upload = {
+        "defaultUploadHandler": function (jseditor, type, file, cbs) {
+            // Create a new XMLHttpRequest object
+            var xhr = new XMLHttpRequest();
+            let django_lang = getCookie("django_language")
+            let url = ""
+            if (django_lang) {
+                url = `/${django_lang}/admin/json-editor-upload-handler/`
+            } else {
+                url = '/admin/json-editor-upload-handler/'
+            }
+
+            // Configure it to send a POST request to the server endpoint
+            xhr.open('POST', url, true);
+
+            // Handle upload progress
+            xhr.upload.addEventListener('progress', function (event) {
+                if (event.lengthComputable) {
+                    var percent = Math.round((event.loaded / event.total) * 100);
+                    cbs.updateProgress(percent); // Update progress bar with percentage
+                }
+            });
+
+            // Handle successful upload
+            xhr.addEventListener('load', function () {
+                if (xhr.status >= 200 && xhr.status < 300) {
+                    var response = xhr.responseText; // Server returns the URL as plain text
+                    cbs.success(response); // Call success callback with the URL
+                } else {
+                    cbs.failure('Upload failed: ' + xhr.statusText); // Call failure callback with error
+                }
+            });
+
+            // Handle upload errors
+            xhr.addEventListener('error', function () {
+                cbs.failure('Upload failed'); // Call failure callback on network error
+            });
+
+            // Prepare the file for upload
+            var formData = new FormData();
+            formData.append('file', file); // Append the file to FormData
+
+            // Send the request to the server
+            xhr.send(formData);
+        }
+    };
+
     function init_editor_json_editor(
         editor,
         schema,
