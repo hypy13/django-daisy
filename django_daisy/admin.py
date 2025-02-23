@@ -1,6 +1,7 @@
 import logging
 
 from django.apps import apps
+from django.conf import settings
 from django.contrib import admin
 from django.core.files.storage import FileSystemStorage
 from django.db import models
@@ -107,6 +108,7 @@ class DaisyAdminSite(admin.AdminSite):
             "change_language_url": change_language_url,
             'logo': self.get_logo(request),
             'can_delete_popup': '',
+            'use_i18n': getattr(settings, 'USE_I18N', False)
         }
 
     def get_logo(self, request):

@@ -24,12 +24,13 @@ $(document).ready(function () {
         "defaultUploadHandler": function (jseditor, type, file, cbs) {
             // Create a new XMLHttpRequest object
             var xhr = new XMLHttpRequest();
-            let django_lang = getCookie("django_language")
-            let url = ""
-            if (django_lang) {
-                url = `/${django_lang}/admin/json-editor-upload-handler/`
-            } else {
-                url = '/admin/json-editor-upload-handler/'
+            const htmlElement = document.documentElement;
+            let url = '/admin/json-editor-upload-handler/'
+            if (htmlElement.hasAttribute('data-use-i18n') && htmlElement.getAttribute('data-use-i18n') === "1") {
+                const djangoLang = htmlElement.getAttribute('lang');
+                if (djangoLang) {
+                    url = `/${djangoLang}${url}`;
+                }
             }
 
             // Configure it to send a POST request to the server endpoint

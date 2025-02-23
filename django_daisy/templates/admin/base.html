@@ -4,7 +4,7 @@
 {% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
 
 <!DOCTYPE html>
-<html data-theme="" class="custom-scrollbars" lang="{{ LANGUAGE_CODE|default:"en-us" }}"
+<html data-use-i18n="{{ use_i18n|yesno:'1,0' }}" data-theme="" class="custom-scrollbars" lang="{{ LANGUAGE_CODE|default:"en-us" }}"
       {% if LANGUAGE_BIDI %}dir="rtl"
       {% else %}dir="ltr"{% endif %}>
 
