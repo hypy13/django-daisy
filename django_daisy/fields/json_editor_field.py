@@ -22,7 +22,7 @@ class JsonEditorWidget(forms.Textarea):
     class Media:
         js = [
             'admin/fields/json-editor/jsoneditor.min.js',
-            'admin/fields/json-editor/init.js'
+            'admin/fields/json-editor/json_editor_init.js'
         ]
 
 
