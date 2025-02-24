@@ -44,6 +44,11 @@
     <title>
         {% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
     </title>
+
+    {% if CUSTOM_DAISYUI_BUILD_PATH %}
+        <link rel="stylesheet" href="{{ CUSTOM_DAISYUI_BUILD_PATH }}">
+    {% endif %}
+
     {% if LOAD_FULL_STYLES %}
         <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.13/dist/full.min.css" rel="stylesheet"
               type="text/css"/>
