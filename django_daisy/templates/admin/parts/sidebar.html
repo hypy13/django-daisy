@@ -1,5 +1,5 @@
 {% load i18n %}
-<div id="sidebar" class="relative sidebar bg-base-100 border-base-200 border-e w-56  hidden xl:block lg:block">
+<div id="sidebar" class="flex flex-col justify-between sidebar bg-base-100 border-base-200 border-e w-56">
     <!-- Sidebar header with logo -->
     <a class="flex h-16 items-center p-2" href="{% url 'admin:index' %}">
         <div class="inline">
@@ -65,7 +65,7 @@
         </ul>
     {% endif %}
 
-    <div class="absolute bottom-2 text-center right-0 text-xs left-0 mx-auto">
+    <div class="text-center right-0 text-xs left-0 mx-auto">
         <span>
             {{ SIDEBAR_FOOTNOTE|safe }}
         </span>
