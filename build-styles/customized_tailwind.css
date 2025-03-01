@@ -187,3 +187,7 @@ input[data-jdp] {
 .related-widget-wrapper div.selector .selector-chosen{
     @apply flex-1;
 }
+
+#user_form .field-password a{
+    @apply link link-primary;
+}
