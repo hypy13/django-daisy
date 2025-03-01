@@ -74,11 +74,7 @@
                             <i class="fa fa-exclamation"></i>
                             <div>
                                 <p class="errornote">
-                                    {% blocktranslate count counter=errors|length %}
-                                        Please correct the error below.
-                                        {% plural %}
-                                        Please correct the errors below.
-                                    {% endblocktranslate %}
+                                        {% blocktranslate count counter=errors|length %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktranslate %}
                                 </p>
                                 <ul>
                                     {{ adminform.form.non_field_errors }}
