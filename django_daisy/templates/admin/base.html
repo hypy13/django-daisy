@@ -4,7 +4,8 @@
 {% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
 
 <!DOCTYPE html>
-<html data-use-i18n="{{ use_i18n|yesno:'1,0' }}" data-theme="" class="custom-scrollbars" lang="{{ LANGUAGE_CODE|default:"en-us" }}"
+<html data-use-i18n="{{ use_i18n|yesno:'1,0' }}" data-theme="" class="custom-scrollbars"
+      lang="{{ LANGUAGE_CODE|default:"en-us" }}"
       {% if LANGUAGE_BIDI %}dir="rtl"
       {% else %}dir="ltr"{% endif %}>
 
@@ -61,35 +62,40 @@
 
     <link rel="stylesheet" href="{% static 'admin/fonts/fontawesome-free-6.6.0-web/css/all.min.css' %}"/>
     <link href="{% static "admin/css/tom-select.min.css" %}" rel="stylesheet">
-    {% for custom_style_link in EXTRA_STYLES %}
-        <link rel="stylesheet" href="{{ custom_style_link }}">
-    {% endfor %}
 
     {% block body_font %}
-        {% if LANGUAGE_BIDI %}
-            <style>
-                @font-face {
-                    font-family: 'Vazir';
-                    src: url("{% static 'admin/fonts/Vazir.woff2' %}") format('woff');
-                    font-weight: normal;
-                    font-style: normal;
-                }
-            </style>
-        {% else %}
-            <style>
-                @font-face {
-                    font-family: 'Cantarell';
-                    src: url("{% static 'admin/fonts/Cantarell/cantarell-regular.ttf' %}") format('truetype');
-                    font-weight: normal;
-                    font-style: normal;
-                }
-            </style>
-        {% endif %}
+        <style>
+            @font-face {
+                font-family: 'Vazir';
+                src: url("{% static 'admin/fonts/Vazir.woff2' %}") format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }
+
+            @font-face {
+                font-family: 'Ubuntu';
+                src:local('Ubuntu'), local('Ubuntu-Regular'), url("{% static 'admin/fonts/Ubuntu/Ubuntu-Regular.ttf' %}") format('truetype');
+                font-weight: normal;
+                font-style: normal;
+            }
+
+            /* Bold */
+            @font-face {
+                font-family: 'Ubuntu';
+                src: local('Ubuntu-Medium'),url("{% static 'admin/fonts/Ubuntu/Ubuntu-Medium.ttf' %}") format('truetype');
+                font-weight: bold;   /* Bold weight (700) */
+                font-style: normal;  /* Normal style (not italic) */
+            }
+        </style>
     {% endblock %}
 
 
     {% block extrahead %}{% endblock %}
     {% block extrastyle %}{% endblock %}
+
+    {% for custom_style_link in EXTRA_STYLES %}
+        <link rel="stylesheet" href="{{ custom_style_link }}">
+    {% endfor %}
 </head>
 
 <body class="bg-base-200 {% if LANGUAGE_BIDI %}font-vazir{% else %}font-cantarell{% endif %} ">

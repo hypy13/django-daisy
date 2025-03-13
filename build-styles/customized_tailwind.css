@@ -1,9 +1,9 @@
 body {
-font-family: 'Cantarell', sans-serif; /* Default to LTR font */
+    font-family:  'Ubuntu', sans-serif; /* Default to LTR font */
 }
 
 body:dir(rtl) {
-font-family: 'Vazir', sans-serif; /* Apply Vazir for RTL */
+    font-family: 'Vazir', sans-serif; /* Apply Vazir for RTL */
 }
 
 
@@ -168,26 +168,30 @@ input[data-jdp] {
 }
 
 /*auth selector admin widget */
-.related-widget-wrapper div.selector{
+.related-widget-wrapper div.selector {
     @apply w-full flex flex-wrap ;
 }
 
-.related-widget-wrapper div.selector a{
+.related-widget-wrapper div.selector a {
     @apply btn btn-xs my-1;
 }
-.related-widget-wrapper div.selector ul.selector-chooser{
+
+.related-widget-wrapper div.selector ul.selector-chooser {
     @apply bg-transparent;
 }
-.related-widget-wrapper div.selector .selector-available{
-    @apply flex-1;
-}
-.related-widget-wrapper div.selector .selector-available input{
-    @apply w-full;
-}
-.related-widget-wrapper div.selector .selector-chosen{
+
+.related-widget-wrapper div.selector .selector-available {
     @apply flex-1;
 }
 
-#user_form .field-password a{
+.related-widget-wrapper div.selector .selector-available input {
+    @apply w-full;
+}
+
+.related-widget-wrapper div.selector .selector-chosen {
+    @apply flex-1;
+}
+
+#user_form .field-password a {
     @apply link link-primary;
 }
