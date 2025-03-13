@@ -6,24 +6,22 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-10-08 13:17+0330\n"
+"POT-Creation-Date: 2025-03-13 12:51+0330\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: fa\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: logentry_admin.py:25 templates/admin/index.html:77
+#: logentry_admin.py:27 templates/admin/index.html:23
 #: templates/admin/object_history.html:27
 msgid "Action"
 msgstr "عملیات"
 
-#: module_settings.py:30
-#, fuzzy
-#| msgid "Action"
+#: module_settings.py:22
 msgid "Authentication"
 msgstr "اعتبارسنجی"
 
@@ -36,13 +34,13 @@ msgid "We’re sorry, but the requested page could not be found."
 msgstr "متاسفانه صفحه مورد نظر شما یافت نشد"
 
 #: templates/admin/500.html:6 templates/admin/app_index.html:9
-#: templates/admin/auth/user/change_password.html:21
+#: templates/admin/auth/user/change_password.html:18
 #: templates/admin/delete_selected_confirmation.html:16
 #: templates/admin/object_history.html:7
 #: templates/admin/registration/password_reset_complete.html:6
-#: templates/admin/registration/password_reset_confirm.html:7
+#: templates/admin/registration/password_reset_confirm.html:6
 #: templates/admin/registration/password_reset_done.html:6
-#: templates/admin/registration/password_reset_form.html:7
+#: templates/admin/registration/password_reset_form.html:6
 #: templates/admin_doc/bookmarklets.html:6 templates/admin_doc/index.html:6
 #: templates/admin_doc/missing_docutils.html:6
 #: templates/admin_doc/model_detail.html:20
@@ -52,9 +50,9 @@ msgstr "متاسفانه صفحه مورد نظر شما یافت نشد"
 #: templates/admin_doc/template_tag_index.html:7
 #: templates/admin_doc/view_detail.html:6 templates/admin_doc/view_index.html:7
 #: templates/registration/password_reset_complete.html:6
-#: templates/registration/password_reset_confirm.html:7
+#: templates/registration/password_reset_confirm.html:6
 #: templates/registration/password_reset_done.html:6
-#: templates/registration/password_reset_form.html:7
+#: templates/registration/password_reset_form.html:6
 msgid "Home"
 msgstr "خانه"
 
@@ -71,56 +69,71 @@ msgid "Server Error <em>(500)</em>"
 msgstr "خطای سرور <em>(500)</em>"
 
 #: templates/admin/500.html:15
-msgid "There’s been an error. It’s been reported to the site administrators via email and should be fixed shortly. Thanks for your patience."
-msgstr "یک خطا رخ داده است. به مدیران سایت گزارش شده و به زودی برطرف می‌شود. از صبوری شما سپاسگزاریم."
+msgid ""
+"There’s been an error. It’s been reported to the site administrators via "
+"email and should be fixed shortly. Thanks for your patience."
+msgstr ""
+"یک خطا رخ داده است. به مدیران سایت گزارش شده و به زودی برطرف می‌شود. از صبوری "
+"شما سپاسگزاریم."
 
 #: templates/admin/actions.html:5
 msgid "Actions"
 msgstr "عملیات‌ها"
 
-#: templates/admin/actions.html:12
+#: templates/admin/actions.html:15
 msgid "Run the selected action"
 msgstr "اجرای عملیات انتخابی"
 
-#: templates/admin/actions.html:13
+#: templates/admin/actions.html:16
 msgid "Go"
 msgstr "اجرا"
 
 #: templates/admin/auth/user/add_form.html:6
-msgid "First, enter a username and password. Then, you’ll be able to edit more user options."
-msgstr "ابتدا نام کاربری و رمز عبور را وارد کنید، سپس می‌توانید گزینه‌های بیشتر کاربر را ویرایش کنید."
+msgid ""
+"First, enter a username and password. Then, you’ll be able to edit more user "
+"options."
+msgstr ""
+"ابتدا نام کاربری و رمز عبور را وارد کنید، سپس می‌توانید گزینه‌های بیشتر کاربر "
+"را ویرایش کنید."
 
 #: templates/admin/auth/user/add_form.html:8
 msgid "Enter a username and password."
-msgstr "نام کاربری و رمز عبور را وارد کنید."
+msgstr ""
 
-#: templates/admin/auth/user/change_password.html:27
-#: templates/admin/auth/user/change_password.html:75
+#: templates/admin/auth/user/change_password.html:24
+#: templates/admin/auth/user/change_password.html:72
 #: templates/admin/parts/navbar.html:111
 msgid "Change password"
-msgstr "تغییر رمز عبور"
+msgstr ""
 
-#: templates/admin/auth/user/change_password.html:43
-#: templates/admin/login.html:28
+#: templates/admin/auth/user/change_password.html:40
+#: templates/admin/change_form.html:77 templates/admin/login.html:28
 #: templates/admin/registration/password_change_form.html:15
 #: templates/registration/password_change_form.html:15
+#, fuzzy
+#| msgid "Please correct the error below."
+#| msgid_plural "Please correct the errors below."
 msgid "Please correct the error below."
 msgid_plural "Please correct the errors below."
-msgstr[0] "لطفاً خطا را در زیر اصلاح کنید."
+msgstr[0] "لطفاً خطای زیر را اصلاح کنید."
 msgstr[1] "لطفاً خطاهای زیر را اصلاح کنید."
 
-#: templates/admin/auth/user/change_password.html:44
+#: templates/admin/auth/user/change_password.html:41
 #: templates/admin/registration/password_change_form.html:16
 #: templates/registration/password_change_form.html:16
 msgid "Please correct the errors below."
 msgstr "لطفاً خطاهای زیر را اصلاح کنید."
 
-#: templates/admin/auth/user/change_password.html:49
-#, python-format
-msgid "Enter a new password for the user <strong>%(username)s</strong>."
+#: templates/admin/auth/user/change_password.html:46
+#, fuzzy, python-format
+#| msgid "Enter a new password for the user <strong>%(username)s</strong>."
+msgid ""
+"Enter a new password for the user\n"
+"                                <strong>%(username)s</strong>.\n"
+"                            "
 msgstr "یک رمز عبور جدید برای کاربر <strong>%(username)s</strong> وارد کنید."
 
-#: templates/admin/base.html:14 templates/admin/base_site.html:4
+#: templates/admin/base.html:45 templates/admin/base_site.html:4
 msgid "Django site admin"
 msgstr "مدیریت سایت Django"
 
@@ -128,54 +141,84 @@ msgstr "مدیریت سایت Django"
 msgid "Django administration"
 msgstr "مدیریت Django"
 
-#: templates/admin/change_form.html:25
-#: templates/admin/change_form_22222.html:24
-#: templates/admin/change_list.html:35
+#: templates/admin/change_form.html:19 templates/admin/change_list.html:35
 #: templates/admin/delete_confirmation.html:14
-#: templates/admin/parts/breadcrumb.html:8 templates/admin/parts/navbar.html:21
-#: templates/admin/parts/sidebar.html:20
+#: templates/admin/parts/breadcrumb.html:8
+#: templates/admin/parts/sidebar.html:19
 msgid "Dashboard"
 msgstr "داشبورد"
 
-#: templates/admin/change_form.html:34
-#: templates/admin/change_form_22222.html:33
+#: templates/admin/change_form.html:28
 #, python-format
-msgid "Add %(name)s"
+msgid ""
+"Add %(name)s\n"
+"                "
 msgstr "افزودن %(name)s"
 
 #: templates/admin/change_form_object_tools.html:6
-#: templates/admin/form_history_tools.html:6 templates/admin/index.html:69
+#: templates/admin/form_history_tools.html:6 templates/admin/index.html:15
 #: templates/admin/object_history.html:11
 msgid "History"
 msgstr "تاریخچه"
 
-#: templates/admin/change_form_object_tools.html:11
+#: templates/admin/change_form_object_tools.html:12
 #: templates/admin/edit_inline/stacked.html:40
 #: templates/admin/edit_inline/tabular.html:63
 #: templates/admin/form_history_tools.html:10
 msgid "View on site"
 msgstr "نمایش در سایت"
 
-#: templates/admin/change_list.html:96 templates/admin/submit_line.html:11
-#: templates/admin/submit_line.html:52
+#: templates/admin/change_list.html:60
+#, fuzzy
+#| msgid "Please correct the error below."
+#| msgid_plural "Please correct the errors below."
+msgid ""
+"Please correct the error below.\n"
+"                    "
+msgid_plural "Please correct the errors below."
+msgstr[0] "لطفاً خطای زیر را اصلاح کنید."
+msgstr[1] "لطفاً خطاهای زیر را اصلاح کنید."
+
+#: templates/admin/change_list.html:96 templates/admin/submit_line.html:8
+#: templates/admin/submit_line.html:25 templates/admin/submit_line.html:116
 msgid "Save"
 msgstr "ذخیره"
 
-#: templates/admin/change_list.html:140
+#: templates/admin/change_list.html:143
 msgid "Filter"
 msgstr "فیلتر"
 
-#: templates/admin/change_list.html:142
+#: templates/admin/change_list.html:145
 msgid "Apply"
 msgstr "اعمال"
 
-#: templates/admin/change_list.html:150 templates/admin/change_list.html:156
+#: templates/admin/change_list.html:153 templates/admin/change_list.html:159
 msgid "Show counts"
 msgstr "نمایش تعداد"
 
-#: templates/admin/change_list.html:168
+#: templates/admin/change_list.html:171
 msgid "Clear all filters"
 msgstr "پاک کردن تمام فیلترها"
+
+#: templates/admin/change_list_object_tools.html:8
+#: templates/admin/delete_confirmation.html:20
+#: templates/admin/list_navigate_tools.html:7
+#, python-format
+msgid "Add %(name)s"
+msgstr "افزودن %(name)s"
+
+#: templates/admin/change_list_results.html:22
+msgid "Remove from sorting"
+msgstr "حذف از مرتب‌سازی"
+
+#: templates/admin/change_list_results.html:40
+msgid "Toggle sorting"
+msgstr "تغییر مرتب‌سازی"
+
+#: templates/admin/change_list_results.html:45
+#, python-format
+msgid "Sorting priority: %(priority_number)s"
+msgstr "اولویت مرتب‌سازی: %(priority_number)s"
 
 #: templates/admin/change_list_results.html:69
 msgid "Empty Result"
@@ -186,9 +229,47 @@ msgid "Remove Filters"
 msgstr "حذف فیلتر"
 
 #: templates/admin/delete_confirmation.html:30
+#, fuzzy, python-format
+#| msgid ""
+#| "Deleting the %(object_name)s '%(escaped_object)s' would result in "
+#| "deleting related objects, but your account doesn't have permission to "
+#| "delete the following types of objects:"
+msgid ""
+"Deleting the %(object_name)s '%(escaped_object)s'\n"
+"                would result in deleting related objects, but your account "
+"doesn't have permission to delete the\n"
+"                following types of objects:"
+msgstr ""
+"حذف %(object_name)s '%(escaped_object)s' به حذف اشیاء مرتبط منجر می‌شود، اما "
+"حساب شما اجازه حذف اشیاء از نوع زیر را ندارد:"
+
+#: templates/admin/delete_confirmation.html:39
+#, fuzzy, python-format
+#| msgid ""
+#| "Deleting the %(object_name)s '%(escaped_object)s' would result in "
+#| "deleting related objects, but your account doesn't have permission to "
+#| "delete the following types of objects:"
+msgid ""
+"Deleting the %(object_name)s '%(escaped_object)s'\n"
+"                would require deleting the following protected related "
+"objects:"
+msgstr ""
+"حذف %(object_name)s '%(escaped_object)s'  نیازمند حذف اشیا وابسته محافظت شده "
+"زیر است: "
+
+#: templates/admin/delete_confirmation.html:47
 #, python-format
-msgid "Deleting the %(object_name)s '%(escaped_object)s' would result in deleting related objects, but your account doesn't have permission to delete the following types of objects:"
-msgstr "حذف %(object_name)s '%(escaped_object)s' به حذف اشیاء مرتبط منجر می‌شود، اما حساب شما اجازه حذف اشیاء از نوع زیر را ندارد:"
+msgid ""
+"Are you sure you want to delete the %(object_name)s '%(escaped_object)s'? "
+"All of the following related items will be deleted:"
+msgstr ""
+"آیا از حذف %(object_name)s '%(escaped_object)s' اطمینان دارید؟ تمام موارد "
+"وابسته زیر حذف خواهند شد:"
+
+#: templates/admin/delete_confirmation.html:49
+#: templates/admin/delete_selected_confirmation.html:47
+msgid "Objects"
+msgstr "اشیا"
 
 #: templates/admin/delete_confirmation.html:57
 #: templates/admin/delete_selected_confirmation.html:62
@@ -200,36 +281,139 @@ msgstr "بله، مطمئنم"
 msgid "No, take me back"
 msgstr "خیر، به من بازگردان"
 
+#: templates/admin/delete_selected_confirmation.html:20
+msgid "Delete multiple objects"
+msgstr "حذف چند شیء"
+
+#: templates/admin/delete_selected_confirmation.html:29
+#, fuzzy, python-format
+#| msgid ""
+#| "Deleting the %(object_name)s '%(escaped_object)s' would result in "
+#| "deleting related objects, but your account doesn't have permission to "
+#| "delete the following types of objects:"
+msgid ""
+"Deleting the selected %(objects_name)s would result in\n"
+"                    deleting related objects, but\n"
+"                    your account doesn't have permission to delete the "
+"following types of\n"
+"                    objects:"
+msgstr ""
+"حذف %(objects_name)s انتخابی منجر به حذف اشیاء مرتبط می‌شود، اما حساب شما "
+"اجازه حذف اشیاء از نوع زیر را ندارد:"
+
+#: templates/admin/delete_selected_confirmation.html:37
+#, python-format
+msgid ""
+"Deleting the selected %(objects_name)s would require\n"
+"                    deleting the following protected\n"
+"                    related objects:"
+msgstr ""
+"حذف %(objects_name)s انتخابی نیازمند حذف اشیا وابسته محافظت شده زیر است:"
+
+#: templates/admin/delete_selected_confirmation.html:43
+#, python-format
+msgid ""
+"Are you sure you want to delete the selected %(objects_name)s? All of the "
+"following objects and their related items will be deleted:"
+msgstr ""
+"آیا از حذف %(objects_name)s انتخابی اطمینان دارید؟ تمام اشیاء زیر و موارد "
+"مرتبط با آن‌ها حذف خواهند شد:"
+
+#: templates/admin/edit_inline/stacked.html:30
+#: templates/admin/edit_inline/tabular.html:57
+#: templates/admin/edit_inline/tabular_flex.html:34
+#: templates/admin/widgets/related_widget_wrapper.html:24
+msgid "Change"
+msgstr "تغییر"
+
+#: templates/admin/edit_inline/stacked.html:32
+#: templates/admin/edit_inline/tabular.html:58
+#: templates/admin/edit_inline/tabular_flex.html:36
+#: templates/admin/widgets/related_widget_wrapper.html:55
+#, fuzzy
+#| msgid "View site"
+msgid "View"
+msgstr "نمایش"
+
+#: templates/admin/edit_inline/tabular.html:19
+#: templates/admin/edit_inline/tabular_flex.html:7
+msgid "Original"
+msgstr "اصلی"
+
 #: templates/admin/edit_inline/tabular.html:33
 #: templates/admin/edit_inline/tabular_flex.html:17
 msgid "Delete?"
 msgstr "حذف؟"
 
+#: templates/admin/filter.html:6
+#, python-format
+msgid "%(filter_title)s "
+msgstr "%(filter_title)s "
+
 #: templates/admin/includes/object_delete_summary.html:2
 msgid "Summary"
 msgstr "خلاصه"
 
+#: templates/admin/index.html:16 templates/admin/pagination.html:42
+msgid "Show all"
+msgstr "نمایش همه"
+
+#: templates/admin/index.html:22
+msgid "In"
+msgstr "در"
+
+#: templates/admin/index.html:24
+msgid "At Time"
+msgstr "در زمان"
+
+#: templates/admin/index.html:25
+msgid "Admin"
+msgstr "ادمین"
+
+#: templates/admin/index.html:43
+msgid "ago"
+msgstr "قبل"
+
+#: templates/admin/login.html:44
+msgid "Admin Login"
+msgstr "لاگین ادمین"
+
+#: templates/admin/login.html:48
+#, python-format
+msgid ""
+"You are authenticated as %(username)s, but are not authorized to access this "
+"page. Would you like to login to a different account?"
+msgstr ""
+
 #: templates/admin/login.html:80
 msgid "Forgotten your password or username?"
-msgstr "رمزعبور یا نام کاربری خود را فراموش کرده‌اید؟"
+msgstr ""
 
 #: templates/admin/login.html:86
 #: templates/admin/registration/password_reset_complete.html:18
 #: templates/registration/password_reset_complete.html:18
 msgid "Log in"
-msgstr "ورود"
+msgstr ""
 
 #: templates/admin/object_history.html:25
 msgid "Date/time"
-msgstr "تاریخ/زمان"
+msgstr ""
 
 #: templates/admin/object_history.html:26
 msgid "User"
-msgstr "کاربر"
+msgstr ""
+
+#: templates/admin/object_history.html:57
+msgid "entry"
+msgid_plural "entries"
+msgstr[0] ""
+msgstr[1] ""
 
 #: templates/admin/object_history.html:61
-msgid "This object doesn’t have a change history. It probably wasn’t added via this admin site."
-msgstr "برای این شیء تاریخچه‌ی تغییراتی وجود ندارد. احتمالاً این شیء از طریق این سایت مدیریتی افزوده نشده است."
+msgid ""
+"This object doesn’t have a change history. It probably wasn’t added via this "
+"admin site."
+msgstr ""
 
 #: templates/admin/pagination.html:9
 msgid "Previous"
@@ -239,116 +423,559 @@ msgstr "قبلی"
 msgid "Next"
 msgstr "بعدی"
 
-#: templates/admin/pagination.html:42
-msgid "Show all"
-msgstr "نمایش همه"
+#: templates/admin/pagination.html:39
+#, python-format
+msgid ""
+"%(full_result_count)s total\n"
+"                        "
+msgstr ""
+
+#: templates/admin/parts/navbar.html:27
+msgid "Theme"
+msgstr ""
+
+#: templates/admin/parts/navbar.html:44
+msgid "Light"
+msgstr ""
+
+#: templates/admin/parts/navbar.html:52
+msgid "Dark"
+msgstr ""
+
+#: templates/admin/parts/navbar.html:63
+msgid "Dracula"
+msgstr ""
+
+#: templates/admin/parts/navbar.html:74
+msgid "Dim"
+msgstr ""
+
+#: templates/admin/parts/navbar.html:85
+msgid "Lemonade"
+msgstr ""
+
+#: templates/admin/parts/navbar.html:96
+msgid "Autumn"
+msgstr ""
 
 #: templates/admin/parts/navbar.html:115
 msgid "Log out"
-msgstr "خروج"
+msgstr ""
 
-#: templates/admin/parts/navbar.html:119
+#: templates/admin/parts/navbar.html:120
 msgid "View site"
-msgstr "نمایش سایت"
+msgstr "نمایش در سایت"
+
+#: templates/admin/parts/navbar.html:127
+#: templates/admin_doc/bookmarklets.html:9 templates/admin_doc/index.html:8
+#: templates/admin_doc/index.html:12 templates/admin_doc/index.html:16
+#: templates/admin_doc/missing_docutils.html:8
+#: templates/admin_doc/missing_docutils.html:15
+#: templates/admin_doc/model_detail.html:22
+#: templates/admin_doc/model_index.html:10
+#: templates/admin_doc/template_detail.html:8
+#: templates/admin_doc/template_filter_index.html:10
+#: templates/admin_doc/template_tag_index.html:9
+#: templates/admin_doc/view_detail.html:7
+#: templates/admin_doc/view_index.html:10
+#, fuzzy
+#| msgid "Authentication"
+msgid "Documentation"
+msgstr "اعتبارسنجی"
+
+#: templates/admin/parts/sidebar.html:64
+msgid "You don’t have permission to view or edit anything."
+msgstr ""
+
+#: templates/admin/registration/logged_out.html:13
+#: templates/registration/logged_out.html:13
+msgid "Logged Out"
+msgstr ""
+
+#: templates/admin/registration/logged_out.html:14
+#: templates/registration/logged_out.html:14
+msgid "Thanks for spending some quality time with the Web site today."
+msgstr ""
+
+#: templates/admin/registration/logged_out.html:17
+#: templates/registration/logged_out.html:16
+msgid "Log in again"
+msgstr ""
 
 #: templates/admin/registration/password_change_done.html:9
 #: templates/registration/password_change_done.html:9
 msgid "Your password was changed."
-msgstr "رمزعبور شما تغییر کرد."
+msgstr ""
 
 #: templates/admin/registration/password_change_form.html:20
 #: templates/registration/password_change_form.html:20
-msgid "Please enter your old password, for security’s sake, and then enter your new password twice so we can verify you typed it in correctly."
-msgstr "لطفاً به دلایل امنیتی رمزعبور قدیمی خود را وارد کنید و سپس دوباره رمزعبور جدید خود را وارد کنید تا اطمینان حاصل کنیم که آن را به درستی وارد کرده‌اید."
+msgid ""
+"Please enter your old password, for security’s sake, and then enter your new "
+"password twice so we can verify you typed it in correctly."
+msgstr ""
+
+#: templates/admin/registration/password_change_form.html:74
+#: templates/admin/registration/password_reset_confirm.html:31
+#: templates/registration/password_change_form.html:74
+#: templates/registration/password_reset_confirm.html:31
+msgid "Change my password"
+msgstr "تغییر رمز عبور"
+
+#: templates/admin/registration/password_reset_complete.html:7
+#: templates/admin/registration/password_reset_done.html:7
+#: templates/admin/registration/password_reset_form.html:7
+#: templates/registration/password_reset_complete.html:7
+#: templates/registration/password_reset_done.html:7
+#: templates/registration/password_reset_form.html:7
+msgid "Password reset"
+msgstr ""
 
 #: templates/admin/registration/password_reset_complete.html:16
 #: templates/registration/password_reset_complete.html:16
 msgid "Your password has been set.  You may go ahead and log in now."
-msgstr "رمزعبور شما تنظیم شد. می‌توانید ادامه دهید و وارد شوید."
+msgstr ""
 
-#: templates/admin/registration/password_reset_confirm.html:8
-#: templates/registration/password_reset_confirm.html:8
+#: templates/admin/registration/password_reset_confirm.html:7
+#: templates/registration/password_reset_confirm.html:7
 msgid "Password reset confirmation"
-msgstr "تایید بازنشانی رمزعبور"
+msgstr ""
 
-#: templates/admin/registration/password_reset_confirm.html:18
-#: templates/registration/password_reset_confirm.html:18
-msgid "Please enter your new password twice so we can verify you typed it in correctly."
-msgstr "لطفاً دوباره رمزعبور جدید خود را وارد کنید تا اطمینان حاصل کنیم که آن را به درستی وارد کرده‌اید."
+#: templates/admin/registration/password_reset_confirm.html:17
+#: templates/registration/password_reset_confirm.html:17
+msgid ""
+"Please enter your new password twice so we can verify you typed it in "
+"correctly."
+msgstr ""
 
-#: templates/admin/registration/password_reset_form.html:16
-#: templates/registration/password_reset_form.html:16
-msgid "Forgotten your password? Enter your email address below, and we’ll email instructions for setting a new one."
-msgstr "رمزعبور خود را فراموش کرده‌اید؟ آدرس ایمیل خود را در زیر وارد کنید، و ما دستورالعمل‌ها برای تنظیم یک رمزعبور جدید به شما ایمیل خواهیم کرد."
+#: templates/admin/registration/password_reset_confirm.html:23
+#: templates/registration/password_reset_confirm.html:23
+#, fuzzy
+#| msgid "Change password"
+msgid "New password:"
+msgstr "تغییر رمز عبور"
 
-#: templates/admin/registration/password_reset_form.html:22
-#: templates/registration/password_reset_form.html:22
-msgid "Email address:"
-msgstr "آدرس ایمیل:"
+#: templates/admin/registration/password_reset_confirm.html:28
+#: templates/registration/password_reset_confirm.html:28
+msgid "Confirm password:"
+msgstr ""
 
-#: templates/admin/registration/password_reset_form.html:25
-#: templates/registration/password_reset_form.html:25
-msgid "Reset my password"
-msgstr "بازنشانی رمزعبور من"
+#: templates/admin/registration/password_reset_confirm.html:37
+#: templates/registration/password_reset_confirm.html:37
+msgid ""
+"The password reset link was invalid, possibly because it has already been "
+"used.  Please request a new password reset."
+msgstr ""
 
-#: templates/admin/search_form.html:16
-msgid "Search along"
-msgstr "جستجو در"
+#: templates/admin/registration/password_reset_done.html:15
+#: templates/registration/password_reset_done.html:15
+msgid ""
+"We’ve emailed you instructions for setting your password, if an account "
+"exists with the email you entered. You should receive them shortly."
+msgstr ""
 
-#: templates/admin/search_form.html:20
-msgid "Search"
-msgstr "جستجو"
+#: templates/admin/registration/password_reset_done.html:17
+#: templates/registration/password_reset_done.html:17
+msgid ""
+"If you don’t receive an email, please make sure you’ve entered the address "
+"you registered with, and check your spam folder."
+msgstr ""
 
-#: templates/admin/submit_line.html:7 templates/admin/submit_line.html:60
-msgid "Save as new"
-msgstr "ذخیره به عنوان جدید"
-
-#: templates/admin/submit_line.html:17 templates/admin/submit_line.html:65
-msgid "Save and continue editing"
-msgstr "ذخیره و ادامه ویرایش"
-
-#: templates/admin/submit_line.html:18 templates/admin/submit_line.html:66
-msgid "Save and view"
-msgstr "ذخیره و مشاهده"
-
-#: templates/admin/submit_line.html:25 templates/admin/submit_line.html:73
-msgid "Save and add another"
-msgstr "ذخیره و افزودن دیگری"
-
-#: templates/admin/submit_line.html:37 templates/admin/submit_line.html:81
-#: templates/admin/widgets/related_widget_wrapper.html:43
-#: templates/admin/widgets/related_widget_wrapper_.html:43
-msgid "Delete"
-msgstr "حذف"
-
-#: templates/admin/submit_line.html:44 templates/admin/submit_line.html:92
-msgid "Close"
-msgstr "بستن"
-
-#: templates/admin/widgets/related_widget_wrapper.html:14
-#: templates/admin/widgets/related_widget_wrapper_.html:14
-msgid "Options"
-msgstr "گزینه‌ها"
-
-#: templates/admin/widgets/related_widget_wrapper.html:32
-#: templates/admin/widgets/related_widget_wrapper_.html:32
+#: templates/admin/registration/password_reset_email.html:2
+#: templates/registration/password_reset_email.html:2
 #, python-format
+msgid ""
+"You're receiving this email because you requested a password reset for your "
+"user account at %(site_name)s."
+msgstr ""
+
+#: templates/admin/registration/password_reset_email.html:4
+#: templates/registration/password_reset_email.html:4
+msgid "Please go to the following page and choose a new password:"
+msgstr ""
+
+#: templates/admin/registration/password_reset_email.html:8
+#: templates/registration/password_reset_email.html:8
+msgid "Your username, in case you’ve forgotten:"
+msgstr ""
+
+#: templates/admin/registration/password_reset_email.html:10
+#: templates/registration/password_reset_email.html:10
+msgid "Thanks for using our site!"
+msgstr ""
+
+#: templates/admin/registration/password_reset_email.html:12
+#: templates/registration/password_reset_email.html:12
+#, python-format
+msgid "The %(site_name)s team"
+msgstr ""
+
+#: templates/admin/registration/password_reset_form.html:15
+#: templates/registration/password_reset_form.html:15
+msgid ""
+"Forgotten your password? Enter your email address below, and we’ll email "
+"instructions for setting a new one."
+msgstr ""
+
+#: templates/admin/registration/password_reset_form.html:21
+#: templates/registration/password_reset_form.html:21
+msgid "Email address:"
+msgstr ""
+
+#: templates/admin/registration/password_reset_form.html:24
+#: templates/registration/password_reset_form.html:24
+msgid "Reset my password"
+msgstr ""
+
+#: templates/admin/search_form.html:22
+msgid "Search along"
+msgstr ""
+
+#: templates/admin/search_form.html:27
+msgid "Search"
+msgstr ""
+
+#: templates/admin/submit_line.html:13 templates/admin/submit_line.html:57
+#: templates/admin/submit_line.html:66 templates/admin/submit_line.html:109
+msgid "Close"
+msgstr ""
+
+#: templates/admin/submit_line.html:21 templates/admin/submit_line.html:76
+msgid "Save as new"
+msgstr ""
+
+#: templates/admin/submit_line.html:33 templates/admin/submit_line.html:82
+msgid "Save and continue editing"
+msgstr ""
+
+#: templates/admin/submit_line.html:34 templates/admin/submit_line.html:83
+msgid "Save and view"
+msgstr ""
+
+#: templates/admin/submit_line.html:41 templates/admin/submit_line.html:90
+msgid "Save and add another"
+msgstr ""
+
+#: templates/admin/submit_line.html:51 templates/admin/submit_line.html:98
+#: templates/admin/widgets/related_widget_wrapper.html:46
+#, fuzzy
+#| msgid "Delete?"
+msgid "Delete"
+msgstr "حذف؟"
+
+#: templates/admin/submit_line.html:72
+#: templates/admin/widgets/related_widget_wrapper.html:14
+#, fuzzy
+#| msgid "Actions"
+msgid "Options"
+msgstr "عملیات‌ها"
+
+#: templates/admin/widgets/related_widget_wrapper.html:23
+#, python-format
+msgid "Change selected %(model)s"
+msgstr ""
+
+#: templates/admin/widgets/related_widget_wrapper.html:34
+#, fuzzy, python-format
+#| msgid "Add %(name)s"
 msgid "Add another %(model)s"
-msgstr "افزودن یک %(model)s دیگر"
+msgstr "افزودن %(name)s"
 
-#: templates/admin/widgets/related_widget_wrapper.html:33
-#: templates/admin/widgets/related_widget_wrapper_.html:33
+#: templates/admin/widgets/related_widget_wrapper.html:35
 msgid "Add"
-msgstr "ایجاد"
+msgstr ""
 
-#: templates/admin/widgets/related_widget_wrapper.html:42
-#: templates/admin/widgets/related_widget_wrapper_.html:42
+#: templates/admin/widgets/related_widget_wrapper.html:45
 #, python-format
 msgid "Delete selected %(model)s"
-msgstr "حذف %(model)s انتخابی"
+msgstr ""
 
-#: templates/admin/widgets/related_widget_wrapper.html:51
-#: templates/admin/widgets/related_widget_wrapper_.html:51
+#: templates/admin/widgets/related_widget_wrapper.html:54
 #, python-format
 msgid "View selected %(model)s"
-msgstr "نمایش %(model)s انتخابی"
+msgstr ""
+
+#: templates/admin_doc/bookmarklets.html:11 templates/admin_doc/index.html:40
+msgid "Bookmarklets"
+msgstr ""
+
+#: templates/admin_doc/bookmarklets.html:15
+msgid "Documentation Bookmarklets"
+msgstr ""
+
+#: templates/admin_doc/bookmarklets.html:18
+msgid ""
+"\n"
+"        To install bookmarklets, drag the link to your bookmarks toolbar, or "
+"right-click\n"
+"        the link and add it to your bookmarks. You can now select the "
+"bookmarklet\n"
+"        from any page in the site.\n"
+"    "
+msgstr ""
+
+#: templates/admin_doc/bookmarklets.html:28
+msgid "Documentation for this page"
+msgstr ""
+
+#: templates/admin_doc/bookmarklets.html:31
+msgid ""
+"Jumps you from any page to the documentation for the view that generates "
+"that page."
+msgstr ""
+
+#: templates/admin_doc/index.html:20
+#: templates/admin_doc/template_tag_index.html:11
+msgid "Tags"
+msgstr ""
+
+#: templates/admin_doc/index.html:21
+msgid "List of all the template tags and their functions."
+msgstr ""
+
+
+
+#: templates/admin_doc/index.html:26
+msgid ""
+"Filters are actions which can be applied to variables in a template to alter "
+"the output."
+msgstr ""
+
+#: templates/admin_doc/index.html:30 templates/admin_doc/model_detail.html:24
+#: templates/admin_doc/model_index.html:12
+#: templates/admin_doc/model_index.html:16
+msgid "Models"
+msgstr ""
+
+#: templates/admin_doc/index.html:31
+msgid ""
+"Models are descriptions of all the objects in the system and their "
+"associated fields. Each model has a list of fields which can be accessed as "
+"template variables."
+msgstr ""
+
+#: templates/admin_doc/index.html:35 templates/admin_doc/view_detail.html:8
+#: templates/admin_doc/view_index.html:12
+#: templates/admin_doc/view_index.html:16
+#, fuzzy
+#| msgid "View site"
+msgid "Views"
+msgstr "نمایش"
+
+#: templates/admin_doc/index.html:36
+msgid ""
+"Each page on the public site is generated by a view. The view defines which "
+"template is used to generate the page and which objects are available to "
+"that template."
+msgstr ""
+
+#: templates/admin_doc/index.html:41
+msgid "Tools for your browser to quickly access admin functionality."
+msgstr ""
+
+#: templates/admin_doc/missing_docutils.html:12
+msgid "Please install docutils"
+msgstr ""
+
+#: templates/admin_doc/missing_docutils.html:19
+#, python-format
+msgid ""
+"\n"
+"                The admin documentation system requires Python’s\n"
+"                <a class=\"text-blue-500 hover:underline\" "
+"href=\"%(link)s\">docutils</a> library.\n"
+"            "
+msgstr ""
+
+#: templates/admin_doc/missing_docutils.html:26
+#, python-format
+msgid ""
+"\n"
+"                Please ask your administrators to install\n"
+"                <a class=\"text-blue-500 hover:underline\" "
+"href=\"%(link)s\">docutils</a>.\n"
+"            "
+msgstr ""
+
+#: templates/admin_doc/model_detail.html:29
+#, fuzzy, python-format
+#| msgid "Add %(name)s"
+msgid "Model: %(name)s"
+msgstr "افزودن %(name)s"
+
+#: templates/admin_doc/model_detail.html:38
+msgid "Fields"
+msgstr ""
+
+#: templates/admin_doc/model_detail.html:43
+msgid "Field"
+msgstr ""
+
+#: templates/admin_doc/model_detail.html:44
+msgid "Type"
+msgstr ""
+
+#: templates/admin_doc/model_detail.html:45
+#: templates/admin_doc/model_detail.html:68
+msgid "Description"
+msgstr ""
+
+#: templates/admin_doc/model_detail.html:61
+msgid "Methods with arguments"
+msgstr ""
+
+#: templates/admin_doc/model_detail.html:66
+msgid "Method"
+msgstr ""
+
+#: templates/admin_doc/model_detail.html:67
+msgid "Arguments"
+msgstr ""
+
+#: templates/admin_doc/model_detail.html:86
+msgid "Back to Model documentation"
+msgstr ""
+
+#: templates/admin_doc/model_index.html:19
+msgid "Model Documentation"
+msgstr ""
+
+#: templates/admin_doc/model_index.html:44
+msgid "Model Groups"
+msgstr ""
+
+#: templates/admin_doc/template_detail.html:10
+msgid "Templates"
+msgstr ""
+
+#: templates/admin_doc/template_detail.html:16
+#, fuzzy, python-format
+#| msgid "Add %(name)s"
+msgid "Template: %(name)s"
+msgstr "افزودن %(name)s"
+
+#: templates/admin_doc/template_detail.html:19
+#, python-format
+msgid "Template: <q>%(name)s</q>"
+msgstr ""
+
+#: templates/admin_doc/template_detail.html:21
+#, python-format
+msgid "Search path for template <q>%(name)s</q>:"
+msgstr ""
+
+#: templates/admin_doc/template_detail.html:27
+msgid "(does not exist)"
+msgstr ""
+
+#: templates/admin_doc/template_detail.html:34
+msgid "Back to Documentation"
+msgstr ""
+
+#: templates/admin_doc/template_filter_index.html:16
+#, fuzzy
+#| msgid "Remove Filters"
+msgid "Template Filters"
+msgstr "حذف فیلتر"
+
+#: templates/admin_doc/template_filter_index.html:19
+msgid "Template Filter Documentation"
+msgstr ""
+
+#: templates/admin_doc/template_filter_index.html:26
+#: templates/admin_doc/template_filter_index.html:57
+msgid "Built-in filters"
+msgstr ""
+
+#: templates/admin_doc/template_filter_index.html:30
+#, python-format
+msgid ""
+"\n"
+"                            To use these filters, put <code class=\"text-"
+"blue-500\">%(code)s</code> in your template\n"
+"                            before using the filter.\n"
+"                        "
+msgstr ""
+
+#: templates/admin_doc/template_tag_index.html:15
+msgid "Template Tags"
+msgstr ""
+
+#: templates/admin_doc/template_tag_index.html:18
+msgid "Template Tag Documentation"
+msgstr ""
+
+#: templates/admin_doc/template_tag_index.html:25
+#: templates/admin_doc/template_tag_index.html:54
+msgid "Built-in tags"
+msgstr ""
+
+#: templates/admin_doc/template_tag_index.html:29
+#, python-format
+msgid ""
+"\n"
+"            To use these tags, put <code class=\"text-blue-500\">%(code)s</"
+"code> in your template before using the tag.\n"
+"          "
+msgstr ""
+
+#: templates/admin_doc/view_detail.html:12
+#, fuzzy, python-format
+#| msgid "Add %(name)s"
+msgid "View: %(name)s"
+msgstr "افزودن %(name)s"
+
+#: templates/admin_doc/view_detail.html:23
+msgid "Context:"
+msgstr ""
+
+#: templates/admin_doc/view_detail.html:28
+msgid "Templates:"
+msgstr ""
+
+#: templates/admin_doc/view_detail.html:32
+msgid "Back to View documentation"
+msgstr ""
+
+#: templates/admin_doc/view_index.html:19
+msgid "View Documentation"
+msgstr ""
+
+#: templates/admin_doc/view_index.html:25
+msgid "Jump to Namespace"
+msgstr ""
+
+#: templates/admin_doc/view_index.html:31
+msgid "Empty namespace"
+msgstr ""
+
+#: templates/admin_doc/view_index.html:44
+#, python-format
+msgid ""
+"Views by namespace\n"
+"                            %(name)s"
+msgstr ""
+
+#: templates/admin_doc/view_index.html:47
+msgid "Views by empty namespace"
+msgstr ""
+
+#: templates/admin_doc/view_index.html:57
+#, fuzzy, python-format
+#| msgid "Enter a new password for the user <strong>%(username)s</strong>."
+msgid ""
+"\n"
+"                                View function: <code>%(full_name)s</code>. "
+"Name: <code>%(url_name)s</code>.\n"
+"                            "
+msgstr "یک رمز عبور جدید برای کاربر <strong>%(username)s</strong> وارد کنید."
+
+#~ msgid ""
+#~ "\n"
+#~ "                                        Please correct the error below.\n"
+#~ "                                        "
+#~ msgid_plural ""
+#~ "\n"
+#~ "                                        Please correct the errors below.\n"
+#~ "                                    "
+#~ msgstr[0] "لطفاً خطای زیر را اصلاح کنید."
+#~ msgstr[1] "لطفاً خطاهای زیر را اصلاح کنید."
