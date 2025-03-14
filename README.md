@@ -57,15 +57,17 @@ pip install django-daisy
 pip install -e git+https://github.com/hypy13/django-daisy.git#egg=django-daisy
 ```
 
-After installation, add `django_daisy` to your `INSTALLED_APPS` in the Django settings file.  
+After installation, add `django_daisy` and django.contrib.humanize to your `INSTALLED_APPS` in the Django settings file.  
 
 ```python
 INSTALLED_APPS = [
     'django_daisy',
     'django.contrib.admin',
+    'django.contrib.humanize',  # Required for django-daisy
     ...
 ]
 ```
+
 
 Once you've made these changes, enjoy the fresh new theme!
 
