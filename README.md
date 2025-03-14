@@ -57,7 +57,7 @@ pip install django-daisy
 pip install -e git+https://github.com/hypy13/django-daisy.git#egg=django-daisy
 ```
 
-After installation, add `django_daisy` and django.contrib.humanize to your `INSTALLED_APPS` in the Django settings file.  
+After installation, add `django_daisy` and `django.contrib.humanize` to your `INSTALLED_APPS` in the Django settings file.  
 
 ```python
 INSTALLED_APPS = [
