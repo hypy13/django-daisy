@@ -54,8 +54,6 @@
 
             </th>
         {% endfor %}
-
-
     </tr>
     </thead>
     <tbody>
@@ -69,7 +67,7 @@
                 {% trans "Empty Result" %}
                 {% if active_filters_count or cl.query %}
                     <a class="link link-primary px-1 text-primary" href="?">
-                        {% trans "Remove Filters" %}
+                        {% trans "Clear all filters" %}
                     </a>
                 {% endif %}
             </th>
