@@ -1,9 +1,9 @@
 body {
-    font-family:  'Ubuntu', sans-serif; /* Default to LTR font */
+    font-family:  'body-font', sans-serif; /* Default to LTR font */
 }
 
 body:dir(rtl) {
-    font-family: 'Vazir', sans-serif; /* Apply Vazir for RTL */
+    font-family: 'rtl-font', sans-serif; /* Apply Vazir for RTL */
 }
 
 
