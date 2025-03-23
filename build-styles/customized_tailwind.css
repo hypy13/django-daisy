@@ -195,3 +195,11 @@ input[data-jdp] {
 #user_form .field-password a {
     @apply link link-primary;
 }
+
+.ts-dropdown{
+    @apply bg-base-200 text-base-content border-neutral-300 !important;
+}
+
+.ts-dropdown .active{
+    @apply bg-base-300 text-base-content  !important;
+}
