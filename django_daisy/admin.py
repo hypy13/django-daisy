@@ -19,6 +19,7 @@ admin.options.FORMFIELD_FOR_DBFIELD_DEFAULTS.pop(models.DateTimeField, None)
 admin.options.FORMFIELD_FOR_DBFIELD_DEFAULTS.pop(models.DateField, None)
 admin.options.FORMFIELD_FOR_DBFIELD_DEFAULTS.pop(models.TimeField, None)
 
+asset_path = getattr(settings, "STATIC_URL", "/static/")
 
 class DaisyAdminSite(admin.AdminSite):
     password_change_template = 'admin/registration/password_change_form.html'
@@ -26,7 +27,7 @@ class DaisyAdminSite(admin.AdminSite):
     site_title = DAISY_SETTINGS.get('SITE_TITLE', 'django admin')
     site_header = DAISY_SETTINGS.get('SITE_HEADER', 'Administration')
     index_title = DAISY_SETTINGS.get('SITE_HEADER', 'hi, welcome to your dashboard')
-    logo = DAISY_SETTINGS.get('SITE_LOGO', '/static/admin/img/daisyui-logomark.svg')
+    logo = DAISY_SETTINGS.get('SITE_LOGO', f'{asset_path}admin/img/daisyui-logomark.svg')
 
     def get_urls(self):
         urls = [

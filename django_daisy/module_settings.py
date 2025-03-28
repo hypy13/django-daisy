@@ -1,12 +1,15 @@
 from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
+
+asset_path = getattr(settings, "STATIC_URL", "/static/")
+
 # Define defaults for DAISY_SETTINGS
 DEFAULT_DAISY_SETTINGS = {
     'SITE_TITLE': 'Django Admin',
     'SITE_HEADER': 'Administration',
     'INDEX_TITLE': 'hi, welcome to your dashboard',
-    'SITE_LOGO': '/static/admin/img/daisyui-logomark.svg',
+    'SITE_LOGO': f'{asset_path}admin/img/daisyui-logomark.svg',
     "EXTRA_STYLES": [],
     "EXTRA_SCRIPTS": [],
     "LOAD_FULL_STYLES": False,
