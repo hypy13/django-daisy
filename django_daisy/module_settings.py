@@ -1,19 +1,22 @@
 from django.conf import settings
+from django.templatetags.static import static
 from django.utils.translation import gettext_lazy as _
+
+asset_path = getattr(settings, "STATIC_URL", "/static/")
 
 # Define defaults for DAISY_SETTINGS
 DEFAULT_DAISY_SETTINGS = {
-    'SITE_TITLE': 'Django Admin',
-    'SITE_HEADER': 'Administration',
-    'INDEX_TITLE': 'hi, welcome to your dashboard',
-    'SITE_LOGO': '/static/admin/img/daisyui-logomark.svg',
+    "SITE_TITLE": "Django Admin",
+    "SITE_HEADER": "Administration",
+    "INDEX_TITLE": "hi, welcome to your dashboard",
+    "SITE_LOGO": static("admin/img/daisyui-logomark.svg"),
     "EXTRA_STYLES": [],
     "EXTRA_SCRIPTS": [],
     "LOAD_FULL_STYLES": False,
     "CUSTOM_DAISYUI_BUILD_PATH": None,
     "SHOW_CHANGELIST_FILTER": False,
-    'DONT_SUPPORT_ME': False,
-    'SIDEBAR_FOOTNOTE': '',
+    "DONT_SUPPORT_ME": False,
+    "SIDEBAR_FOOTNOTE": "",
     "FORM_RENDERER": "django.forms.renderers.TemplatesSetting",
     "X_FRAME_OPTIONS": "SAMEORIGIN",
     "APPS_REORDER": {
