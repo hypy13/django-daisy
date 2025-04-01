@@ -1,9 +1,9 @@
 body {
-    font-family: 'Cantarell', sans-serif; /* Default to LTR font */
+    font-family:  'body-font', sans-serif; /* Default to LTR font */
 }
 
 body:dir(rtl) {
-    font-family: 'Vazir', sans-serif; /* Apply Vazir for RTL */
+    font-family: 'rtl-font', sans-serif; /* Apply Vazir for RTL */
 }
 
 
@@ -190,4 +190,16 @@ input[data-jdp] {
 
 .related-widget-wrapper div.selector .selector-chosen {
     @apply flex-1;
+}
+
+#user_form .field-password a {
+    @apply link link-primary;
+}
+
+.ts-dropdown{
+    @apply bg-base-200 text-base-content border-neutral-300 !important;
+}
+
+.ts-dropdown .active{
+    @apply bg-base-300 text-base-content  !important;
 }

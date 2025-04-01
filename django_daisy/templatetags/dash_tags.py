@@ -8,8 +8,6 @@ from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 
-from django_daisy.module_settings import DAISY_SETTINGS
-
 
 def custom_boolean_icon(field_val):
     # Define icon and badge class based on field value
@@ -153,6 +151,23 @@ def is_multiple_filter_choice(spec):
 
 
 @register.simple_tag
+def get_filter_key(spec):
+    if hasattr(spec, 'lookup_kwarg'):
+        return spec.lookup_kwarg
+    if hasattr(spec, 'parameter_name'):
+        return spec.parameter_name
+    if hasattr(spec, 'field_generic'):
+        return spec.field_generic
+
+
+@register.simple_tag
+def get_app_icon(*apps):
+    for app in apps:
+        if hasattr(app, 'icon'):
+            return app.icon
+
+
+@register.simple_tag
 def get_user_admin_change_url(user):
     try:
         User = get_user_model()
@@ -161,4 +176,3 @@ def get_user_admin_change_url(user):
         return reverse(f"admin:{app_label}_{model_name}_change", args=[user.pk])
     except Exception:
         return '#'
-

@@ -1,4 +1,5 @@
 {% extends "admin/base_site.html" %}
+{% load humanize %}
 {% load dash_tags %}
 {% load i18n %}
 
@@ -13,7 +14,7 @@
                 <div class="card-body">
                     <div class="flex items-center justify-between">
                         <span class="font-medium">{% trans "History" %}</span>
-                        <a class="btn btn-link" href="{{ logentry_changelist_url }}">{% trans "Show All" %}</a>
+                        <a class="btn btn-link" href="{{ logentry_changelist_url }}">{% trans "Show all" %}</a>
                     </div>
                     <div class="overflow-auto">
                         <table class="table">
@@ -40,7 +41,7 @@
                                     </td>
                                     <td>
                                     <span class="text-muted">
-                                        {{ history.action_time|timesince }} {% trans 'ago' %}
+                                        {{ history.action_time|naturaltime }}
                                     </span>
                                     </td>
                                     <td>

@@ -4,7 +4,8 @@
 {% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
 
 <!DOCTYPE html>
-<html data-theme="" class="custom-scrollbars" lang="{{ LANGUAGE_CODE|default:"en-us" }}"
+<html data-use-i18n="{{ use_i18n|yesno:'1,0' }}" data-theme="" class="custom-scrollbars"
+      lang="{{ LANGUAGE_CODE|default:"en-us" }}"
       {% if LANGUAGE_BIDI %}dir="rtl"
       {% else %}dir="ltr"{% endif %}>
 
@@ -44,6 +45,11 @@
     <title>
         {% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
     </title>
+
+    {% if CUSTOM_DAISYUI_BUILD_PATH %}
+        <link rel="stylesheet" href="{{ CUSTOM_DAISYUI_BUILD_PATH }}">
+    {% endif %}
+
     {% if LOAD_FULL_STYLES %}
         <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.13/dist/full.min.css" rel="stylesheet"
               type="text/css"/>
@@ -52,40 +58,45 @@
         <link href="{% static 'admin/css/base_tailwind.css' %}" rel="stylesheet">
     {% endif %}
 
-    <link href="{% static 'admin/css/customized_tailwind.css' %}" rel="stylesheet">
+    <link href="{% static 'admin/css/customized_tailwind.css' %}?v=2" rel="stylesheet">
     <link href="{% static 'admin/css/calendar.css' %}" rel="stylesheet">
 
     <link rel="stylesheet" href="{% static 'admin/fonts/fontawesome-free-6.6.0-web/css/all.min.css' %}"/>
     <link href="{% static "admin/css/tom-select.min.css" %}" rel="stylesheet">
-    {% for custom_style_link in EXTRA_STYLES %}
-        <link rel="stylesheet" href="{{ custom_style_link }}">
-    {% endfor %}
 
     {% block body_font %}
-        {% if LANGUAGE_BIDI %}
-            <style>
-                @font-face {
-                    font-family: 'Vazir';
-                    src: url("{% static 'admin/fonts/Vazir.woff2' %}") format('woff');
-                    font-weight: normal;
-                    font-style: normal;
-                }
-            </style>
-        {% else %}
-            <style>
-                @font-face {
-                    font-family: 'Cantarell';
-                    src: url("{% static 'admin/fonts/Cantarell/Cantarell-Regular.ttf' %}") format('truetype');
-                    font-weight: normal;
-                    font-style: normal;
-                }
-            </style>
-        {% endif %}
+        <style>
+            @font-face {
+                font-family: 'rtl-font';
+                src: url("{% static 'admin/fonts/Vazir.woff2' %}") format('woff');
+                font-weight: normal;
+                font-style: normal;
+            }
+
+            @font-face {
+                font-family: 'body-font';
+                src:local('Ubuntu'), local('Ubuntu-Regular'), url("{% static 'admin/fonts/Ubuntu/Ubuntu-Regular.ttf' %}") format('truetype');
+                font-weight: normal;
+                font-style: normal;
+            }
+
+            /* Bold */
+            @font-face {
+                font-family: 'body-font';
+                src: local('Ubuntu-Medium'),url("{% static 'admin/fonts/Ubuntu/Ubuntu-Medium.ttf' %}") format('truetype');
+                font-weight: bold;
+                font-style: normal;
+            }
+        </style>
     {% endblock %}
 
 
     {% block extrahead %}{% endblock %}
     {% block extrastyle %}{% endblock %}
+
+    {% for custom_style_link in EXTRA_STYLES %}
+        <link rel="stylesheet" href="{{ custom_style_link }}">
+    {% endfor %}
 </head>
 
 <body class="bg-base-200 {% if LANGUAGE_BIDI %}font-vazir{% else %}font-cantarell{% endif %} ">
@@ -171,7 +182,6 @@
 <script src="{% static "admin/js/jquery.init.js" %}"></script>
 <script src="{% static "admin/js/tom-select.complete.min.js.js" %}"></script>
 <script src="{% static "admin/js/theme-change.js" %}"></script>
-<script defer src="{% static 'admin/tinymce/tinymce.min.js' %}"></script>
 <script defer src="{% static 'admin/js/SelectBox.js' %}"></script>
 <script src="{% static 'admin/js/admin/dashboard.js' %}"></script>
 {% for custom_script_link in EXTRA_SCRIPTS %}

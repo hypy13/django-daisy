@@ -57,15 +57,17 @@ pip install django-daisy
 pip install -e git+https://github.com/hypy13/django-daisy.git#egg=django-daisy
 ```
 
-After installation, add `django_daisy` to your `INSTALLED_APPS` in the Django settings file.  
+After installation, add `django_daisy` and `django.contrib.humanize` to your `INSTALLED_APPS` in the Django settings file.  
 
 ```python
 INSTALLED_APPS = [
     'django_daisy',
     'django.contrib.admin',
+    'django.contrib.humanize',  # Required for django-daisy
     ...
 ]
 ```
+
 
 Once you've made these changes, enjoy the fresh new theme!
 
@@ -117,7 +119,6 @@ DAISY_SETTINGS = {
             'icon': 'fa-solid fa-person-military-pointing',  # FontAwesome icon for the 'auth' app
             'name': 'Authentication',  # Custom name for the 'auth' app
             'hide': False,  # Whether to hide the 'auth' app from the sidebar (set to True to hide)
-            'app': 'users',  # The actual app to display in the sidebar (e.g., rename 'auth' to 'users')
             'divider_title': "Auth",  # Divider title for the 'auth' section
         },
         'social_django': {

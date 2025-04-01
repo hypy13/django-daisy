@@ -58,7 +58,7 @@
             <div>
                 <p class="errornote">
                     {% blocktranslate count counter=cl.formset.total_error_count %}Please correct the error below.
-                        {% plural %}Please correct the errors below.{% endblocktranslate %}
+                    {% plural %}Please correct the errors below.{% endblocktranslate %}
                 </p>
                 <ul>
                     {{ cl.formset.non_form_errors }}
@@ -142,7 +142,7 @@
                     <div class="card-header flex justify-between p-2">
                         <h2 class="font-bold">{% translate 'Filter' %}</h2>
                         <button id="apply-filter" type="button"
-                                class="btn btn-sm btn-primary">{% trans "Apply" %}</button>
+                                class="btn btn-sm btn-primary">{% trans "Filter" %}</button>
                     </div>
                     {% if cl.is_facets_optional or active_filters_count %}
                         <div id="changelist-filter-extra-actions" class="mb-2 flex justify-between">
@@ -192,6 +192,8 @@
                 new TomSelect(elem, {
                     plugins: ['remove_button'],
                     create: false,
+                    maxItems: null,
+                    maxOptions: null,
                 });
             })
 
@@ -199,9 +201,11 @@
                 window.location.href = $(this).val()
             })
 
-            document.getElementById("open-filter-drawer").addEventListener("click", function () {
-                const checkbox = document.getElementById("filter-drawer");
-                checkbox.checked = !checkbox.checked; // Toggles the 'checked' state
+            $("#open-filter-drawer").on("click", function () {
+                const checkbox = $("#filter-drawer")[0];
+                if (checkbox) {
+                    checkbox.checked = !checkbox.checked; // Toggles the 'checked' state
+                }
             });
 
             function submit_search_form() {

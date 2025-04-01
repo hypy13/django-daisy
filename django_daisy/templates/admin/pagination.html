@@ -29,8 +29,7 @@
     <!-- Right section: Total results -->
     <div class="text-end">
         <button class="btn btn-sm quiet ml-3">
-            {% blocktranslate count counter=cl.result_count %}{{ counter }} result
-                {% plural %}{{ counter }} results{% endblocktranslate %}
+{{ cl.result_count }} {% if cl.result_count == 1 %}{{ cl.opts.verbose_name }}{% else %}{{ cl.opts.verbose_name_plural }}{% endif %}
             <a class="badge" href="?
                     {% if cl.is_popup %}{{ is_popup_var }}=1{% if cl.add_facets %}&{% endif %}{% endif %}
                     {% if cl.add_facets %}{{ is_facets_var }}{% endif %}">

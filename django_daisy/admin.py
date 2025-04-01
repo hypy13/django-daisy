@@ -1,9 +1,18 @@
+import logging
+
 from django.apps import apps
+from django.conf import settings
 from django.contrib import admin
+from django.core.files.storage import FileSystemStorage
 from django.db import models
+from django.http import HttpResponse
 from django.shortcuts import render
-from django.urls import reverse
+from django.urls import reverse, path
+from django.views.decorators.csrf import csrf_exempt
+
 from django_daisy.module_settings import DAISY_SETTINGS
+
+logger = logging.getLogger(__name__)
 
 # Remove default form fields for specific date and time fields
 # admin.options.FORMFIELD_FOR_DBFIELD_DEFAULTS.pop(models.DateTimeField, None)
@@ -18,6 +27,12 @@ class DaisyAdminSite(admin.AdminSite):
     site_header = DAISY_SETTINGS.get('SITE_HEADER', 'Administration')
     index_title = DAISY_SETTINGS.get('SITE_HEADER', 'hi, welcome to your dashboard')
     logo = DAISY_SETTINGS.get('SITE_LOGO', '/static/admin/img/daisyui-logomark.svg')
+
+    def get_urls(self):
+        urls = [
+            path('json-editor-upload-handler/', self.admin_view(self.upload_file))
+        ]
+        return urls + super().get_urls()
 
     def get_log_entries(self, request):
         from django.contrib.admin.models import LogEntry
@@ -44,11 +59,8 @@ class DaisyAdminSite(admin.AdminSite):
         }
 
         request.current_app = self.name
-
         return render(
-            request, [
-                "admin/index.html"
-            ], context
+            request, self.index_template or "admin/index.html", context
         )
 
     # Overriding the get_app_list method to sort apps and exclude hidden ones
@@ -94,8 +106,32 @@ class DaisyAdminSite(admin.AdminSite):
             **context,
             **DAISY_SETTINGS,
             "change_language_url": change_language_url,
-            'logo': self.get_logo(request)
+            'logo': self.get_logo(request),
+            'can_delete_popup': '',
+            'use_i18n': getattr(settings, 'USE_I18N', False)
         }
 
     def get_logo(self, request):
         return self.logo
+
+    @csrf_exempt
+    def upload_file(self, request):
+        if request.method != 'POST':
+            return HttpResponse('Invalid request method', status=405, content_type='text/plain')
+
+        if 'file' not in request.FILES:
+            return HttpResponse('No file uploaded', status=400, content_type='text/plain')
+
+        file = request.FILES['file']
+
+        try:
+            fs = FileSystemStorage()
+            filename = fs.save(file.name, file)
+            url = request.build_absolute_uri(fs.url(filename))
+            return HttpResponse(url, content_type='text/plain')
+
+        except Exception as e:
+            # Log the error for debugging purposes
+            logger.error('Error saving file: %s', e)
+            # Return a generic error message to the client
+            return HttpResponse('Failed to save file', status=500, content_type='text/plain')
