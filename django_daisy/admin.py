@@ -6,9 +6,9 @@ from django.urls import reverse
 from django_daisy.module_settings import DAISY_SETTINGS
 
 # Remove default form fields for specific date and time fields
-admin.options.FORMFIELD_FOR_DBFIELD_DEFAULTS.pop(models.DateTimeField, None)
-admin.options.FORMFIELD_FOR_DBFIELD_DEFAULTS.pop(models.DateField, None)
-admin.options.FORMFIELD_FOR_DBFIELD_DEFAULTS.pop(models.TimeField, None)
+# admin.options.FORMFIELD_FOR_DBFIELD_DEFAULTS.pop(models.DateTimeField, None)
+# admin.options.FORMFIELD_FOR_DBFIELD_DEFAULTS.pop(models.DateField, None)
+# admin.options.FORMFIELD_FOR_DBFIELD_DEFAULTS.pop(models.TimeField, None)
 
 
 class DaisyAdminSite(admin.AdminSite):

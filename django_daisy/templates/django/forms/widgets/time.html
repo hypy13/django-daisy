@@ -1,3 +1,7 @@
-<input type="time" name="{{ widget.name }}"
+{% load dash_tags %}
+<input
+        {% with widget=widget|apply_class_to_widget:'input w-full min-w-24 max-w-96 focus:outline-0 transition-all input-sm input-bordered focus:outline-offset-0' %}
+{% endwith %}
+        type="{{ widget.type }}" name="{{ widget.name }}"
         {% if widget.value != None %}
-       value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}>
+        value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}>
