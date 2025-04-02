@@ -13,6 +13,7 @@
   "license": "ISC",
   "dependencies": {
     "daisyui": "^4.12.10",
+    "daisyui_dashboard": "file:",
     "tailwindcss": "^3.4.10"
   }
 }
