@@ -1,3 +1,2 @@
-# These are supported funding model platforms
-github: hypy13
+github: [hypy13]
 custom: ["https://nowpayments.io/payment/?iid=6021809974"]
