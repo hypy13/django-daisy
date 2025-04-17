@@ -1,4 +1,6 @@
 {% include "django/forms/widgets/url.html" %}
-<p class="url link text-xs p-2">
-    {{ current_label }} <a href="{{ widget.href }}">{{ widget.value }}</a>
-</p>
+{% if widget.value %}
+    <p class="url link text-xs p-2">
+        {{ current_label }} <a href="{{ widget.href }}">{{ widget.value }}</a>
+    </p>
+{% endif %}
