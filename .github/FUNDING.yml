@@ -1,2 +1,4 @@
-github: [octocat, surftocat]
-custom: ["https://nowpayments.io/payment/?iid=6021809974", nowpayments.io]
+# These are supported funding model platforms
+
+thanks_dev: # Replace with a single thanks.dev username
+custom: [https://nowpayments.io/payment/?iid=6021809974]
