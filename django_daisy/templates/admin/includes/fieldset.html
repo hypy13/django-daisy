@@ -1,7 +1,7 @@
 {% load dash_tags %}
 <fieldset class="module aligned  {{ fieldset.classes }} mb-4 overflow-visible">
     {% for line in fieldset %}
-        <div class="form-row flex flex-wrap justify-start items-center gap-4 mb-3 {% if not line.has_visible_field %}hidden{% endif %} {% for field in line %} {% if field.field.name %}field-{{ field.field.name }}{% endif %} {% endfor %}">
+        <div class="form-row flex flex-wrap justify-start gap-4 mb-3 {% if not line.has_visible_field %}hidden{% endif %} {% for field in line %} {% if field.field.name %}field-{{ field.field.name }}{% endif %} {% endfor %}">
             {% for field in line %}
                 <div class="mb-1 basis-full md:flex-1">
                     <div class="{% if not line.fields|length == 1 %}fieldBox{% if field.field.name %} field-{{ field.field.name }}{% endif %} {% if not field.is_readonly and field.errors %}text-red-600{% endif %} {% if field.field.is_hidden %}hidden{% endif %}{% elif field.is_checkbox %}{% endif %}">
