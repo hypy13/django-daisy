@@ -7,7 +7,14 @@ from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
-
+from django.contrib.admin.views.main import (
+    ALL_VAR,
+    IS_FACETS_VAR,
+    IS_POPUP_VAR,
+    ORDER_VAR,
+    PAGE_VAR,
+    SEARCH_VAR,
+)
 
 def custom_boolean_icon(field_val):
     # Define icon and badge class based on field value
@@ -176,3 +183,8 @@ def get_user_admin_change_url(user):
         return reverse(f"admin:{app_label}_{model_name}_change", args=[user.pk])
     except Exception:
         return '#'
+
+
+@register.simple_tag
+def get_page_link(cl, i):
+    return cl.get_query_string({PAGE_VAR: i})

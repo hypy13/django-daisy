@@ -5,11 +5,11 @@
     <!-- Left section: Empty or could be used for a "Previous" button if desired -->
     <div class="">
         {% if pagination_required and cl.page_num > 1 %}
-            <a href="?p={{ cl.page_num|add:"-1"|replace:',' }}"
+            <a href="{% get_page_link cl i %}"
                class="btn btn-sm btn-outline">{% trans "Previous" %}</a>
         {% endif %}
         {% if pagination_required and cl.page_num < cl.paginator.num_pages %}
-            <a href="?p={{ cl.page_num|add:"1"|replace:',' }}" class="btn btn-sm btn-outline">{% trans "Next" %}</a>
+            <a href="{% get_page_link cl i %}" class="btn btn-sm btn-outline">{% trans "Next" %}</a>
         {% endif %}
     </div>
 
@@ -20,7 +20,7 @@
                 {% if i == cl.page_num %}
                     <button class="join-item btn-sm btn btn-primary btn-active">{{ i }}</button>
                 {% else %}
-                    <a href="?p={{ i | replace:',' }}" class="join-item btn btn-sm">{{ i }}</a>
+                    <a href="{% get_page_link cl i %}" class="join-item btn btn-sm">{{ i }}</a>
                 {% endif %}
             {% endfor %}
         {% endif %}
