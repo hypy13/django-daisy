@@ -63,6 +63,7 @@
 
     <link rel="stylesheet" href="{% static 'admin/fonts/fontawesome-free-6.6.0-web/css/all.min.css' %}"/>
     <link href="{% static "admin/css/tom-select.min.css" %}" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tom-select@2.4.3/dist/css/tom-select.css" rel="stylesheet">
 
     {% block body_font %}
         <style>
@@ -75,7 +76,7 @@
 
             @font-face {
                 font-family: 'body-font';
-                src:local('Ubuntu'), local('Ubuntu-Regular'), url("{% static 'admin/fonts/Ubuntu/Ubuntu-Regular.ttf' %}") format('truetype');
+                src: local('Ubuntu'), local('Ubuntu-Regular'), url("{% static 'admin/fonts/Ubuntu/Ubuntu-Regular.ttf' %}") format('truetype');
                 font-weight: normal;
                 font-style: normal;
             }
@@ -83,7 +84,7 @@
             /* Bold */
             @font-face {
                 font-family: 'body-font';
-                src: local('Ubuntu-Medium'),url("{% static 'admin/fonts/Ubuntu/Ubuntu-Medium.ttf' %}") format('truetype');
+                src: local('Ubuntu-Medium'), url("{% static 'admin/fonts/Ubuntu/Ubuntu-Medium.ttf' %}") format('truetype');
                 font-weight: bold;
                 font-style: normal;
             }
@@ -180,7 +181,7 @@
 
 <script src="{% static "admin/js/vendor/jquery/jquery.min.js" %}"></script>
 <script src="{% static "admin/js/jquery.init.js" %}"></script>
-<script src="{% static "admin/js/tom-select.complete.min.js.js" %}"></script>
+<script src="https://cdn.jsdelivr.net/npm/tom-select@2.4.3/dist/js/tom-select.complete.min.js"></script>
 <script src="{% static "admin/js/theme-change.js" %}"></script>
 <script defer src="{% static 'admin/js/SelectBox.js' %}"></script>
 <script src="{% static 'admin/js/admin/dashboard.js' %}"></script>

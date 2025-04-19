@@ -4,7 +4,6 @@ from django.apps import apps
 from django.conf import settings
 from django.contrib import admin
 from django.core.files.storage import FileSystemStorage
-from django.db import models
 from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import path, reverse
@@ -14,6 +13,7 @@ from django_daisy._helpers import ASSET_PATH
 from django_daisy.module_settings import DAISY_SETTINGS
 
 logger = logging.getLogger(__name__)
+
 
 # Remove default form fields for specific date and time fields
 # admin.options.FORMFIELD_FOR_DBFIELD_DEFAULTS.pop(models.DateTimeField, None)
@@ -32,7 +32,9 @@ class DaisyAdminSite(admin.AdminSite):
     )
 
     def get_urls(self):
-        urls = [path("json-editor-upload-handler/", self.admin_view(self.upload_file))]
+        urls = [
+            path("json-editor-upload-handler/", self.admin_view(self.upload_file), name='json-editor-upload-handler')
+        ]
         return urls + super().get_urls()
 
     def get_log_entries(self, request):
