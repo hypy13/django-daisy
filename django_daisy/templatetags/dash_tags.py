@@ -3,18 +3,14 @@ from urllib.parse import unquote
 
 from django import template
 from django.contrib.admin.templatetags import admin_list
+from django.contrib.admin.views.main import (
+    PAGE_VAR,
+)
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
-from django.contrib.admin.views.main import (
-    ALL_VAR,
-    IS_FACETS_VAR,
-    IS_POPUP_VAR,
-    ORDER_VAR,
-    PAGE_VAR,
-    SEARCH_VAR,
-)
+
 
 def custom_boolean_icon(field_val):
     # Define icon and badge class based on field value
@@ -149,12 +145,19 @@ def get_active_filters_count(cl):
 
 @register.simple_tag
 def is_multiple_filter_choice(spec):
-    not_multiple = []
-    if hasattr(spec, 'field_generic'):
-        if spec.field_generic.endswith('__'):
-            return ''
+    from django.contrib.admin import filters
 
-    return 'multiple'
+    multiple_select = [
+        filters.ChoicesFieldListFilter,
+        filters.AllValuesFieldListFilter,
+        filters.RelatedOnlyFieldListFilter,
+        filters.RelatedFieldListFilter,
+    ]
+
+    if spec.__class__ in multiple_select or getattr(spec, 'multiple', False):
+        return 'multiple'
+
+    return ''
 
 
 @register.simple_tag

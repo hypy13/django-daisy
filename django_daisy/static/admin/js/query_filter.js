@@ -61,10 +61,16 @@ const QueryModule = (function () {
             let selectedValues = $(this).val();
             let dataKey = $(this).data('key');
             if (dataKey && dataKey.includes('__exact') && selectedValues) {
-                selectedValues.forEach(option => {
-                    let v = extractValueFromQueryString(option, dataKey)
-                    addOrUpdateQueryParameter(v, dataKey, option)
-                });
+                if (selectedValues instanceof Array) {
+                    selectedValues.forEach(option => {
+                        let v = extractValueFromQueryString(option, dataKey)
+                        addOrUpdateQueryParameter(v, dataKey, option)
+                    });
+                } else {
+                    let v = extractValueFromQueryString(selectedValues, dataKey)
+                    addOrUpdateQueryParameter(v, dataKey, selectedValues)
+                }
+
             } else if (dataKey && selectedValues) {
                 if (selectedValues instanceof Array) {
                     selectedValues = selectedValues[0]

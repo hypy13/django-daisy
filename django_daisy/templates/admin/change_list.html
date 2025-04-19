@@ -23,7 +23,7 @@
 {% block extrahead %}
     {{ block.super }}
     {{ media.js }}
-    <script src="{% static 'admin/js/query_filter.js' %}" defer></script>
+    <script src="{% static 'admin/js/query_filter.js' %}?v=1" defer></script>
 {% endblock %}
 
 {% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-list{% endblock %}
@@ -189,10 +189,14 @@
     <script>
         $(document).ready(function () {
             $('.filter-select').each(function (i, elem) {
+                let maxItems = 1
+                if ($(elem).is('[multiple]')) {
+                    maxItems = null
+                }
                 new TomSelect(elem, {
                     plugins: ['remove_button'],
                     create: false,
-                    maxItems: null,
+                    maxItems: maxItems,
                     maxOptions: null,
                 });
             })
