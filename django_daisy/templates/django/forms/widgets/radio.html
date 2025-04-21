@@ -1,5 +1,5 @@
 {% with id=widget.attrs.id %}
-    <div class="form-control flex flex-row gap-4 pt-1"
+    <div class="flex flex-row gap-4 pt-1"
             {% if id %} id="{{ id }}"{% endif %}{% if widget.attrs.class %} class="{{ widget.attrs.class }}"{% endif %}>
         {% for group, options, index in widget.optgroups %}
             {% if group %}
