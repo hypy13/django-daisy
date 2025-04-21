@@ -1,5 +1,5 @@
 import re
-from urllib.parse import unquote
+from urllib.parse import unquote, parse_qs
 
 from django import template
 from django.contrib.admin.templatetags import admin_list
@@ -103,13 +103,7 @@ def get_value_by_key(query, key):
 
 @register.simple_tag
 def is_active_choice(choice, spec):
-    try:
-        if spec.lookup_kwarg not in choice['query_string']:
-            return ''
-    except Exception:
-        pass
-
-    if choice.get('selected'):
+    if choice.get('selected') and choice['query_string'] != '?':
         return 'selected'
 
     if hasattr(spec, "lookup_kwarg"):
@@ -121,15 +115,24 @@ def is_active_choice(choice, spec):
     else:
         filter_key = spec.field_generic
 
+    _filter_key = filter_key
+    if "__" not in filter_key:
+        _filter_key = filter_key + '__in'
+
     if hasattr(spec, 'request'):
         filter_values = spec.request.GET.get(filter_key.replace('__exact', '__in'))
     else:
         filter_values = ""
 
     current_choice_value = get_value_by_key(choice['query_string'], filter_key)
+    altered_choice_value = get_value_by_key(choice['query_string'], _filter_key)
+    if altered_choice_value:
+        if current_choice_value in altered_choice_value.split(','):
+            return 'selected'
 
+    filter_values_list = filter_values.split(',') if filter_values else []
     if current_choice_value and filter_values:
-        if current_choice_value in filter_values.split(','):
+        if current_choice_value in filter_values_list or choice['display'] in filter_values_list:
             return 'selected'
 
     return ''
@@ -161,13 +164,23 @@ def is_multiple_filter_choice(spec):
 
 
 @register.simple_tag
-def get_filter_key(spec):
-    if hasattr(spec, 'lookup_kwarg'):
-        return spec.lookup_kwarg
-    if hasattr(spec, 'parameter_name'):
-        return spec.parameter_name
-    if hasattr(spec, 'field_generic'):
-        return spec.field_generic
+def get_bare_option_value(spec, choice):
+    values = []
+    qs = choice['query_string']
+    if qs.startswith('?'):
+        qs = qs[1:]
+
+    for fk in spec.expected_parameters():
+        val = parse_qs(qs).get(fk)
+        if val and val[0]:
+            values.append(val[0])
+
+    return ','.join(values) if values else ''
+
+
+@register.simple_tag
+def get_filter_keys(spec):
+    return ",".join(spec.expected_parameters())
 
 
 @register.simple_tag

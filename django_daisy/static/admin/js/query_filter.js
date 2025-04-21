@@ -1,103 +1,151 @@
-// queryModule.js
+const QueryModule = (() => {
+    // Store query parameters
+    const queryMap = new Map();
 
-const QueryModule = (function () {
-    let queryMap = {};
+    function addFacetToQuery(queryString) {
+        // Remove the leading '?' and split parameters
+        const params = queryString.replace(/^\?/, '').split('&').filter(Boolean);
 
-    function extractValueFromQueryString(queryString, data_key) {
-        const params = new URLSearchParams(queryString);
-        let val = null
-        params.forEach((v, k) => {
-            if (k.startsWith(data_key)) {
-                val = v;
-            }
-        })
-        return val
+        // Add the _facets=true parameter at the beginning
+        params.unshift('_facets=true');
+
+        // Rebuild the query string
+        return '?' + params.join('&');
     }
 
-    function extractTheShitOutOfIt(queryString, data_key) {
-        const all_params = new URLSearchParams(queryString);
-        let this_params = ""
-        all_params.forEach((v, k) => {
-            v = encodeURIComponent(v)
-            if (k.startsWith(data_key)) {
-                this_params += `&${k}=${v}`;
+    /**
+     * Extracts a value from a query string based on a data key
+     * @param {string} queryString - The query string to parse
+     * @param {string} dataKey - The key to search for
+     * @returns {string|null} - The matching value or null
+     */
+    const extractValueFromQueryString = (queryString, dataKey) => {
+        try {
+            const params = new URLSearchParams(queryString);
+            for (const [key, value] of params) {
+                if (key.startsWith(dataKey)) {
+                    return value;
+                }
             }
-        })
-        return this_params
-    }
-
-
-    function addOrUpdateQueryParameter(value, key, option) {
-        key = key.replace('__exact', '__in')
-        if (queryMap[key]) {
-            // Append new value to existing key with a comma separator
-            if (!queryMap[key].includes(value)) {
-                queryMap[key] += `,${value}`;
-            }
-        } else if (value) {
-            // Add the new key-value pair to the map
-            queryMap[key] = value;
+            return null;
+        } catch (error) {
+            console.error('Error parsing query string:', error);
+            return null;
         }
-    }
+    };
 
-    function buildQueryString(queryObj) {
-        return '?' + Object.keys(queryObj).map(key => {
-            let formattedKey = key.replace('__exact', '__in');
-            let formattedVal = encodeURIComponent(queryObj[key])
-            return `${formattedKey}=${formattedVal}`;
-        }).join('&');
-    }
+    /**
+     * Builds a query string from an object
+     * @param {Object} queryObj - Object containing query parameters
+     * @returns {string} - Formatted query string
+     */
+    const buildQueryString = (queryObj) => {
+        const queryArray = Object.entries(queryObj)
+            .map(([key, values]) => {
+                let formattedKey = key.replace('__exact', '__in');
+                if (!formattedKey.match(/__[^_]+$/)) {
+                    formattedKey += '__in';
+                }
+
+                if (Array.isArray(values)) {
+                    const validValues = values.filter(
+                        (item) => item != null && item !== ''
+                    );
+
+                    if (validValues.length > 0) {
+                        const joinedValues = validValues
+                            .map((item) => encodeURIComponent(item))
+                            .join(',');
+                        return `${formattedKey}=${joinedValues}`;
+                    }
+                }
+                return null;
+            })
+            .filter(Boolean);
+
+        return queryArray.length ? `?${queryArray.join('&')}` : '';
+    };
+
+    /**
+     * Applies filters and updates URL based on selected values
+     */
+    const applyFilters = () => {
+        try {
+            const urlParams = new URLSearchParams(window.location.search);
+            queryMap.clear();
 
 
-    function applyFilters() {
-        const urlParams = new URLSearchParams(window.location.search);
-        queryMap = {};
-        const facets = urlParams.get('_facets');
-        if (facets) {
-            queryMap['_facets'] = true
-        }
-        let single_query_string = ""
-        $('.filter-select').each(function () {
-            let selectedValues = $(this).val();
-            let dataKey = $(this).data('key');
-            if (dataKey && dataKey.includes('__exact') && selectedValues) {
-                if (selectedValues instanceof Array) {
-                    selectedValues.forEach(option => {
-                        let v = extractValueFromQueryString(option, dataKey)
-                        addOrUpdateQueryParameter(v, dataKey, option)
-                    });
+            const filterData = {};
+            document.querySelectorAll('.filter-select').forEach((select) => {
+                // Handle both single and multiple select elements
+                let selectedValues = [];
+
+                if (select.multiple) {
+                    // Multiple select: get all selected options
+                    selectedValues = Array.from(select.selectedOptions || [])
+                        .map((option) => option.value)
+                        .filter((value) => value != null && value !== '');
                 } else {
-                    let v = extractValueFromQueryString(selectedValues, dataKey)
-                    addOrUpdateQueryParameter(v, dataKey, selectedValues)
+                    // Single select: get the selected value
+                    const value = select.value;
+                    if (value != null && value !== '') {
+                        selectedValues = [value];
+                    }
                 }
 
-            } else if (dataKey && selectedValues) {
-                if (selectedValues instanceof Array) {
-                    selectedValues = selectedValues[0]
-                }
-                single_query_string += extractTheShitOutOfIt(selectedValues, dataKey)
+                const dataKeys = select.dataset.keys?.split(',').filter(Boolean) || [];
+
+                dataKeys.forEach((key) => {
+                    if (selectedValues.length) {
+                        const values = selectedValues
+                            .map((value) => extractValueFromQueryString(value, key))
+                            .filter(Boolean);
+
+                        if (values.length) {
+                            filterData[key] = filterData[key]
+                                ? [...filterData[key], ...values]
+                                : values;
+                        }
+                    }
+                });
+            });
+
+            let queryString = buildQueryString(filterData);
+
+            // Prepend _facets=true if it exists in the URL parameters
+            const hasFacets = urlParams.has('_facets');
+            if (hasFacets) {
+                queryString = addFacetToQuery(queryString)
             }
-        });
 
-        let multQueryString = buildQueryString(queryMap);
+            if (queryString) {
+                console.log(queryString);
+                window.location.href = queryString;
+            }
+        } catch (error) {
+            console.error('Error applying filters:', error);
+        }
+    };
 
-        let queryString = multQueryString + single_query_string
-        window.location.href = queryString;
-    }
+    /**
+     * Initializes the module by setting up event listeners
+     */
+    const init = () => {
+        const applyButton = document.getElementById('apply-filter');
+        if (applyButton) {
+            applyButton.addEventListener('click', applyFilters);
+        } else {
+            console.warn('Apply filter button not found');
+        }
+    };
 
-    function init() {
-        $('#apply-filter').click(applyFilters);
-    }
-
+    // Expose public methods
     return {
         init,
         extractValueFromQueryString,
-        addOrUpdateQueryParameter,
-        applyFilters
+        applyFilters,
     };
 })();
 
-// Initialize the module
-$(document).ready(function () {
-    QueryModule.init();
-});
+// Initialize module when DOM is ready
+document.addEventListener('DOMContentLoaded', QueryModule.init);

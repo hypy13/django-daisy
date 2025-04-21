@@ -5,7 +5,7 @@
         <b class="text-sm mb-1 inline-block capitalize">
             {% blocktranslate with filter_title=title %}{{ filter_title }} {% endblocktranslate %}:</b>
         <select {% is_multiple_filter_choice spec %} class="filter-select"
-                                                        data-key="{% get_filter_key spec %}">
+                                                        data-keys="{% get_filter_keys spec %}">
             {% for choice in choices %}
                 <option {% is_active_choice choice spec %} value="{{ choice.query_string|iriencode }}">
                     {{ choice.display }}
