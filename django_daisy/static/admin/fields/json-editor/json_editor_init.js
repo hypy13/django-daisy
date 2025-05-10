@@ -77,6 +77,8 @@ $(document).ready(function () {
             startval: initialData
         });
 
+        $(editor)[0].jsoneditor = jsonEditorInstance
+
         jsonEditorInstance.on('change', () => {
             try {
                 $(editor).val(JSON.stringify(jsonEditorInstance.getValue()));
