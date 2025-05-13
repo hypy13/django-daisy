@@ -226,3 +226,9 @@ We welcome contributions from the community! Feel free to submit any issues, sug
 Special thanks to [Cloud With Django](https://www.youtube.com/@CloudWithDjango) for featuring my theme in their video. Your support means a lot! <br>
 Demo Video: https://www.youtube.com/watch?v=WEKTXu1la9M
 
+
+
+
+[![Published on Django Packages](https://img.shields.io/badge/Published%20on-Django%20Packages-0c3c26)](https://djangopackages.org/packages/p/django-daisy/)
+
+
