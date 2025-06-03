@@ -1,0 +1,9 @@
+{% load i18n %}
+{% load admin_urls %}
+
+{% if has_import_permission %}
+    <a href='{% url opts|admin_urlname:"import" %}'
+       class="import_link btn primary-content btn-sm btn-primary ">{% translate "Import" %}
+        <i class="fa fa-file-import"></i>
+    </a>
+{% endif %}

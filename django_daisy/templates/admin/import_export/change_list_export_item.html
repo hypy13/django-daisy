@@ -1,0 +1,9 @@
+{% load i18n %}
+{% load admin_urls %}
+
+{% if has_export_permission %}
+    <a href="{% url opts|admin_urlname:'export' %}{{ cl.get_query_string }}"
+       class="btn primary-content btn-sm btn-primary export_link">{% translate "Export" %}
+        <i class="fa fa-file-export"></i>
+    </a>
+{% endif %}

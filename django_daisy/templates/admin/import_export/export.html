@@ -1,0 +1,143 @@
+{% extends "admin/import_export/base.html" %}
+{% load i18n %}
+{% load admin_urls %}
+{% load import_export_tags %}
+
+{% block extrahead %}{{ block.super }}
+    <script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
+    {{ form.media }}
+{% endblock %}
+
+{% block breadcrumbs_last %}
+    <li class="breadcrumb-item active text-base-content/70">{% translate "Export" %}</li>
+{% endblock %}
+
+{% block content %}
+    <div class="p-4 bg-base-100 rounded-box shadow-sm">
+        <form action="{{ export_url }}" method="POST" class="space-y-6">
+            {% csrf_token %}
+
+            {% if form.errors %}
+                <div class="alert alert-error shadow-sm mb-6">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none"
+                             viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        </svg>
+                        <div>
+                            <h3 class="font-bold">{% translate "Form Errors" %}</h3>
+                            <div class="text-xs">{{ form.errors }}</div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
+            {# export request has originated from an Admin UI action #}
+            {% if form.initial.export_items %}
+                <div class="alert alert-info shadow-lg">
+                    <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                             class="stroke-current flex-shrink-0 w-6 h-6">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <span>
+                        {% blocktranslate count len=form.initial.export_items|length %}
+                            Export {{ len }} selected item.
+                        {% plural %}
+                            Export {{ len }} selected items.
+                        {% endblocktranslate %}
+                    </span>
+                    </div>
+                </div>
+            {% endif %}
+
+            {# fields list is not required with selectable fields form #}
+            {% if not form.is_selectable_fields_form %}
+                {% include "admin/import_export/resource_fields_list.html" with import_or_export="export" %}
+            {% endif %}
+
+            <div class="bg-base-200 rounded-box p-6 space-y-4">
+                {% for field in form.visible_fields %}
+                    <div class="form-control
+                    {% if field.field.is_selectable_field %}
+                        selectable-field-export-row
+                        resource-index="{{ field.field.resource_index }}"
+                    {% endif %}"
+                    >
+                    {% if field.field.initial_field %}
+                        <p class="text-base-content/80 mb-4">{% translate "This exporter will export the following fields: " %}</p>
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <div class="alert alert-error mb-2">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6"
+                                     fill="none" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                {{ field.errors }}
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <div class="flex items-center gap-4">
+                        {% if not field.field.is_selectable_field %}
+                            {{ field.label_tag }}
+                        {% endif %}
+
+                        {% if field.field.widget.attrs.readonly %}
+                            <div class="input input-sm input-bordered w-full bg-base-200">
+                                {{ field.field.value }}
+                            </div>
+                            {{ field.as_hidden }}
+                        {% else %}
+                            {{ field }}
+                        {% endif %}
+
+                        {% if field.field.is_selectable_field %}
+                            {{ field.label_tag }}
+                        {% endif %}
+                    </div>
+
+                    {% if field.field.help_text %}
+                        <div class="label">
+                            <span class="label-text-alt text-base-content/70">{{ field.field.help_text|safe }}</span>
+                        </div>
+                    {% endif %}
+                    </div>
+                {% endfor %}
+
+            {% for field in form.hidden_fields %}
+                {{ field }}
+            {% endfor %}
+    </div>
+
+    {% if form.non_field_errors %}
+        <div class="alert alert-error">
+            <div>
+                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6" fill="none"
+                     viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                <div>{{ form.non_field_errors }}</div>
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="submit-row flex justify-end">
+        <button type="submit" class="btn btn-primary btn-wide">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                <path fill-rule="evenodd"
+                      d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z"
+                      clip-rule="evenodd"/>
+            </svg>
+            {% translate "Export" %}
+        </button>
+    </div>
+    </form>
+    </div>
+{% endblock %}

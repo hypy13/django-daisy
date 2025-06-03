@@ -1,0 +1,324 @@
+{% extends "admin/import_export/base.html" %}
+{% load i18n %}
+{% load admin_urls %}
+{% load import_export_tags %}
+{% load static %}
+
+{% block extrastyle %}{{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static "import_export/import.css" %}"/>
+{% endblock %}
+
+{% block extrahead %}{{ block.super }}
+    <script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
+    {% if confirm_form %}
+        {{ confirm_form.media }}
+    {% else %}
+        {{ form.media }}
+    {% endif %}
+{% endblock %}
+
+{% block breadcrumbs_last %}
+    <li class="breadcrumb-item active text-base-content/70">
+        {% translate "Import" %}
+    </li>
+{% endblock %}
+
+{% block content %}
+    <div class="p-4 bg-base-100 rounded-box shadow-md">
+        {% if confirm_form %}
+            {% block confirm_import_form %}
+                <form action="{% url opts|admin_urlname:"process_import" %}" method="POST" class="space-y-6">
+                    {% csrf_token %}
+                    <div class="bg-base-200 rounded-box p-4">
+                        {{ confirm_form }}
+                    </div>
+                    <div class="alert alert-info shadow-md">
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                 class="stroke-current flex-shrink-0 w-6 h-6">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                            <span>
+                            {% translate "Below is a preview of data to be imported. If you are satisfied with the results, click 'Confirm import'" %}
+                        </span>
+                        </div>
+                    </div>
+                    <div class="submit-row flex justify-end">
+                        <button type="submit" class="btn btn-success btn-wide" name="confirm">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20"
+                                 fill="currentColor">
+                                <path fill-rule="evenodd"
+                                      d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                                      clip-rule="evenodd"/>
+                            </svg>
+                            {% translate "Confirm import" %}
+                        </button>
+                    </div>
+                </form>
+            {% endblock %}
+        {% else %}
+            {% block import_form %}
+                <form action="" method="post" enctype="multipart/form-data" class="space-y-6">
+                    {% csrf_token %}
+
+                    {% include "admin/import_export/resource_fields_list.html" with import_or_export="import" %}
+                    {% block import_form_additional_info %}{% endblock %}
+
+                    {% block form_detail %}
+                        <div class="bg-base-200 rounded-box p-6 space-y-4">
+                            {% for field in form %}
+                                <div class="form-control">
+                                    {{ field.label_tag }}
+
+                                    {% if field.field.widget.attrs.readonly %}
+                                        <div class="input input-sm w-full">
+                                            {{ field.field.value }}
+                                        </div>
+                                        {{ field.as_hidden }}
+                                    {% else %}
+                                        {{ field }}
+                                    {% endif %}
+
+                                    {% if field.help_text %}
+                                        <div class="label">
+                                            <span class="label-text-alt text-base-content/70">{{ field.help_text|safe }}</span>
+                                        </div>
+                                    {% endif %}
+
+                                    {% if field.errors %}
+                                        <div class="alert alert-error mt-2">
+                                            <div>
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                     class="stroke-current flex-shrink-0 h-6 w-6" fill="none"
+                                                     viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                          stroke-width="2"
+                                                          d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                                </svg>
+                                                {{ field.errors }}
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endblock %}
+
+                    {% block form_submit_button %}
+                        <div class="flex justify-end mt-6">
+                            <button type="submit" class="btn btn-primary btn-wide">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20"
+                                     fill="currentColor">
+                                    <path fill-rule="evenodd"
+                                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 10-2 0v2H7a1 1 0 100 2h2v2a1 1 0 102 0v-2h2a1 1 0 100-2h-2V7z"
+                                          clip-rule="evenodd"/>
+                                </svg>
+                                {% translate "Submit" %}
+                            </button>
+                        </div>
+                    {% endblock %}
+                </form>
+            {% endblock %}
+        {% endif %}
+
+        {% if result %}
+            <div class="mt-10">
+                {% if result.has_errors %}
+                    {% block errors %}
+                        <div class="alert alert-error shadow-lg mb-6">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6"
+                                 fill="none" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                      d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                            </svg>
+                            <span class="text-xl font-bold">{% translate "Errors" %}</span>
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <ul class="menu bg-base-200 rounded-box">
+                                {% for error in result.base_errors %}
+                                    <li class="border-b border-base-300">
+                                        <div class="py-4">
+                                            <div class="font-bold text-error">{{ error.error }}</div>
+                                            <div class="text-sm text-error-content bg-error/10 p-2 rounded-box mt-2 font-mono">{{ error.traceback|linebreaks }}</div>
+                                        </div>
+                                    </li>
+                                {% endfor %}
+                                {% block import_error_list %}
+                                    {% for line, errors in result.row_errors %}
+                                        {% for error in errors %}
+                                            {% block import_error_list_item %}
+                                                <li class="border-b border-base-300">
+                                                    <div class="py-4">
+                                                        {% if "message" in import_error_display %}
+                                                            <div class="font-bold">
+                                                                {% translate "Line" %} {{ line }}: <span
+                                                                    class="text-error">{{ error.error }}</span>
+                                                            </div>
+                                                        {% endif %}
+                                                        {% if "row" in import_error_display %}
+                                                            <div class="badge badge-neutral badge-lg mt-2">
+                                                                {{ error.row.values|join:", " }}
+                                                            </div>
+                                                        {% endif %}
+                                                        {% if "traceback" in import_error_display %}
+                                                            <div class="text-sm text-error-content bg-error/10 p-2 rounded-box mt-2 font-mono">{{ error.traceback|linebreaks }}</div>
+                                                        {% endif %}
+                                                    </div>
+                                                </li>
+                                            {% endblock %}
+                                        {% endfor %}
+                                    {% endfor %}
+                                {% endblock %}
+                            </ul>
+                        </div>
+                    {% endblock %}
+
+                {% elif result.has_validation_errors %}
+
+                    {% block validation_errors %}
+                        <div class="alert alert-warning shadow-lg mb-6">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6"
+                                     fill="none" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/>
+                                </svg>
+                                <span class="text-xl font-bold">{% translate "Some rows failed to validate" %}</span>
+                            </div>
+                        </div>
+
+                        <div class="alert mb-6">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                     class="stroke-info flex-shrink-0 w-6 h-6">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <span>{% translate "Please correct these errors in your data where possible, then reupload it using the form above." %}</span>
+                            </div>
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="table table-zebra table-auto w-full">
+                                <thead>
+                                <tr class="bg-base-300">
+                                    <th class="text-base-content">{% translate "Row" %}</th>
+                                    <th class="text-base-content">{% translate "Errors" %}</th>
+                                    {% for field in result.diff_headers %}
+                                        <th class="text-base-content">{{ field }}</th>
+                                    {% endfor %}
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for row in result.invalid_rows %}
+                                    <tr>
+                                        <td class="font-bold">{{ row.number }}</td>
+                                        <td>
+                                            <div class="badge badge-error badge-lg gap-2">
+                                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                                     class="inline-block w-4 h-4 stroke-current">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                          stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                                </svg>
+                                                {{ row.error_count }} {% translate "errors" %}
+                                            </div>
+
+                                            <div class="mt-2 space-y-2">
+                                                {% for field_name, error_list in row.field_specific_errors.items %}
+                                                    <div class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box">
+                                                        <input type="checkbox"/>
+                                                        <div class="collapse-title text-sm font-medium">
+                                                            {{ field_name }}
+                                                        </div>
+                                                        <div class="collapse-content">
+                                                            <ul class="list-disc pl-5 text-error">
+                                                                {% for error in error_list %}
+                                                                    <li>{{ error }}</li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                {% endfor %}
+
+                                                {% if row.non_field_specific_errors %}
+                                                    <div class="collapse collapse-arrow border border-base-300 bg-base-100 rounded-box">
+                                                        <input type="checkbox"/>
+                                                        <div class="collapse-title text-sm font-medium">
+                                                            {% translate "General Errors" %}
+                                                        </div>
+                                                        <div class="collapse-content">
+                                                            <ul class="list-disc pl-5 text-error">
+                                                                {% for error in row.non_field_specific_errors %}
+                                                                    <li>{{ error }}</li>
+                                                                {% endfor %}
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        </td>
+                                        {% for field in row.values %}
+                                            <td class="font-mono text-sm">{{ field }}</td>
+                                        {% endfor %}
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endblock %}
+
+                {% else %}
+
+                    {% block preview %}
+                        <div class="alert alert-success shadow-lg mb-6">
+                            <div>
+                                <svg xmlns="http://www.w3.org/2000/svg" class="stroke-current flex-shrink-0 h-6 w-6"
+                                     fill="none" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                                <span class="text-xl font-bold">{% translate "Preview" %}</span>
+                            </div>
+                        </div>
+
+                        <div class="overflow-x-auto">
+                            <table class="table table-zebra table-auto w-full">
+                                <thead>
+                                <tr class="bg-base-300">
+                                    <th class="text-base-content">{% translate "Status" %}</th>
+                                    {% for field in result.diff_headers %}
+                                        <th class="text-base-content">{{ field }}</th>
+                                    {% endfor %}
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for row in result.valid_rows %}
+                                    <tr class="{% if row.import_type == 'new' %}bg-success/10{% elif row.import_type == 'skip' %}bg-warning/10{% elif row.import_type == 'delete' %}bg-error/10{% elif row.import_type == 'update' %}bg-info/10{% endif %}">
+                                        <td>
+                                            {% if row.import_type == 'new' %}
+                                                <span class="badge badge-success">{% translate "New" %}</span>
+                                            {% elif row.import_type == 'skip' %}
+                                                <span class="badge badge-warning">{% translate "Skipped" %}</span>
+                                            {% elif row.import_type == 'delete' %}
+                                                <span class="badge badge-error">{% translate "Delete" %}</span>
+                                            {% elif row.import_type == 'update' %}
+                                                <span class="badge badge-info">{% translate "Update" %}</span>
+                                            {% endif %}
+                                        </td>
+                                        {% for field in row.diff %}
+                                            <td>{{ field }}</td>
+                                        {% endfor %}
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    {% endblock %}
+
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
