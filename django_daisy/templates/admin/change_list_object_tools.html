@@ -8,4 +8,15 @@
             {% blocktranslate with cl.opts.verbose_name as name %}Add {{ name }}{% endblocktranslate %}
         </a>
     {% endif %}
+    <div class="indicator {% if SHOW_CHANGELIST_FILTER %} xl:hidden {% endif %}">
+        {% if active_filters_count %}
+            <span class="indicator-item badge badge-info">{{ active_filters_count }}</span>
+        {% endif %}
+        {% if cl.list_filter %}
+            <button type="button" id="open-filter-drawer"
+                    class="btn btn-sm btn-primary drawer-button">
+                <i class="fa fa-filter"></i>
+            </button>
+        {% endif %}
+    </div>
 {% endblock %}
