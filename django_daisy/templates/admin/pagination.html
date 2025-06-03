@@ -4,14 +4,15 @@
 <nav class="paginator flex flex-wrap max-md:justify-center gap-2 justify-between p-4">
     <!-- Left section: Empty or could be used for a "Previous" button if desired -->
     <div class="">
-        {% if pagination_required and cl.page_num > 1 %}
-            <a href="{% get_page_link cl i %}"
-               class="btn btn-sm btn-outline">{% trans "Previous" %}</a>
-        {% endif %}
-        {% if pagination_required and cl.page_num < cl.paginator.num_pages %}
-            <a href="{% get_page_link cl i %}" class="btn btn-sm btn-outline">{% trans "Next" %}</a>
-        {% endif %}
-    </div>
+    {% if pagination_required and cl.page_num > 1 %}
+        <a href="{% get_page_link cl cl.page_num|add:'-1' %}"
+           class="btn btn-sm btn-outline">{% trans "Previous" %}</a>
+    {% endif %}
+    {% if pagination_required and cl.page_num < cl.paginator.num_pages %}
+        <a href="{% get_page_link cl cl.page_num|add:'1' %}"
+           class="btn btn-sm btn-outline">{% trans "Next" %}</a>
+    {% endif %}
+</div>
 
     <!-- Center section: Pagination -->
     <div class="join overflow-x-auto">
