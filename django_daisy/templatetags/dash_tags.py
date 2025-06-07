@@ -164,8 +164,12 @@ def is_active_choice(choice: Dict[str, Any], spec, request: HttpRequest) -> str:
         return 'selected'
 
     for filter_key in spec.expected_parameters():
+        if "expertise" in filter_key:
+            print('x')
         if is_multiple_filter_choice(spec):
             filter_key = filter_key.replace('__exact', '__in')
+            if not filter_key.endswith('__in'):
+                filter_key = filter_key + '__in'
 
         choice_value = get_bare_option_value(spec, choice)
         current_values = request.GET.get(filter_key)
