@@ -23,7 +23,7 @@
 {% block extrahead %}
     {{ block.super }}
     {{ media.js }}
-    <script src="{% static 'admin/js/query_filter.js' %}?v=2" defer></script>
+    <script src="{% static 'admin/js/query_filter.js' %}?v=3" defer></script>
 {% endblock %}
 
 {% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-list{% endblock %}
@@ -164,7 +164,7 @@
                         </div>
                     {% endif %}
                     {% for spec in cl.filter_specs %}
-                        {% admin_list_filter cl spec %}
+                        {% admin_list_filter cl spec request %}
                     {% endfor %}
                 </div>
             </div>

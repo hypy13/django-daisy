@@ -7,7 +7,7 @@
         <select {% is_multiple_filter_choice spec %} class="filter-select"
                                                         data-keys="{% get_filter_keys spec %}">
             {% for choice in choices %}
-                <option {% is_active_choice choice spec %} value="{{ choice.query_string|iriencode }}">
+                <option {% is_active_choice choice spec request %} value="{% get_choice_value spec choice %}">
                     {{ choice.display }}
                 </option>
             {% endfor %}

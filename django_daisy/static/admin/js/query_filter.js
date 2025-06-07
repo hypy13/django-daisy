@@ -37,16 +37,13 @@ const QueryModule = (() => {
     /**
      * Builds a query string from an object
      * @param {Object} queryObj - Object containing query parameters
+     * @param {boolean} is_multiple_filter
      * @returns {string} - Formatted query string
      */
     const buildQueryString = (queryObj) => {
+        console.log(queryObj)
         const queryArray = Object.entries(queryObj)
             .map(([key, values]) => {
-                let formattedKey = key.replace('__exact', '__in');
-                if (!formattedKey.match(/__[^_]+$/)) {
-                    formattedKey += '__in';
-                }
-
                 if (Array.isArray(values)) {
                     const validValues = values.filter(
                         (item) => item != null && item !== ''
@@ -56,7 +53,7 @@ const QueryModule = (() => {
                         const joinedValues = validValues
                             .map((item) => encodeURIComponent(item))
                             .join(',');
-                        return `${formattedKey}=${joinedValues}`;
+                        return `${key}=${joinedValues}`;
                     }
                 }
                 return null;
@@ -101,9 +98,16 @@ const QueryModule = (() => {
                             .map((value) => extractValueFromQueryString(value, key))
                             .filter(Boolean);
 
+                        let formattedKey = key
+                        if (select.multiple) {
+                            formattedKey = key.replace('__exact', '__in');
+                            if (!formattedKey.match(/__[^_]+$/)) {
+                                formattedKey += '__in';
+                            }
+                        }
                         if (values.length) {
-                            filterData[key] = filterData[key]
-                                ? [...filterData[key], ...values]
+                            filterData[formattedKey] = filterData[formattedKey]
+                                ? [...filterData[formattedKey], ...values]
                                 : values;
                         }
                     }
@@ -118,10 +122,8 @@ const QueryModule = (() => {
                 queryString = addFacetToQuery(queryString)
             }
 
-            if (queryString) {
-                console.log(queryString);
-                window.location.href = queryString;
-            }
+            console.log(queryString);
+            window.location.href = queryString || '?';
         } catch (error) {
             console.error('Error applying filters:', error);
         }
