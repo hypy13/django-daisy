@@ -60,9 +60,13 @@
                     {% blocktranslate count counter=cl.formset.total_error_count %}Please correct the error below.
                     {% plural %}Please correct the errors below.{% endblocktranslate %}
                 </p>
-                <ul>
-                    {{ cl.formset.non_form_errors }}
+
+                <ul>                
+                    {% for error in cl.formset.non_form_errors %}
+                    <li class="text-sm">{{ error }}</li>
+                    {% endfor %}
                 </ul>
+                
             </div>
         </div>
     {% endif %}
