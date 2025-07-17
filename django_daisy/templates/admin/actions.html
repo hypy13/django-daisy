@@ -3,17 +3,45 @@
 <div class="inline-flex items-center lg:ms-3 w-full sm:w-auto">
     {% block actions %}
         <span class="me-1 font-bold text-sm hidden sm:block">{% trans "Action" %}:</span>
-        <div class="w-full">
+        <div id="id_action_form_container" class="w-full">
             {% block actions-form %}
                 {% for field in action_form %}
-                    {% if field.label %}<label> {% endif %}{{ field }}
-                {% if field.label %}</label>{% endif %}{% endfor %}
+                    {% if field.label %}
+                        <label for="{{ field.id_for_label }}" class="sr-only"> {{ field.label }} </label>
+                        {{ field }}
+                    {% endif %}
+                {% endfor %}
             {% endblock %}
+            
         </div>
         {% block actions-submit %}
-            <button type="submit" class="button btn-sm btn btn-dark mx-1"
+            <button id="id_changelist_action_button" type="submit" class="button btn-sm btn btn-dark mx-1"
                     title="{% translate "Run the selected action" %}"
                     name="index" value="{{ action_index|default:0 }}">{% translate "Go" %}</button>
         {% endblock %}
     {% endblock %}
 </div>
+
+
+<script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // * disable 'Go' button if no action selected to avoid confusion
+            const actionSelect = document.querySelector('#id_action_form_container select');
+            const buttonEl = document.querySelector('#id_changelist_action_button');
+
+            function check_select_state(element) {
+                return element && element.value.trim();
+            }
+
+            // Initial check
+            if (buttonEl) {
+                buttonEl.disabled = !check_select_state(actionSelect);
+            }
+
+            actionSelect?.addEventListener('change', function () {
+                if (buttonEl) {
+                    buttonEl.disabled = !check_select_state(actionSelect);
+                }
+            });
+        });
+</script>
