@@ -125,27 +125,7 @@
             {% block breadcrumbs %}{% endblock %}
 
         </div>
-
-        <div class="main-content h-full max-md:p-3 p-5 pt-2 pb-0">
-            {% block messages %}
-                {% if messages %}
-                    <div class="toast z-20 whitespace-normal toast-top toast-end">
-                        {% for message in messages %}
-                            <div class="alert alert-info info-content
-                        {% if message.tags %}alert-{{ message.tags }} {{ message.tags }}-content{% endif %} shadow-lg mb-2 relative">
-                            <div class="p-1 pe-2">
-                                <span>{{ message|capfirst }}</span>
-                            </div>
-                            <button class="btn btn-xs btn-circle absolute top-2 ltr:right-2 rtl:left-2"
-                                    onclick="this.parentElement.remove();">
-                                <i class="fa fa-times"></i>
-                            </button>
-                        {% endfor %}
-                        </div>
-                    </div>
-                {% endif %}
-            {% endblock messages %}
-
+        <div class="main-content h-full max-md:p-3 p-5 pt-2 pb-0 ">
             {% block content %}
                 {{ content }}
             {% endblock %}
@@ -177,6 +157,24 @@
     <label class="modal-backdrop" for="generalModal">Close</label>
 </dialog>
 
+{% block messages %}
+    {% if messages %}
+        <div class="toast z-20 whitespace-normal toast-top toast-end">
+            {% for message in messages %}
+                <div class="alert alert-info info-content
+                {% if message.tags %}alert-{{ message.tags }} {{ message.tags }}-content{% endif %} shadow-lg mb-2 relative">
+                    <div class="p-1 pe-2">
+                        <span>{{ message|capfirst }}</span>
+                    </div>
+                    <button class="btn btn-xs btn-circle absolute top-2 ltr:right-2 rtl:left-2"
+                            onclick="this.parentElement.remove();">
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endblock messages %}
 
 <script src="{% static "admin/js/vendor/jquery/jquery.min.js" %}"></script>
 <script src="{% static "admin/js/jquery.init.js" %}"></script>
