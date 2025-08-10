@@ -50,7 +50,7 @@
                 {% if form_url %}action="{{ form_url }}"{% else %} action="{{ request.path }}" {% endif %}
                 method="post"
                 id="{{ opts.model_name }}_form"
-                
+
                 class="w-full h-full">
 
             {% csrf_token %}
@@ -71,13 +71,14 @@
                 <div class="w-full">
                     {% if errors %}
                         <div class="alert alert-error mb-5 rounded" role="alert">
-                            <i class="fa fa-exclamation"></i>
                             <div>
                                 <p class="errornote">
-                                        {% blocktranslate count counter=errors|length %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktranslate %}
+                                    <i class="fa fa-exclamation"></i>
+                                    {% blocktranslate count counter=errors|length %}Please correct the error
+                                        below.{% plural %}Please correct the errors below.{% endblocktranslate %}
                                 </p>
 
-                                <ul class="text-error">
+                                <ul class="menu">
                                     {% for error in adminform.form.non_field_errors %}
                                         <li class="text-sm">{{ error }}</li>
                                     {% endfor %}
@@ -89,7 +90,7 @@
                     <div role="tabpanel" class="w-full  items-start tabs overflow-visible tabs-lifted">
                         {% block field_sets %}
                             <a class="indicator tab tab-active">
-                                {{  adminform.fieldsets.0.0|default:opts.verbose_name }}
+                                {{ adminform.fieldsets.0.0|default:opts.verbose_name }}
                                 <i class="text-base-info opacity-50 fa mx-1 {% get_app_icon adminform.model_admin opts.app_config %} p-1 rounded"></i>
                                 {% with total_errors=adminform.form|sum_errors %}
                                     {% if total_errors > 0 %}
@@ -100,12 +101,14 @@
 
                             <div role="tabpanel" class="tab-content">
                                 {% for fieldset in adminform %}
-                                    <fieldset class="mb-3  ltr:!rounded-tl-none rtl:!rounded-tr-none collapse w-full collapse-arrow overflow-visible fieldset card bg-base-100 p-1">
-                                        
+                                    <fieldset
+                                            class="mb-3  ltr:!rounded-tl-none rtl:!rounded-tr-none collapse w-full collapse-arrow overflow-visible fieldset card bg-base-100 p-1">
+
                                         <label for="field_sets-{{ forloop.counter }}" class="sr-only">
                                             Fieldset toggler {{ forloop.counter }}
                                         </label>
-                                        <input type="checkbox" id="field_sets-{{ forloop.counter }}" name="fieldsets-{{ forloop.counter }}" checked />
+                                        <input type="checkbox" id="field_sets-{{ forloop.counter }}"
+                                               name="fieldsets-{{ forloop.counter }}" checked/>
 
 
                                         <div class="collapse-title text-xl font-medium">
