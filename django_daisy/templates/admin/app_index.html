@@ -5,12 +5,15 @@
 
 {% if not is_popup %}
     {% block breadcrumbs %}
-        <div class="breadcrumbs">
-            <a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
-            &rsaquo;
+        <div class="breadcrumbs text-sm">
+            <ul>
+            	<li>
+		    <a href="{% url 'admin:index' %}">{% translate 'Home' %}</a>
+ 		</li>
             {% for app in app_list %}
-                {{ app.name }}
+                <li>{{ app.name }}</li>
             {% endfor %}
+            </ul>
         </div>
     {% endblock %}
 {% endif %}
