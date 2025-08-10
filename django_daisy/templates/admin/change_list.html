@@ -44,30 +44,20 @@
     {% get_active_filters_count cl as active_filters_count %}
     {% if cl.formset and cl.formset.errors %}
         <div class="alert alert-error mb-5 rounded" role="alert">
-            <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="h-6 w-6 shrink-0 stroke-current"
-                    fill="none"
-                    viewBox="0 0 24 24">
-                <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-            </svg>
-            <div>
-                <p class="errornote">
-                    {% blocktranslate count counter=cl.formset.total_error_count %}Please correct the error below.
-                    {% plural %}Please correct the errors below.{% endblocktranslate %}
-                </p>
-
-                <ul>                
-                    {% for error in cl.formset.non_form_errors %}
-                    <li class="text-sm">{{ error }}</li>
-                    {% endfor %}
-                </ul>
-                
-            </div>
+            {% if cl.formset and cl.formset.errors %}
+                <div>
+                    <p class="errornote">
+                        <i class="fa fa-exclamation"></i>
+                        {% blocktranslate count counter=cl.formset.total_error_count %}Please correct the error below.
+                        {% plural %}Please correct the errors below.{% endblocktranslate %}
+                    </p>
+                    <ul class="menu">
+                        {% for error in cl.formset.non_form_errors %}
+                            <li class="text-sm">{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            {% endif %}
         </div>
     {% endif %}
 
