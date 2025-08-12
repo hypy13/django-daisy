@@ -171,6 +171,33 @@ To create a tabbed inline admin interface in your Django project, follow these s
        inlines = [ChoiceInline]
    ```
 
+### Making Admin Fieldsets as Navtabs
+
+To make admin fieldsets appear as navigation tabs in the admin interface, add the `navtab` class to the `classes` attribute of your fieldset definition in your `admin.py` file:
+
+```python
+@admin.register(MyModel)
+class MyModelAdmin(admin.ModelAdmin):
+    fieldsets = (
+        (None, {
+            'fields': ('username', 'password')
+        }),
+        (_('Personal info (tabbed example)'), {
+            'fields': (
+                'first_name', 'last_name', 'email',
+            ),
+            'classes': ('navtab',),  # Add navtab class here
+        }),
+        (_('No tabbed example'), {
+            'fields': (
+                'is_active', 'is_staff', 'is_superuser',
+            ),
+        }),
+    )
+```
+
+This will create a tabbed interface where each fieldset marked with the `navtab` class appears as a separate navigation tab in the admin form.
+
 ### 🌐 Enabling Language Change in Admin Panel
 
 To enable language switching directly from the admin panel, follow these steps:
@@ -227,5 +254,3 @@ We welcome contributions from the community! Feel free to submit any issues, sug
 ## Acknowledgments
 Special thanks to [Cloud With Django](https://www.youtube.com/@CloudWithDjango) for featuring my theme in their video. Your support means a lot! <br>
 Demo Video: https://www.youtube.com/watch?v=WEKTXu1la9M
-
-

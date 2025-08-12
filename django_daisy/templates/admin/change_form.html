@@ -85,7 +85,7 @@
                             </div>
                         </div>
                     {% endif %}
-                    <div role="tabpanel" class="w-full  items-start tabs overflow-visible tabs-lifted">
+                    <div role="tabpanel" class="w-full items-start tabs overflow-visible tabs-lifted">
                         {% block field_sets %}
                             <a class="indicator tab tab-active">
                                 {{ adminform.fieldsets.0.0|default:opts.verbose_name }}
@@ -99,23 +99,24 @@
 
                             <div role="tabpanel" class="tab-content">
                                 {% for fieldset in adminform %}
-                                    <fieldset
-                                            class="mb-3  ltr:!rounded-tl-none rtl:!rounded-tr-none collapse w-full collapse-arrow overflow-visible fieldset card bg-base-100 p-1">
+                                    {% if 'navtab' not in fieldset.classes %}
+                                        <fieldset
+                                                class="mb-3 collpase-content overflow-hidden ltr:!rounded-tl-none rtl:!rounded-tr-none collapse w-full collapse-arrow overflow-visible fieldset card bg-base-100 p-1">
+                                            <label for="field_sets-{{ forloop.counter }}" class="sr-only">
+                                                Fieldset toggler {{ forloop.counter }}
+                                            </label>
+                                            <input type="checkbox" id="field_sets-{{ forloop.counter }}"
+                                                   name="fieldsets-{{ forloop.counter }}" checked/>
 
-                                        <label for="field_sets-{{ forloop.counter }}" class="sr-only">
-                                            Fieldset toggler {{ forloop.counter }}
-                                        </label>
-                                        <input type="checkbox" id="field_sets-{{ forloop.counter }}"
-                                               name="fieldsets-{{ forloop.counter }}" checked/>
+                                            <div class="collapse-title text-xl font-medium">
+                                                {{ fieldset.name|default:opts.verbose_name }}
+                                            </div>
+                                            <div class="mb-3 collapse-content w-full max-w-screen-lg">
+                                                {% include "admin/includes/fieldset.html" %}
+                                            </div>
+                                        </fieldset>
+                                    {% endif %}
 
-
-                                        <div class="collapse-title text-xl font-medium">
-                                            {{ fieldset.name|default:opts.verbose_name }}
-                                        </div>
-                                        <div class="mb-3 collapse-content w-full max-w-screen-lg">
-                                            {% include "admin/includes/fieldset.html" %}
-                                        </div>
-                                    </fieldset>
                                 {% endfor %}
 
                                 {% for inline_admin_formset in inline_admin_formsets %}
@@ -129,6 +130,29 @@
                                     {% endif %}
                                 {% endfor %}
                             </div>
+
+                            {% for fieldset in adminform %}
+                                {% if 'navtab' in fieldset.classes %}
+                                    <a class="indicator tab">
+                                        {{ fieldset.name|default:opts.verbose_name }}
+                                        <i class="text-base-info opacity-50 fa mx-1 {% get_app_icon adminform.model_admin opts.app_config %} p-1 rounded"></i>
+                                        {% with total_errors=adminform.form|sum_errors %}
+                                            {% if total_errors > 0 %}
+                                                <span class="indicator-item indicator-bottom indicator-center badge badge-error  badge-sm">{{ total_errors }}</span>
+                                            {% endif %}
+                                        {% endwith %}
+                                    </a>
+                                    <fieldset
+                                            class="mb-3 tab-content ltr:!rounded-tl-none rtl:!rounded-tr-none  w-full collapse-arrow overflow-visible fieldset card bg-base-100 p-1">
+                                        <div class="collapse-title text-xl font-medium">
+                                            {{ fieldset.name|default:opts.verbose_name }}
+                                        </div>
+                                        <div class="mb-3 w-full p-3 max-w-screen-lg">
+                                            {% include "admin/includes/fieldset.html" %}
+                                        </div>
+                                    </fieldset>
+                                {% endif %}
+                            {% endfor %}
                         {% endblock %}
 
                         {% block after_field_sets %}{% endblock %}
@@ -146,7 +170,6 @@
                                             {% endif %}
                                         {% endwith %}
                                     </a>
-
                                     <fieldset role="tabpanel"
                                               class="mb-3 tab-content overflow-hidden collapse-arrow fieldset card bg-base-100 p-1">
                                         <div class="p-3 overflow-x-auto overflow-y-visible">
@@ -199,6 +222,3 @@
         {% prepopulated_fields_js %}
     {% endblock %}
 {% endblock %}
-
-
-
