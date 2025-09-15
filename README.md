@@ -118,6 +118,11 @@ DAISY_SETTINGS = {
     'DEFAULT_THEME': None,  # Set a default theme (e.g., 'corporate', 'dark', 'light')
     'DEFAULT_THEME_DARK': None,  # Set a default dark theme when system prefers dark mode
     'SHOW_THEME_SELECTOR': True,  # If False, hides the theme selector dropdown entirely
+    'THEME_LIST': [  # List of themes shown in the theme selector dropdown
+        {'name': 'Light', 'value': 'light'},
+        {'name': 'Dark', 'value': 'dark'},
+        # ... customize as needed
+    ],
     'APPS_REORDER': {
         # Custom configurations for third-party apps that can't be modified directly in their `apps.py`
         'auth': {
@@ -147,6 +152,7 @@ DAISY_SETTINGS = {
 - **DEFAULT_THEME**: Sets a default theme for all users (e.g., 'corporate', 'dark', 'light'). If set alone, this theme will always be used as the default regardless of system preference.
 - **DEFAULT_THEME_DARK**: Sets a default theme when the system prefers dark mode. Only used when `DEFAULT_THEME` is also set. When both are configured, the appropriate theme is chosen based on the user's system color scheme preference.
 - **SHOW_THEME_SELECTOR**: Controls whether the theme selector dropdown is visible in the navbar. Set to `False` to hide the theme selector entirely, useful when enforcing a specific theme organization-wide.
+- **THEME_LIST**: Configures which themes appear in the theme selector dropdown. Each theme should have a `name` (display text) and `value` (theme ID). Defaults to six popular DaisyUI themes.
 - **APPS_REORDER**: This allows you to reorder, customize, and modify third-party apps. For example, you can change the name of the `auth` app to `users`, provide a custom icon, or hide it from the sidebar entirely.
 
 ---
@@ -178,6 +184,21 @@ To completely hide the theme selector and enforce a specific theme:
 DAISY_SETTINGS = {
     'DEFAULT_THEME': 'corporate',    # Enforced theme
     'SHOW_THEME_SELECTOR': False,    # Hide theme selector
+    # ... other settings
+}
+```
+
+#### Custom Theme List
+To customize which themes appear in the dropdown selector:
+```python
+DAISY_SETTINGS = {
+    'DEFAULT_THEME': 'corporate',
+    'THEME_LIST': [
+        {'name': 'Light', 'value': 'light'},
+        {'name': 'Corporate', 'value': 'corporate'},
+        {'name': 'Business', 'value': 'business'},
+        {'name': 'Luxury', 'value': 'luxury'},
+    ],
     # ... other settings
 }
 ```

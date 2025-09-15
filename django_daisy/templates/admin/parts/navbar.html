@@ -36,70 +36,19 @@
                 </svg>
             </div>
             <ul tabindex="0" class="dropdown-content  bg-base-300 rounded-md z-20 w-48 p-2 shadow-2xl">
-                <li>
-                    <input
-                            data-set-theme="light" data-act-class="ACTIVECLASS"
-                            type="radio"
-                            name="theme-dropdown"
-                            class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-                            aria-label="{% trans "Light" %}"
-                            value="light"/>
-                </li>
+                {% for theme in THEME_LIST %}
                 <li>
                     <input
                             type="radio"
                             name="theme-dropdown"
                             class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-                            aria-label="{% trans "Dark" %}"
-                            value="dark"
+                            aria-label="{{ theme.name }}"
+                            value="{{ theme.value }}"
                             data-act-class="ACTIVECLASS"
-                            data-set-theme="dark"
+                            data-set-theme="{{ theme.value }}"
                     />
                 </li>
-                <li>
-                    <input
-                            type="radio"
-                            name="theme-dropdown"
-                            class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-                            aria-label="{% trans "Dracula" %}"
-                            value="dracula"
-                            data-act-class="ACTIVECLASS"
-                            data-set-theme="dracula"
-                    />
-                </li>
-                <li>
-                    <input
-                            type="radio"
-                            name="theme-dropdown"
-                            class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-                            aria-label="{% trans "Dim" %}"
-                            value="dim"
-                            data-act-class="ACTIVECLASS"
-                            data-set-theme="dim"
-                    />
-                </li>
-                <li>
-                    <input
-                            type="radio"
-                            name="theme-dropdown"
-                            class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-                            aria-label="{% trans "Lemonade" %}"
-                            value="lemonade"
-                            data-act-class="ACTIVECLASS"
-                            data-set-theme="lemonade"
-                    />
-                </li>
-                <li>
-                    <input
-                            type="radio"
-                            name="theme-dropdown"
-                            class="theme-controller btn btn-sm btn-block btn-ghost justify-start"
-                            aria-label="{% trans "Autumn" %}"
-                            value="autumn"
-                            data-act-class="ACTIVECLASS"
-                            data-set-theme="autumn"
-                    />
-                </li>
+                {% endfor %}
             </ul>
         </div>
         {% endif %}
