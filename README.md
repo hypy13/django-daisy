@@ -115,6 +115,9 @@ DAISY_SETTINGS = {
     'SHOW_CHANGELIST_FILTER': False,  # If True, the filter sidebar will open by default on changelist views
     'DONT_SUPPORT_ME': False, # Hide github link in sidebar footer
     'SIDEBAR_FOOTNOTE': '', # add footnote to sidebar
+    'DEFAULT_THEME': None,  # Set a default theme (e.g., 'corporate', 'dark', 'light')
+    'DEFAULT_THEME_DARK': None,  # Set a default dark theme when system prefers dark mode
+    'SHOW_THEME_SELECTOR': True,  # If False, hides the theme selector dropdown entirely
     'APPS_REORDER': {
         # Custom configurations for third-party apps that can't be modified directly in their `apps.py`
         'auth': {
@@ -141,7 +144,47 @@ DAISY_SETTINGS = {
 - **SHOW_CHANGELIST_FILTER**: Controls whether the changelist filter sidebar is shown by default.
 - **DONT_SUPPORT_ME**: Hide github link in sidebar footer.
 - **SIDEBAR_FOOTNOTE**: Add footnote to sidebar.
+- **DEFAULT_THEME**: Sets a default theme for all users (e.g., 'corporate', 'dark', 'light'). If set alone, this theme will always be used as the default regardless of system preference.
+- **DEFAULT_THEME_DARK**: Sets a default theme when the system prefers dark mode. Only used when `DEFAULT_THEME` is also set. When both are configured, the appropriate theme is chosen based on the user's system color scheme preference.
+- **SHOW_THEME_SELECTOR**: Controls whether the theme selector dropdown is visible in the navbar. Set to `False` to hide the theme selector entirely, useful when enforcing a specific theme organization-wide.
 - **APPS_REORDER**: This allows you to reorder, customize, and modify third-party apps. For example, you can change the name of the `auth` app to `users`, provide a custom icon, or hide it from the sidebar entirely.
+
+---
+
+### Theme Configuration Examples
+
+#### Single Default Theme
+To set one theme as default for all users regardless of their system preference:
+```python
+DAISY_SETTINGS = {
+    'DEFAULT_THEME': 'corporate',  # Always use corporate theme
+    # ... other settings
+}
+```
+
+#### Separate Light/Dark Default Themes
+To set different default themes based on system color scheme preference:
+```python
+DAISY_SETTINGS = {
+    'DEFAULT_THEME': 'light',       # Default for light mode
+    'DEFAULT_THEME_DARK': 'dim',    # Default for dark mode
+    # ... other settings
+}
+```
+
+#### Enforce Theme Without User Choice
+To completely hide the theme selector and enforce a specific theme:
+```python
+DAISY_SETTINGS = {
+    'DEFAULT_THEME': 'corporate',    # Enforced theme
+    'SHOW_THEME_SELECTOR': False,    # Hide theme selector
+    # ... other settings
+}
+```
+
+**Note:** The theme selection logic prioritizes user-saved preferences in localStorage first, then falls back to your configured defaults, and finally to system preference if no defaults are set.
+
+**Important:** When using custom DaisyUI themes (like 'corporate', 'dim', 'autumn', etc.) as default themes, you may need to enable `LOAD_FULL_STYLES: True` to ensure all theme styles are loaded properly.
 
 ---
 

@@ -22,6 +22,7 @@
         </a>
     </div>
     <div class="navbar-end">
+        {% if SHOW_THEME_SELECTOR %}
         <div class="dropdown dropdown-bottom dropdown-end">
             <div tabindex="0" role="button" class="btn btn-ghost btn-sm m-1">
                 {% trans "Theme" %}
@@ -101,6 +102,7 @@
                 </li>
             </ul>
         </div>
+        {% endif %}
         <div class="dropdown dropdown-bottom dropdown-end">
             <div tabindex="0" role="button" class="btn btn-ghost btn-circle m-1">
                 <i class="fa-regular fa-user text-lg"></i>

@@ -18,6 +18,9 @@ DEFAULT_DAISY_SETTINGS = {
     "SIDEBAR_FOOTNOTE": "",
     "FORM_RENDERER": "django.forms.renderers.TemplatesSetting",
     "X_FRAME_OPTIONS": "SAMEORIGIN",
+    "DEFAULT_THEME": None,
+    "DEFAULT_THEME_DARK": None,
+    "SHOW_THEME_SELECTOR": True,
     "APPS_REORDER": {
         "auth": {
             "icon": "fa-solid fa-person-military-pointing",
