@@ -83,6 +83,7 @@
                             {% if action_form and actions_on_top and cl.show_admin_actions %}
                                 {% admin_actions %}
                             {% endif %}
+                            {% block date_hierarchy %}{% if cl.date_hierarchy %}{% date_hierarchy cl %}{% endif %}{% endblock %}
                             <div class="object-tools inline-flex ms-auto flex-wrap max-md:justify-center gap-2 justify-between p-4 pe-1">
                                 {% block object-tools %}
                                     {% if cl.list_editable %}
