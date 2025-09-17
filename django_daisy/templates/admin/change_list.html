@@ -78,7 +78,7 @@
                     <form id="changelist-form" method="post"{% if cl.formset and cl.formset.is_multipart %}
                           enctype="multipart/form-data"{% endif %} novalidate>
                         {% csrf_token %}
-                        <div class="flex flex-wrap gap-2 flex-row items-center justify-between px-3 pt-3">
+                        <div class="flex gap-2 flex-wrap items-center justify-between px-3 pt-3">
                             {% block search %}{% search_form cl %}{% endblock %}
                             {% if action_form and actions_on_top and cl.show_admin_actions %}
                                 {% admin_actions %}
@@ -103,7 +103,7 @@
                             {% endif %}
 
                             {% block result_list %}
-                                <div class="overflow-auto max-h-[60vh]">
+                                <div class="overflow-auto max-h-[65vh]">
                                     {% result_list cl %}
                                 </div>
                             {% endblock %}

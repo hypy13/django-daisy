@@ -85,7 +85,7 @@
                             </div>
                         </div>
                     {% endif %}
-                    <div role="tabpanel" class="w-full items-start tabs overflow-visible tabs-lifted">
+                    <div role="tablist" class="w-full items-start tabs tabs-lift overflow-visible ">
                         {% block field_sets %}
                             <a class="indicator tab tab-active">
                                 {{ adminform.fieldsets.0.0|default:opts.verbose_name }}
@@ -101,6 +101,7 @@
                                 {% for fieldset in adminform %}
                                     {% if 'navtab' not in fieldset.classes %}
                                         <fieldset
+                                                style="outline: none !important;"
                                                 class="mb-3 collpase-content overflow-hidden ltr:!rounded-tl-none rtl:!rounded-tr-none collapse w-full collapse-arrow overflow-visible fieldset card bg-base-100 p-1">
                                             <label for="field_sets-{{ forloop.counter }}" class="sr-only">
                                                 Fieldset toggler {{ forloop.counter }}

@@ -1,3 +1,8 @@
+@import "tailwindcss" source(none);
+@plugin "daisyui";
+@source "../django_daisy/**/*.{html,css,js,py,po}";
+
+
 body {
     font-family:  'body-font', sans-serif; /* Default to LTR font */
 }
@@ -12,11 +17,11 @@ body:dir(rtl) {
 }
 
 [dir="rtl"] .file-input::-webkit-file-upload-button {
-    margin-right: 0 !important; /* For WebKit browsers in RTL */
+    margin-right: 0 ; /* For WebKit browsers in RTL */
 }
 
 [dir="rtl"] .file-input::file-selector-button {
-    margin-right: 0 !important; /* For modern browsers in RTL */
+    margin-right: 0 ; /* For modern browsers in RTL */
 }
 
 .errorlist {
@@ -24,7 +29,7 @@ body:dir(rtl) {
 }
 
 .errorlist li {
-    @apply label-text text-error font-bold;
+    @apply label text-error font-bold;
 }
 
 
@@ -33,7 +38,7 @@ body:dir(rtl) {
 }
 
 .input, .select, .checkbox, .radio {
-    @apply focus:outline-0 transition-all focus:outline-offset-0 border-base-content/20;
+    @apply focus:outline-0 transition-all focus:outline-offset-0;
     @apply rounded-md;
 }
 
@@ -50,6 +55,28 @@ label.required::after {
     @apply text-error px-1.5 text-base absolute;
 }
 
+
+.select2-selection.select2-selection {
+    @apply select-sm;
+}
+ul.select2-results__options {
+    @apply max-h-[300px] overflow-auto;
+    @apply bg-base-200;
+}
+.select2-dropdown{
+    @apply border !border-base-100 !rounded-lg;
+}
+.select2-search--dropdown .select2-search__field{
+    @apply bg-base-100 p-2;
+}
+.select2-search--dropdown{
+    @apply !p-0;
+}
+
+.select2-search .select2-search--dropdown{
+    @apply !border !border-white;
+}
+/*
 .selector input {
     @apply input input-sm border;
 }
@@ -75,8 +102,8 @@ label.required::after {
 }
 
 span.select2-container {
-    @apply select-sm border rounded-md select-bordered pl-0;
-    @apply h-auto !important;
+    @apply select-sm rounded-md select pl-0;
+    @apply h-auto ;
 }
 
 .select2-search--dropdown {
@@ -84,12 +111,12 @@ span.select2-container {
 }
 
 span.select2-search input.select2-search__field {
-    @apply focus:outline-0 transition-all focus:outline-offset-0 border-base-content/20;
+    @apply focus:outline-0 transition-all focus:outline-offset-0;
     @apply rounded-md input input-sm border;
 }
 
 .select2-container .select2-selection--single {
-    @apply p-0 !important;
+    @apply p-0 ;
 }
 
 .select2-results {
@@ -117,7 +144,7 @@ span.select2-selection__clear:hover {
 }
 
 .select2-selection__rendered {
-    @apply flex w-full h-auto flex-wrap !important;
+    @apply flex w-full h-auto flex-wrap ;
 
 }
 
@@ -134,25 +161,26 @@ span.select2-selection__clear:hover {
 li[aria-selected="true"] {
     @apply hidden;
 }
+*/
 
 a.inline-deletelink:hover {
     @apply text-red-500 animate-pulse text-lg;
 }
 
 .select2-dropdown {
-    @apply border-none bg-transparent !important;
+    @apply border-none bg-transparent ;
 }
 
 a.tab-active i {
-    @apply animate-bounce-once opacity-85 !important;
+    @apply animate-bounce opacity-85 ;
 }
 
 .ts-wrapper .ts-control {
-    @apply bg-base-200 border border-base-300 !important;
+    @apply bg-base-200 border border-base-300 ;
 }
 
 .ts-wrapper .ts-control > div {
-    @apply border-base-300 border bg-base-300 text-base-content !important ;
+    @apply border-base-300 border bg-base-300 text-base-content  ;
 }
 
 .json-field-viewer-wrapper input {
@@ -160,7 +188,7 @@ a.tab-active i {
 }
 
 div[data-theme="tailwind"] div[data-schematype]:not([data-schematype="object"]):hover {
-    background-color: initial !important;
+    background-color: initial ;
 }
 
 input[data-jdp] {
@@ -168,7 +196,7 @@ input[data-jdp] {
 }
 
 /*auth selector admin widget */
-.related-widget-wrapper div.selector {
+/*.related-widget-wrapper div.selector {
     @apply w-full flex flex-wrap ;
 }
 
@@ -190,16 +218,17 @@ input[data-jdp] {
 
 .related-widget-wrapper div.selector .selector-chosen {
     @apply flex-1;
-}
+}*/
 
+/*
 #user_form .field-password a {
     @apply link link-primary;
 }
 
 .ts-dropdown{
-    @apply bg-base-200 text-base-content border-neutral-300 !important;
+    @apply bg-base-200 text-base-content border-neutral-300 ;
 }
 
 .ts-dropdown .active{
-    @apply bg-base-300 text-base-content  !important;
-}
+    @apply bg-base-300 text-base-content  ;
+}*/

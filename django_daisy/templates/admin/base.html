@@ -46,19 +46,19 @@
         {% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
     </title>
 
-    {% if CUSTOM_DAISYUI_BUILD_PATH %}
-        <link rel="stylesheet" href="{{ CUSTOM_DAISYUI_BUILD_PATH }}">
-    {% endif %}
+{#    {% if CUSTOM_DAISYUI_BUILD_PATH %}#}
+{#        <link rel="stylesheet" href="{{ CUSTOM_DAISYUI_BUILD_PATH }}">#}
+{#    {% endif %}#}
 
     {% if LOAD_FULL_STYLES %}
-        <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.13/dist/full.min.css" rel="stylesheet"
-              type="text/css"/>
-        <script src="{% static "admin/js/tailwind-3.4.5.js" %}"></script>
+{#        <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />#}
+{#        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>#}
+{#        <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />#}
     {% else %}
-        <link href="{% static 'admin/css/base_tailwind.css' %}" rel="stylesheet">
+{#        <link href="{% static 'admin/css/base_tailwind.css' %}" rel="stylesheet">#}
     {% endif %}
 
-    <link href="{% static 'admin/css/customized_tailwind.css' %}?v=2" rel="stylesheet">
+    <link href="{% static 'admin/css/customized_tailwind.css' %}?v=3" rel="stylesheet">
     <link href="{% static 'admin/css/calendar.css' %}" rel="stylesheet">
 
     <link rel="stylesheet" href="{% static 'admin/fonts/fontawesome-free-6.6.0-web/css/all.min.css' %}"/>
@@ -93,10 +93,10 @@
 
     {% block extrahead %}{% endblock %}
     {% block extrastyle %}{% endblock %}
-
-    {% for custom_style_link in EXTRA_STYLES %}
-        <link rel="stylesheet" href="{{ custom_style_link }}">
-    {% endfor %}
+{##}
+{#    {% for custom_style_link in EXTRA_STYLES %}#}
+{#        <link rel="stylesheet" href="{{ custom_style_link }}">#}
+{#    {% endfor %}#}
 </head>
 
 <body class="bg-base-200 {% if LANGUAGE_BIDI %}font-vazir{% else %}font-cantarell{% endif %} ">

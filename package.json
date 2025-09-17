@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "npx @tailwindcss/cli -i build-styles/customized_tailwind.css -o django_daisy/static/admin/css/customized_tailwind.css --minify --watch",
     "build:base": "npx tailwindcss -i build-styles/base_tailwind.css -o django_daisy/static/admin/css/base_tailwind.css --minify",
     "build:customise": "npx tailwindcss -i build-styles/customized_tailwind.css -o django_daisy/static/admin/css/customized_tailwind.css --minify",
     "watch": "npm run build:base -- --watch"
@@ -11,8 +12,13 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "devDependencies": {
+    "autoprefixer": "^10.4.21",
+    "daisyui": "^5.1.10",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.13"
+  },
   "dependencies": {
-    "daisyui": "^4.12.10",
-    "tailwindcss": "^3.4.10"
+    "@tailwindcss/cli": "^4.1.13"
   }
 }
