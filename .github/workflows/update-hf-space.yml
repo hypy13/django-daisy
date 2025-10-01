@@ -3,7 +3,7 @@ name: Sync Hugging Face Space with latest commit
 on:
   push:
     branches:
-      - main   # run on pushes to main
+      - main
 
 jobs:
   update-space:
@@ -28,30 +28,36 @@ jobs:
           python - <<'EOF'
           import os
           import subprocess
-          from huggingface_hub import HfApi, create_commit, hf_hub_download
+          from huggingface_hub import HfApi, create_commit, CommitOperationAdd, hf_hub_download
 
           HF_TOKEN = os.environ["HF_TOKEN"]
           SPACE_ID = "hypy13/django-daisy"
 
           api = HfApi()
 
-          # Get latest commit hash of django-daisy
+          # 1. Get the latest commit hash of django-daisy
           commit_hash = subprocess.check_output(["git", "rev-parse", "HEAD"]).decode().strip()
-          print("Latest commit:", commit_hash)
+          print("📌 Latest commit:", commit_hash)
 
-          # Download current requirements.txt from the Space
+          # 2. Download current requirements.txt
           try:
-              req_path = hf_hub_download(repo_id=SPACE_ID, repo_type="space", filename="requirements.txt", token=HF_TOKEN)
+              req_path = hf_hub_download(
+                  repo_id=SPACE_ID,
+                  repo_type="space",
+                  filename="requirements.txt",
+                  token=HF_TOKEN
+              )
               with open(req_path, "r") as f:
                   requirements = f.read().splitlines()
           except Exception:
+              print("⚠️ No requirements.txt found, creating new one")
               requirements = []
 
-          # Update or insert django-daisy line
+          # 3. Replace or add django-daisy line
           new_line = f"git+https://github.com/hypy13/django-daisy.git@{commit_hash}"
           updated = False
           for i, line in enumerate(requirements):
-              if line.startswith("git+https://github.com/hypy13/django-daisy.git") or "django-daisy" in line:
+              if "django-daisy" in line:  # matches PyPI or git installs
                   requirements[i] = new_line
                   updated = True
                   break
@@ -60,20 +66,19 @@ jobs:
 
           new_content = "\n".join(requirements) + "\n"
 
-          # Commit back to the Space
+          # 4. Commit the updated requirements.txt
           create_commit(
               repo_id=SPACE_ID,
               repo_type="space",
               operations=[
-                  {
-                      "operation": "addOrUpdate",
-                      "path": "requirements.txt",
-                      "content": new_content.encode("utf-8"),
-                  }
+                  CommitOperationAdd(
+                      path_in_repo="requirements.txt",
+                      path_or_fileobj=new_content.encode("utf-8"),
+                  )
               ],
-              commit_message=f"Update django-daisy to {commit_hash}",
+              commit_message=f"🔄 Update django-daisy to {commit_hash}",
               token=HF_TOKEN,
           )
 
-          print(f"✅ Space {SPACE_ID} requirements updated (django-daisy@{commit_hash})")
+          print(f"✅ Space {SPACE_ID} requirements updated with django-daisy@{commit_hash}")
           EOF
