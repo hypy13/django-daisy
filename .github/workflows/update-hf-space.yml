@@ -27,7 +27,8 @@ jobs:
         run: |
           python - <<'EOF'
           import os
-          from huggingface_hub import HfApi, create_commit
+          import subprocess
+          from huggingface_hub import HfApi, create_commit, hf_hub_download
 
           HF_TOKEN = os.environ["HF_TOKEN"]
           SPACE_ID = "hypy13/django-daisy"
