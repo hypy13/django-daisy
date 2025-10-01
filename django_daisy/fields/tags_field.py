@@ -2,27 +2,27 @@ from django.db.models import CharField
 from django.forms import fields
 
 
-class CommaSepWidget(fields.TextInput):
+class TagInputWidget(fields.TextInput):
     """
-        tokenfield tags field widget
+        tags field widget
     """
-    template_name = 'django/forms/widgets/comma_seperate.html'
+    template_name = 'fields/tags_field.html'
 
     class Media:
         js = (
-            'admin/panel/global_assets/js/plugins/forms/tags/tokenfield.min.js',
+            'admin/fields/tags.widget.js',
         )
 
     def __init__(self, attrs=None):
         default_attrs = {
-            'class': 'tokenfield',
+            'class': 'django-tags-input',
         }
         if attrs:
             default_attrs.update(attrs)
         super().__init__(default_attrs)
 
 
-class CommaSepModelField(CharField):
+class TagModelField(CharField):
     description = "keyword field with comma separate in CharField"
 
     def __init__(self, *args, db_collation=None, **kwargs):
@@ -31,6 +31,6 @@ class CommaSepModelField(CharField):
 
     def formfield(self, **kwargs):
         # override widget field
-        defaults = {'widget': CommaSepWidget}
+        defaults = {'widget': TagInputWidget}
 
         return super().formfield(**defaults)
