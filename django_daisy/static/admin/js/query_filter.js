@@ -23,7 +23,7 @@ const QueryModule = (() => {
         try {
             const params = new URLSearchParams(queryString);
             for (const [key, value] of params) {
-                if (key.startsWith(dataKey)) {
+                if (key == dataKey) {
                     return value;
                 }
             }
@@ -41,7 +41,6 @@ const QueryModule = (() => {
      * @returns {string} - Formatted query string
      */
     const buildQueryString = (queryObj) => {
-        console.log(queryObj)
         const queryArray = Object.entries(queryObj)
             .map(([key, values]) => {
                 if (Array.isArray(values)) {
@@ -122,7 +121,6 @@ const QueryModule = (() => {
                 queryString = addFacetToQuery(queryString)
             }
 
-            console.log(queryString);
             window.location.href = queryString || '?';
         } catch (error) {
             console.error('Error applying filters:', error);
