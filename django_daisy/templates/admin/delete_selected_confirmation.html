@@ -7,8 +7,7 @@
     <script src="{% static 'admin/js/cancel.js' %}" async></script>
 {% endblock %}
 
-{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} delete-confirmation
-    delete-selected-confirmation{% endblock %}
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} delete-confirmation delete-selected-confirmation{% endblock %}
 
 {% block breadcrumbs %}
     <div class="breadcrumbs text-sm">
@@ -23,7 +22,7 @@
 {% endblock %}
 
 {% block content %}
-    <div class="card bg-base-100 shadow-md lg:p-6 p-3">
+    <div class="card bg-base-100 shadow-md max-w-6xl mt-3 sm:p-5 p-2 delete-confirmation">
         {% if perms_lacking %}
             <div class="alert alert-warning">
                 <p class="font-semibold">{% blocktranslate %}Deleting the selected {{ objects_name }} would result in
@@ -40,12 +39,15 @@
                 <ul class="list-disc list-inside">{{ protected|unordered_list }}</ul>
             </div>
         {% else %}
-            <p class="font-semibold">{% blocktranslate %}Are you sure you want to delete the selected {{ objects_name }}? All of the following objects and their related items will be deleted:{% endblocktranslate %}</p>
+            <div role="alert" class="alert alert-error alert-soft">
+                <p class="font-semibold">{% blocktranslate %}Are you sure you want to delete the selected {{ objects_name }}? All of the following objects and their related items will be deleted:{% endblocktranslate %}</p>
+            </div>
+            <div class="object-delete-summary mt-3">
+                {% include "admin/includes/object_delete_summary.html" %}
+            </div>
 
-            {% include "admin/includes/object_delete_summary.html" %}
-
-            <h2 class="text-lg font-bold mt-4">{% translate "Objects" %}</h2>
-            <div class="overflow-y-auto max-h-64">
+            <h2 class="font-bold mt-4">{% translate "Objects" %}:</h2>
+            <div class="">
                 {% for deletable_object in deletable_objects %}
                     <ul class="list-disc list-inside">{{ deletable_object|unordered_list }}</ul>
                 {% endfor %}
@@ -58,9 +60,9 @@
                     {% endfor %}
                     <input type="hidden" name="action" value="delete_selected">
                     <input type="hidden" name="post" value="yes">
-                    <div class="flex gap-4">
-                        <input type="submit" class="btn btn-error" value="{% translate 'Yes, I’m sure' %}">
-                        <a href="#" class="btn btn-outline cancel-link">{% translate "No, take me back" %}</a>
+                    <div class="flex justify-end space-x-4">
+                        <input type="submit" class="btn btn-soft btn-error" value="{% translate 'Yes, I’m sure' %}">
+                        <a href="#" class="btn btn-soft cancel-link">{% translate "No, take me back" %}</a>
                     </div>
                 </div>
             </form>

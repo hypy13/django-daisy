@@ -1,5 +1,5 @@
 {% load dash_tags %}
-{% with widget=widget|apply_class_to_widget:'input w-full focus:outline-0 transition-all input-sm input-bordered focus:outline-offset-0' %}
+{% with widget=widget|apply_class_to_widget:'input w-full input-sm' %}
     <input type="{{ widget.type }}" name="{{ widget.name }}" {% if widget.value != None %}
            value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}  >
 {% endwith %}

@@ -46,19 +46,10 @@
         {% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
     </title>
 
-{#    {% if CUSTOM_DAISYUI_BUILD_PATH %}#}
-{#        <link rel="stylesheet" href="{{ CUSTOM_DAISYUI_BUILD_PATH }}">#}
-{#    {% endif %}#}
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css"/>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link href="{% static 'admin/css/customized_components.css' %}?v=3" rel="stylesheet">
 
-    {% if LOAD_FULL_STYLES %}
-{#        <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />#}
-{#        <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>#}
-{#        <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />#}
-    {% else %}
-{#        <link href="{% static 'admin/css/base_tailwind.css' %}" rel="stylesheet">#}
-    {% endif %}
-
-    <link href="{% static 'admin/css/customized_tailwind.css' %}?v=3" rel="stylesheet">
     <link href="{% static 'admin/css/calendar.css' %}" rel="stylesheet">
 
     <link rel="stylesheet" href="{% static 'admin/fonts/fontawesome-free-6.6.0-web/css/all.min.css' %}"/>
@@ -93,10 +84,10 @@
 
     {% block extrahead %}{% endblock %}
     {% block extrastyle %}{% endblock %}
-{##}
-{#    {% for custom_style_link in EXTRA_STYLES %}#}
-{#        <link rel="stylesheet" href="{{ custom_style_link }}">#}
-{#    {% endfor %}#}
+
+    {% for custom_style_link in EXTRA_STYLES %}
+        <link rel="stylesheet" href="{{ custom_style_link }}">
+    {% endfor %}
 </head>
 
 <body class="bg-base-200 {% if LANGUAGE_BIDI %}font-vazir{% else %}font-cantarell{% endif %} ">
@@ -119,13 +110,13 @@
         {% endblock %}
         <div class="flex items-center max-md:p-3 p-5 pb-0 flex-wrap justify-between">
             {% comment %}<h3 class="text-lg font-medium">
-                        {% block content_title %}{{ cl.opts.app_config.verbose_name }}{% endblock %}
-                    </h3>{% endcomment %}
+                            {% block content_title %}{{ cl.opts.app_config.verbose_name }}{% endblock %}
+                        </h3>{% endcomment %}
 
             {% block breadcrumbs %}{% endblock %}
 
         </div>
-        <div class="main-content h-full max-md:p-3 p-5 pt-2 pb-0 ">
+        <div class="main-content h-full md:p-5 sm:p-2 pt-2 px-2">
             {% block content %}
                 {{ content }}
             {% endblock %}
@@ -146,15 +137,15 @@
     </form>
 {% endif %}
 
-<input type="checkbox" id="generalModal" class="modal-toggle"/>
+<input type="checkbox" id="generalModal" class="modal-toggle "/>
 <dialog class="modal generalModal">
-    <div class="modal-box w-11/12 max-w-5xl h-full p-0 flex justify-center items-center">
+    <div class="modal-box w-full -mr-[10px] md:w-11/12 max-w-5xl h-[85vh] p-0 flex justify-center items-center">
         <button class="btn">
             <span class="loading loading-spinner"></span>
-            loading
+            {% trans "loading" %}
         </button>
     </div>
-    <label class="modal-backdrop" for="generalModal">Close</label>
+    <label class="modal-backdrop" for="generalModal">{% trans "Close" %}</label>
 </dialog>
 
 {% block messages %}
@@ -162,7 +153,7 @@
         <div class="toast z-20 whitespace-normal toast-top toast-end">
             {% for message in messages %}
                 <div class="alert alert-info info-content
-                {% if message.tags %}alert-{{ message.tags }} {{ message.tags }}-content{% endif %} shadow-lg mb-2 relative">
+                    {% if message.tags %}alert-{{ message.tags }} {{ message.tags }}-content{% endif %} shadow-lg mb-2 relative">
                     <div class="p-1 pe-2">
                         <span>{{ message|capfirst }}</span>
                     </div>
@@ -189,5 +180,8 @@
 
 {% endblock %}
 
+{% block admin_change_form_document_ready %}
+	
+{% endblock %}
 </body>
 </html>

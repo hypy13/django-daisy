@@ -1,7 +1,7 @@
 {% load dash_tags %}
 {% load admin_list %}
 {% load i18n %}
-<nav class="paginator flex flex-wrap max-md:justify-center gap-2 justify-between p-4">
+<nav class="paginator flex flex-wrap gap-2 justify-between sm:p-4 p-2">
     <!-- Left section: Empty or could be used for a "Previous" button if desired -->
     <div class="">
     {% if pagination_required and cl.page_num > 1 %}

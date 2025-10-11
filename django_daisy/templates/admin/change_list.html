@@ -30,7 +30,7 @@
 
 {% if not is_popup %}
     {% block breadcrumbs %}
-        <div class="text-sm max-md:hidden breadcrumbs">
+        <div class="text-sm breadcrumbs">
             <ul>
                 <li><a href="{% url 'admin:index' %}" class="link link-hover">{% trans 'Dashboard' %}</a></li>
                 <li><a href="{% url 'admin:app_list' app_label=cl.opts.app_label %}"
@@ -62,13 +62,13 @@
     {% endif %}
 
     <!-- Start of drawer component -->
-    <div class="drawer drawer-end  {% if SHOW_CHANGELIST_FILTER %} xl:drawer-open {% endif %} ">
+    <div class="drawer drawer-end  {% if SHOW_CHANGELIST_FILTER %} lg:drawer-open {% endif %} ">
         <input id="filter-drawer" type="checkbox" class="drawer-toggle"/>
 
         <!-- Main content section -->
         <div class="drawer-content flex flex-col w-full h-full">
-            <div id="content-main" class="overflow-hidden mt-3 w-full h-full flex">
-                <div class="card bg-base-100 w-full card-bordered flex-col flex-1 ">
+            <div id="content-main" class="card overflow-hidden sm:mt-3 mt-1 w-full h-full flex">
+                <div class="bg-base-100 w-full card-bordered flex-col flex-1 ">
                     <div class="hidden" id="hidden-search-form">
                         <form method="get">
                             {% search_form cl %}
@@ -78,7 +78,7 @@
                     <form id="changelist-form" method="post"{% if cl.formset and cl.formset.is_multipart %}
                           enctype="multipart/form-data"{% endif %} novalidate>
                         {% csrf_token %}
-                        <div class="flex gap-2 flex-wrap items-center justify-between px-3 pt-3">
+                        <div class="flex gap-2 flex-wrap items-center justify-between sm:px-3 px-1 pt-3">
                             {% block search %}{% search_form cl %}{% endblock %}
                             {% if action_form and actions_on_top and cl.show_admin_actions %}
                                 {% admin_actions %}
@@ -97,14 +97,14 @@
                                 {% endblock %}
                             </div>
                         </div>
-                        <div class="card-body px-3 py-1 w-full">
+                        <div class="card-body sm:px-3 px-1 py-1 w-full">
                             {% if cl.formset %}
                                 <div>{{ cl.formset.management_form }}</div>
                             {% endif %}
 
                             {% block result_list %}
                                 <div class="overflow-auto max-h-[65vh]">
-                                    {% result_list cl %}
+                                    {% daisy_result_list cl %}
                                 </div>
                             {% endblock %}
                             <div class="mt-4">

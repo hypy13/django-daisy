@@ -1,5 +1,5 @@
 {% load i18n %}
-<div id="sidebar" class="flex max-md:hidden flex-col justify-between sidebar bg-base-100 border-base-200 border-e w-56">
+<div id="sidebar" class="flex max-lg:hidden flex-col justify-between sidebar bg-base-100 border-base-200 border-e w-56">
     <!-- Sidebar header with logo -->
     <a class="flex flex-row h-16 items-center" href="{% url 'admin:index' %}">
         {% if logo %}
@@ -14,7 +14,7 @@
     </a>
 
     <!-- Sidebar menu -->
-    <ul class="menu rounded-box mb-auto w-56">
+    <ul class="menu rounded-box mb-auto w-56 max-sm:w-43 max-sm:text-xs">
         <!-- Dashboard link -->
         <li>
             <a href="{% url 'admin:index' %}">

@@ -8,7 +8,7 @@
 {% block bodyclass %}{{ block.super }} {{ opts.app_label }}-{{ opts.object_name.lower }} change-form{% endblock %}
 {% if not is_popup %}
     {% block breadcrumbs %}
-        <div class="text-sm max-md:hidden breadcrumbs">
+        <div class="text-sm breadcrumbs">
             <ul>
                 <li><a href="{% url 'admin:index' %}" class="link link-hover">{% trans 'Dashboard' %}</a></li>
                 <li><a href="{% url 'admin:app_list' app_label=opts.app_label %}"

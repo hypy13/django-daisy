@@ -1,0 +1,53 @@
+{% load i18n %}
+{% load admin_urls %}
+{% load dash_tags %}
+{% get_recent_changes original as recent_logs %}
+{% url opts|admin_urlname:'history' original.pk|admin_urlquote as history_url %}
+<ul class="list bg-base-100 my-4 rounded-box shadow-md">
+
+    <li class="p-4 pb-2 font-bold tracking-wide text-end">
+        <a class="btn btn-sm" href="{% add_preserved_filters history_url %}">
+            {% translate 'History' %}
+            <i class="fa-solid fa-up-right-from-square rtl:-scale-x-100"></i>
+        </a>
+    </li>
+
+    {% for log in recent_logs %}
+        <li class="flex gap-3 p-3 {% if not forloop.last %}border-b-1 border-base-content/15{% endif %}">
+            <div class="">
+                {% if log.user.profile.avatar %}
+                    <img class="size-10 rounded-box" src="{{ log.user.profile.avatar.url }}"
+                         alt="{{ log.user.get_full_name|default:log.user.username }}"/>
+                {% else %}
+                    <div class="size-10 rounded-box bg-gray-300 flex items-center justify-center text-sm font-semibold">
+                        {{ log.user.get_full_name|default:log.user.username|first|upper }}
+                    </div>
+                {% endif %}
+            </div>
+            <div>
+                <div>{{ log.user.get_full_name|default:log.user.username }}</div>
+                <div class="text-xs uppercase font-semibold opacity-60">
+                    {{ log.get_action_flag_display }} {{ log.object_repr|truncatechars_html:30|safe }}
+                </div>
+            </div>
+            <div class="text-xs opacity-60 ml-auto">
+                {{ log.action_time|timesince }} {% trans "ago" %}
+            </div>
+            <a class="btn btn-square btn-ghost" title="View Details"
+               href="{% url opts|admin_urlname:'history' original.pk %}">
+                <svg class="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <g stroke-linejoin="round" stroke-linecap="round" stroke-width="2" fill="none"
+                       stroke="currentColor">
+                        <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                        <circle cx="12" cy="12" r="3"></circle>
+                    </g>
+                </svg>
+            </a>
+        </li>
+    {% empty %}
+        <li class="p-4 text-center text-sm opacity-60">
+            {% trans "No recent changes found" %}
+        </li>
+    {% endfor %}
+
+</ul>

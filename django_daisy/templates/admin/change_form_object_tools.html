@@ -2,7 +2,7 @@
 
 <div class="text-start flex gap-2">
     {% url opts|admin_urlname:'history' original.pk|admin_urlquote as history_url %}
-    <a href="{% add_preserved_filters history_url %}" class="sm:btn-auto historylink btn-sm btn btn-info rounded-md">
+    <a href="{% add_preserved_filters history_url %}" class="sm:btn-auto 2xl:hidden historylink btn-sm btn btn-info rounded-md">
         {% translate "History" %}
         <i class="fa fa-history"></i>
     </a>

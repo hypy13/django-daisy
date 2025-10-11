@@ -3,9 +3,13 @@ from typing import Optional, Dict, Any
 from urllib.parse import parse_qs
 
 from django import template
+from django.contrib.admin.models import LogEntry
 from django.contrib.admin.templatetags import admin_list
+from django.contrib.admin.templatetags.admin_list import result_list, result_headers, result_hidden_fields, results
+from django.contrib.admin.templatetags.base import InclusionAdminNode
 from django.contrib.admin.views.main import PAGE_VAR
 from django.contrib.auth import get_user_model
+from django.contrib.contenttypes.models import ContentType
 from django.http import HttpRequest
 from django.template.loader import get_template
 from django.urls import reverse
@@ -37,6 +41,53 @@ def custom_boolean_icon(field_val: Optional[bool]) -> SafeString:
 
 # Monkey patch the admin boolean icon
 admin_list._boolean_icon = custom_boolean_icon
+
+
+@register.simple_tag
+def get_recent_changes(model_instance):
+    """
+    Template tag to retrieve the 4 most recent LogEntry changes for a specific model instance.
+
+    Usage in template:
+    {% get_recent_changes object %} - gets 4 most recent changes for the object
+    """
+    content_type = ContentType.objects.get_for_model(model_instance)
+
+    return LogEntry.objects.select_related('user', 'content_type').filter(
+        content_type=content_type,
+        object_id=str(model_instance.pk)
+    ).order_by('-action_time')[:4]
+
+
+def daisy_result_list(cl):
+    """
+    Display the headers and data list together.
+    """
+    from django.conf import settings
+    headers = list(result_headers(cl))
+    num_sorted_fields = 0
+    for h in headers:
+        if h["sortable"] and h["sorted"]:
+            num_sorted_fields += 1
+    return {
+        "cl": cl,
+        "result_hidden_fields": list(result_hidden_fields(cl)),
+        "result_headers": headers,
+        "num_sorted_fields": num_sorted_fields,
+        'extra_table_classes': settings.DAISY_SETTINGS.get('CHANGELIST_TABLE_STYLE'),
+        "results": list(results(cl)),
+    }
+
+
+@register.tag(name="daisy_result_list")
+def daisy_result_list_tag(parser, token):
+    return InclusionAdminNode(
+        parser,
+        token,
+        func=daisy_result_list,
+        template_name="change_list_results.html",
+        takes_context=False,
+    )
 
 
 # String manipulation filters

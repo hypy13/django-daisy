@@ -2,7 +2,7 @@
 {% load i18n admin_urls %}
 {% block submit-row %}
     {% if is_popup %}
-        <div class="p-3 card hidden md:grid gap-3">
+        <div class="p-3 card bg-base-100 hidden grid-cols-2 md:grid gap-3">
             {% if show_save %}
                 <button type="submit" class="btn-sm btn-primary px-4 btn rounded-md legitRipple" name="_save">
                     {% translate 'Save' %}
@@ -15,62 +15,13 @@
             </button>
         </div>
     {% else %}
-
-        <!-- For XLarge Screen -->
-        <div class="justify-between sticky z-1000 top-3 right-0 bg-base-200 max-2xl:hidden">
-            <div class="text-start grid gap-2">
-                {% if show_save %}
-                    <button type="submit"
-                            class="btn btn-block  btn-success dark:btn-primary px-4 rounded-md legitRipple"
-                            name="_save">
-                        {% translate 'Save' %}
-                        <i class="fas fa-save px-1"></i>
-                    </button>
-                {% endif %}
-
-                {% if show_save_and_continue %}
-                    <button class="btn-soft btn-block btn rounded-md legitRipple" type="submit"
-                            name="_continue">
-                        {% if can_change %}{% translate 'Save and continue editing' %}{% else %}
-                            {% translate 'Save and view' %}{% endif %}
-                        <i class="fas fa-sync"></i>
-                    </button>
-                {% endif %}
-                {% if show_save_and_add_another %}
-                    <button class="btn-soft btn-block rounded-md btn legitRipple" type="submit"
-                            name="_addanother">
-                        {% translate 'Save and add another' %}
-                        <i class="fas fa-plus-circle"></i>
-                    </button>
-                {% endif %}
-                {% if show_save_as_new %}
-                    <input type="submit" class="btn-soft btn-block btn rounded-md legitRipple"
-                           value="{% translate 'Save as new' %}" name="_saveasnew">
-                {% endif %}
-
-                {% if show_delete_link and original or can_delete_popup %}
-                    <div class="divider my-0 py-0"></div>
-                    {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
-                    <a href="{% add_preserved_filters delete_url %}{% if can_delete_popup %}?_popup=1{% endif %}"
-                       class="btn-block btn-error error-content btn rounded-md place-self-end">
-                        {% translate "Delete" %}
-                        <i class="fa fa-xmark"></i>
-                    </a>
-                {% endif %}
-                {% if show_close and not is_popup %}
-                    <a href="{% url opts|admin_urlname:'changelist' %}"
-                       class="btn-sm  btn-block mt-1 btn rounded-md place-self-end closelink">{% translate 'Close' %}</a>
-                {% endif %}
-            </div>
-        </div>
-
-        <!-- For Large-Small Screen -->
-        <div class="p-3 bg-base-100  justify-between flex flex-row-reverse gap-15 sticky top-3 2xl:hidden max-md:hidden">
+        <div class="p-3 bg-base-100 justify-between flex flex-row-reverse gap-15 sticky top-3 max-md:hidden">
             <div class="text-start flex gap-2">
-
+                {% if show_save_as_new %}
+                    <input type="submit" value="{% translate 'Save as new' %}" name="_saveasnew">
+                {% endif %}
                 {% if show_save %}
-                    <button type="submit" class="btn-sm btn-primary px-4 primary-content  btn rounded-md legitRipple"
-                            name="_save">
+                    <button type="submit" class="btn-sm btn-primary px-4 primary-content  btn rounded-md legitRipple" name="_save">
                         {% translate 'Save' %}
                         <i class="fas fa-save px-1"></i>
                     </button>
@@ -83,10 +34,6 @@
                             {% translate 'Save and view' %}{% endif %}
                         <i class="fas fa-sync"></i>
                     </button>
-                {% endif %}
-                {% if show_save_as_new %}
-                    <input class="btn-sm bg-blue-300 text-black btn rounded-md legitRipple" type="submit"
-                           value="{% translate 'Save as new' %}" name="_saveasnew">
                 {% endif %}
                 {% if show_save_and_add_another %}
                     <button class="btn-sm  bg-blue-300 text-black rounded-md btn legitRipple" type="submit"
@@ -111,10 +58,9 @@
                 {% endif %}
             </div>
         </div>
-
     {% endif %}
 
-    <div class="p-3 card bg-base-100 md:hidden grid-cols-2 grid gap-3 !shadow-lg">
+    <div class="p-3 card bg-base-100 hidden grid-cols-2 max-md:grid gap-3 border !shadow-lg">
         {% if is_popup %}
             <button onclick="window.parent.close_modal()" type="button" class="btn-sm  px-4 btn rounded-md legitRipple">
                 {% translate 'Close' %}
@@ -122,10 +68,14 @@
             </button>
         {% else %}
             <details class="dropdown dropdown-top w-full">
-                <summary type="button" role="button"
-                         class="btn btn-soft btn-default btn-sm btn-block">{% trans "Options" %}</summary>
-                <div
-                        class="dropdown-content min-w-full gap-1 w-max menu bg-base-100 card z-[1] mb-1 border-1 border-base-content/20 p-1 shadow-lg">
+                <summary type="button" tabindex="0" role="button"
+                         class="btn btn-sm btn-block">{% trans "Options" %}</summary>
+                <div tabindex="0"
+                     class="dropdown-content min-w-full w-max menu bg-base-100 rounded-box z-[1] mb-1 border p-2 shadow">
+                    {% if show_save_as_new %}
+                        <input type="submit" value="{% translate 'Save as new' %}" name="_saveasnew">
+                    {% endif %}
+
                     {% if show_save_and_continue %}
                         <button class="btn-sm bg-blue-300 text-black btn rounded-md legitRipple" type="submit"
                                 name="_continue">
@@ -141,10 +91,6 @@
                             <i class="max-sm:!hidden fas fa-plus-circle"></i>
                         </button>
                     {% endif %}
-                    {% if show_save_as_new %}
-                        <input class="btn-sm bg-blue-300 text-black rounded-md btn legitRipple" type="submit"
-                               value="{% translate 'Save as new' %}" name="_saveasnew">
-                    {% endif %}
                     {% if show_delete_link and original or can_delete_popup %}
                         {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
                         <a href="{% add_preserved_filters delete_url %}{% if can_delete_popup %}?_popup=1{% endif %}"
@@ -153,9 +99,9 @@
                             <i class="fa fa-xmark"></i>
                         </a>
                     {% endif %}
-                    {#                    <div class="mobile-option-tools mt-2">#}
-                    {#                        {% change_form_object_tools %}#}
-                    {#                    </div>#}
+                    <div class="mobile-option-tools mt-2">
+                        {% change_form_object_tools %}
+                    </div>
 
 
                     {% if show_close and not is_popup %}
@@ -164,7 +110,6 @@
                     {% endif %}
                 </div>
             </details>
-
         {% endif %}
         {% if show_save %}
             <button type="submit" class="btn-sm btn-primary px-4 btn rounded-md legitRipple" name="_save">
@@ -173,5 +118,5 @@
             </button>
         {% endif %}
     </div>
-
 {% endblock %}
+

@@ -1,27 +1,40 @@
 @import "tailwindcss" source(none);
-@plugin "daisyui";
+@plugin "daisyui" {
+    themes: light --default, dark --prefersdark, dracula, cmyk, lemonade, halloween, garden;
+}
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *, [data-theme=halloween], [data-theme=halloween] *, [data-theme=dracula], [data-theme=dracula] *));
+
+
 @source "../django_daisy/**/*.{html,css,js,py,po}";
+@source "./build-styles/*.css";
 
 
 body {
-    font-family:  'body-font', sans-serif; /* Default to LTR font */
+    font-family: 'body-font', sans-serif; /* Default to LTR font */
 }
 
 body:dir(rtl) {
     font-family: 'rtl-font', sans-serif; /* Apply Vazir for RTL */
 }
 
+.delete-confirmation li {
+    @apply !px-8  !pt-1;
+}
+
+.delete-confirmation li a {
+    @apply link link-hover text-primary;
+}
 
 *:focus-visible {
     outline: none !important;
 }
 
 [dir="rtl"] .file-input::-webkit-file-upload-button {
-    margin-right: 0 ; /* For WebKit browsers in RTL */
+    margin-right: 0; /* For WebKit browsers in RTL */
 }
 
 [dir="rtl"] .file-input::file-selector-button {
-    margin-right: 0 ; /* For modern browsers in RTL */
+    margin-right: 0; /* For modern browsers in RTL */
 }
 
 .errorlist {
@@ -55,72 +68,42 @@ label.required::after {
     @apply text-error px-1.5 text-base absolute;
 }
 
+.select2.select2-container.select2-container--admin-autocomplete {
+    @apply select w-full select-sm;
+}
 
 .select2-selection.select2-selection {
     @apply select-sm;
 }
-ul.select2-results__options {
-    @apply max-h-[300px] overflow-auto;
+
+.select2-results {
     @apply bg-base-200;
 }
-.select2-dropdown{
-    @apply border !border-base-100 !rounded-lg;
-}
-.select2-search--dropdown .select2-search__field{
-    @apply bg-base-100 p-2;
-}
-.select2-search--dropdown{
-    @apply !p-0;
+
+ul.select2-results__options {
+    @apply max-h-[300px] overflow-auto;
+    @apply list bg-base-200 rounded-box shadow-xl;
 }
 
-.select2-search .select2-search--dropdown{
-    @apply !border !border-white;
-}
-/*
-.selector input {
-    @apply input input-sm border;
-}
-
-.selector select {
-    @apply select select-sm border min-h-64 w-full;
-}
-
-.selector ul.selector-chooser {
-    @apply flex flex-col justify-center items-center w-20 bg-base-200;
-}
-
-.selector h2 {
-    @apply font-bold p-2 text-sm;
-}
-
-.selector a {
-    @apply text-sm link link-hover;
-}
-
-.selector-chosen h2 {
-    @apply bg-indigo-400;
-}
-
-span.select2-container {
-    @apply select-sm rounded-md select pl-0;
-    @apply h-auto ;
+.select2-dropdown {
+    @apply border !border-base-100 !rounded-lg bg-base-200;
 }
 
 .select2-search--dropdown {
-    @apply bg-base-200;
+    @apply !p-0 bg-base-200;
+}
+
+span.select2-search {
+    @apply !p-2;
 }
 
 span.select2-search input.select2-search__field {
     @apply focus:outline-0 transition-all focus:outline-offset-0;
-    @apply rounded-md input input-sm border;
+    @apply rounded-md input input-sm w-full bg-base-100 p-2;
 }
 
 .select2-container .select2-selection--single {
-    @apply p-0 ;
-}
-
-.select2-results {
-    @apply menu bg-base-200;
+    @apply !p-0;
 }
 
 span.select2-selection__clear {
@@ -132,7 +115,7 @@ span.select2-selection__clear:hover {
 }
 
 .select2-results .select2-results__options {
-    @apply max-h-64 overflow-x-auto;
+    @apply max-h-64 overflow-x-auto text-sm;
 }
 
 .select2-results__option:hover {
@@ -158,10 +141,22 @@ span.select2-selection__clear:hover {
     height: 20px;
 }
 
+.select2 .selection {
+    @apply w-full h-full;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    @apply !inline-block !overflow-auto !align-middle p-1;
+}
+
 li[aria-selected="true"] {
     @apply hidden;
 }
-*/
+
+
+li[aria-selected="true"] {
+    @apply hidden;
+}
 
 a.inline-deletelink:hover {
     @apply text-red-500 animate-pulse text-lg;
@@ -188,7 +183,7 @@ a.tab-active i {
 }
 
 div[data-theme="tailwind"] div[data-schematype]:not([data-schematype="object"]):hover {
-    background-color: initial ;
+    background-color: initial;
 }
 
 input[data-jdp] {
@@ -196,7 +191,7 @@ input[data-jdp] {
 }
 
 /*auth selector admin widget */
-/*.related-widget-wrapper div.selector {
+.related-widget-wrapper div.selector {
     @apply w-full flex flex-wrap ;
 }
 
@@ -218,17 +213,38 @@ input[data-jdp] {
 
 .related-widget-wrapper div.selector .selector-chosen {
     @apply flex-1;
-}*/
+}
 
-/*
+
 #user_form .field-password a {
     @apply link link-primary;
 }
 
-.ts-dropdown{
+.ts-dropdown {
     @apply bg-base-200 text-base-content border-neutral-300 ;
 }
 
-.ts-dropdown .active{
+.ts-dropdown .active {
     @apply bg-base-300 text-base-content  ;
-}*/
+}
+
+.selector input {
+    @apply input input-sm;
+}
+
+.selector select {
+    @apply min-h-64 w-full  select;
+}
+
+.selector ul.selector-chooser {
+    @apply flex flex-col justify-center items-center w-20 bg-base-200;
+}
+
+.selector h2 {
+    @apply font-bold p-2 text-sm;
+}
+
+.selector a {
+    @apply text-sm link link-hover;
+}
+

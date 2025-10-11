@@ -1,0 +1,247 @@
+@import "tailwindcss" source(none);
+
+@plugin "daisyui" {
+    themes: light --default, dark --prefersdark, dracula, cmyk, lemonade, halloween, garden;
+}
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *, [data-theme=halloween], [data-theme=halloween] *, [data-theme=dracula], [data-theme=dracula] *));
+
+
+body {
+    font-family: 'body-font', sans-serif; /* Default to LTR font */
+}
+
+body:dir(rtl) {
+    font-family: 'rtl-font', sans-serif; /* Apply Vazir for RTL */
+}
+
+.delete-confirmation li {
+    @apply !px-8  !pt-1;
+}
+
+.delete-confirmation li a {
+    @apply link link-hover text-primary;
+}
+
+*:focus-visible {
+    outline: none !important;
+}
+
+[dir="rtl"] .file-input::-webkit-file-upload-button {
+    margin-right: 0; /* For WebKit browsers in RTL */
+}
+
+[dir="rtl"] .file-input::file-selector-button {
+    margin-right: 0; /* For modern browsers in RTL */
+}
+
+.errorlist {
+    @apply label px-0;
+}
+
+.errorlist li {
+    @apply label text-error font-bold;
+}
+
+
+.card {
+    @apply rounded-md shadow-sm;
+}
+
+.input, .select, .checkbox, .radio {
+    @apply focus:outline-0 transition-all focus:outline-offset-0;
+    @apply rounded-md;
+}
+
+.empty-form {
+    @apply hidden;
+}
+
+.add-row a {
+    @apply btn-link  text-primary;
+}
+
+label.required::after {
+    content: ' *';
+    @apply text-error px-1.5 text-base absolute;
+}
+
+.select2.select2-container.select2-container--admin-autocomplete {
+    @apply select w-full select-sm;
+}
+
+.select2-selection.select2-selection {
+    @apply select-sm;
+}
+
+.select2-results {
+    @apply bg-base-200;
+}
+
+ul.select2-results__options {
+    @apply max-h-[300px] overflow-auto;
+    @apply list bg-base-200 rounded-box shadow-xl;
+}
+
+.select2-dropdown {
+    @apply border !border-base-100 !rounded-lg bg-base-200;
+}
+
+.select2-search--dropdown {
+    @apply !p-0 bg-base-200;
+}
+
+span.select2-search {
+    @apply !p-2;
+}
+
+span.select2-search input.select2-search__field {
+    @apply focus:outline-0 transition-all focus:outline-offset-0;
+    @apply rounded-md input input-sm w-full bg-base-100 p-2;
+}
+
+.select2-container .select2-selection--single {
+    @apply !p-0;
+}
+
+span.select2-selection__clear {
+    @apply p-1 font-bold text-red-500 text-sm;
+}
+
+span.select2-selection__clear:hover {
+    @apply text-lg animate-ping;
+}
+
+.select2-results .select2-results__options {
+    @apply max-h-64 overflow-x-auto text-sm;
+}
+
+.select2-results__option:hover {
+    @apply bg-base-300;
+}
+
+.select2-results__option {
+    border-bottom: 1px solid rgba(128, 128, 128, 0.09);
+}
+
+.select2-selection__rendered {
+    @apply flex w-full h-auto flex-wrap ;
+
+}
+
+.select2-selection__choice {
+    @apply inline-block badge-md badge badge-outline m-1 p-1 px-1.5 h-auto;
+}
+
+.select2-selection__choice__remove {
+    @apply bg-base-300 text-base-content rounded-full inline-block text-center me-1;
+    width: 20px;
+    height: 20px;
+}
+
+.select2 .selection {
+    @apply w-full h-full;
+}
+
+.select2-container .select2-selection--single .select2-selection__rendered {
+    @apply !inline-block !overflow-auto !align-middle p-1;
+}
+
+li[aria-selected="true"] {
+    @apply hidden;
+}
+
+
+li[aria-selected="true"] {
+    @apply hidden;
+}
+
+a.inline-deletelink:hover {
+    @apply text-red-500 animate-pulse text-lg;
+}
+
+.select2-dropdown {
+    @apply border-none bg-transparent ;
+}
+
+a.tab-active i {
+    @apply animate-bounce opacity-85 ;
+}
+
+.ts-wrapper .ts-control {
+    @apply bg-base-200 border border-base-300 ;
+}
+
+.ts-wrapper .ts-control > div {
+    @apply border-base-300 border bg-base-300 text-base-content  ;
+}
+
+.json-field-viewer-wrapper input {
+    @apply input-sm;
+}
+
+div[data-theme="tailwind"] div[data-schematype]:not([data-schematype="object"]):hover {
+    background-color: initial;
+}
+
+input[data-jdp] {
+    @apply input input-sm;
+}
+
+/*auth selector admin widget */
+.related-widget-wrapper div.selector {
+    @apply w-full flex flex-wrap ;
+}
+
+.related-widget-wrapper div.selector a {
+    @apply btn btn-xs my-1;
+}
+
+.related-widget-wrapper div.selector ul.selector-chooser {
+    @apply bg-transparent;
+}
+
+.related-widget-wrapper div.selector .selector-available {
+    @apply flex-1;
+}
+
+.related-widget-wrapper div.selector .selector-available input {
+    @apply w-full;
+}
+
+.related-widget-wrapper div.selector .selector-chosen {
+    @apply flex-1;
+}
+
+
+#user_form .field-password a {
+    @apply link link-primary;
+}
+
+.ts-dropdown {
+    @apply bg-base-200 text-base-content border-neutral-300 ;
+}
+
+.ts-dropdown .active {
+    @apply bg-base-300 text-base-content  ;
+}
+
+.selector input {
+    @apply input input-sm;
+}
+
+.selector select {
+    @apply min-h-64 w-full  select;
+}
+
+.selector ul.selector-chooser {
+    @apply flex flex-col justify-center items-center w-20 bg-base-200;
+}
+
+.selector h2 {
+    @apply font-bold p-2 text-sm;
+}
+
+.selector a {
+    @apply text-sm link link-hover;
+}
+
