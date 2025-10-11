@@ -22,6 +22,7 @@
         </a>
     </div>
     <div class="navbar-end">
+    {% if DJANGO_DAISY.SHOW_THEME_SELECTOR %}
         <div title="Change Theme" class="dropdown dropdown-end block ">
             <div tabindex="0" role="button" class="btn group btn-sm gap-1.5 px-1.5 btn-ghost" aria-label="Change Theme">
                 <div class="bg-base-100 group-hover:border-base-content/20 border-base-content/10 grid shrink-0 grid-cols-2 gap-0.5 rounded-md border p-1 transition-colors">
@@ -38,119 +39,37 @@
             <div tabindex="0"
                  class="dropdown-content bg-base-200 text-base-content rounded-box top-px max-h-[calc(100vh-8.6rem)] overflow-y-auto border-[length:var(--border)] border-white/5 shadow-2xl outline-[length:var(--border)] outline-black/5 mt-10">
                 <ul class="menu w-56">
-                    <li class="menu-title text-xs">Theme</li> <!--[-->
+                    <li class="menu-title text-xs">{% trans "Theme" %}</li> <!--[-->
+                    {% for theme in DJANGO_DAISY.THEME_LIST %}
                     <li>
-                        <button class="gap-3 px-2" data-set-theme="light" data-act-class="[&amp;_svg]:visible">
-                            <div data-theme="light"
+                        <button class="gap-3 px-2" data-set-theme="{{ theme.value }}" data-act-class="[&amp;_svg]:visible">
+                            <div data-theme="{{ theme.value }}"
                                  class="bg-base-100 grid shrink-0 grid-cols-2 gap-0.5 rounded-md p-1 shadow-sm">
                                 <div class="bg-base-content size-1 rounded-full"></div>
                                 <div class="bg-primary size-1 rounded-full"></div>
                                 <div class="bg-secondary size-1 rounded-full"></div>
                                 <div class="bg-accent size-1 rounded-full"></div>
                             </div>
-                            <div class="w-32 truncate">light</div>
+                            <div class="w-32 truncate">{{ theme.name }}</div>
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
                                  fill="currentColor" class="invisible h-3 w-3 shrink-0">
                                 <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"></path>
                             </svg>
                         </button>
                     </li>
-                    <li>
-                        <button class="gap-3 px-2 [&amp;_svg]:visible" data-set-theme="dark"
-                                data-act-class="[&amp;_svg]:visible">
-                            <div data-theme="dark"
-                                 class="bg-base-100 grid shrink-0 grid-cols-2 gap-0.5 rounded-md p-1 shadow-sm">
-                                <div class="bg-base-content size-1 rounded-full"></div>
-                                <div class="bg-primary size-1 rounded-full"></div>
-                                <div class="bg-secondary size-1 rounded-full"></div>
-                                <div class="bg-accent size-1 rounded-full"></div>
-                            </div>
-                            <div class="w-32 truncate">dark</div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                 fill="currentColor" class="invisible h-3 w-3 shrink-0">
-                                <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"></path>
-                            </svg>
-                        </button>
-                    </li>
-                    <li>
-                        <button class="gap-3 px-2" data-set-theme="cmyk" data-act-class="[&amp;_svg]:visible">
-                            <div data-theme="cmyk"
-                                 class="bg-base-100 grid shrink-0 grid-cols-2 gap-0.5 rounded-md p-1 shadow-sm">
-                                <div class="bg-base-content size-1 rounded-full"></div>
-                                <div class="bg-primary size-1 rounded-full"></div>
-                                <div class="bg-secondary size-1 rounded-full"></div>
-                                <div class="bg-accent size-1 rounded-full"></div>
-                            </div>
-                            <div class="w-32 truncate">cmyk</div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                 fill="currentColor" class="invisible h-3 w-3 shrink-0">
-                                <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"></path>
-                            </svg>
-                        </button>
-                    </li>
-                    <li>
-                        <button class="gap-3 px-2" data-set-theme="dracula" data-act-class="[&amp;_svg]:visible">
-                            <div data-theme="dracula"
-                                 class="bg-base-100 grid shrink-0 grid-cols-2 gap-0.5 rounded-md p-1 shadow-sm">
-                                <div class="bg-base-content size-1 rounded-full"></div>
-                                <div class="bg-primary size-1 rounded-full"></div>
-                                <div class="bg-secondary size-1 rounded-full"></div>
-                                <div class="bg-accent size-1 rounded-full"></div>
-                            </div>
-                            <div class="w-32 truncate">dracula</div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                 fill="currentColor" class="invisible h-3 w-3 shrink-0">
-                                <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"></path>
-                            </svg>
-                        </button>
-                    </li>
-                    <li>
-                        <button class="gap-3 px-2" data-set-theme="garden" data-act-class="[&amp;_svg]:visible">
-                            <div data-theme="garden"
-                                 class="bg-base-100 grid shrink-0 grid-cols-2 gap-0.5 rounded-md p-1 shadow-sm">
-                                <div class="bg-base-content size-1 rounded-full"></div>
-                                <div class="bg-primary size-1 rounded-full"></div>
-                                <div class="bg-secondary size-1 rounded-full"></div>
-                                <div class="bg-accent size-1 rounded-full"></div>
-                            </div>
-                            <div class="w-32 truncate">garden</div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                 fill="currentColor" class="invisible h-3 w-3 shrink-0">
-                                <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"></path>
-                            </svg>
-                        </button>
-                    </li>
-                    <li>
-                        <button class="gap-3 px-2" data-set-theme="halloween" data-act-class="[&amp;_svg]:visible">
-                            <div data-theme="halloween"
-                                 class="bg-base-100 grid shrink-0 grid-cols-2 gap-0.5 rounded-md p-1 shadow-sm">
-                                <div class="bg-base-content size-1 rounded-full"></div>
-                                <div class="bg-primary size-1 rounded-full"></div>
-                                <div class="bg-secondary size-1 rounded-full"></div>
-                                <div class="bg-accent size-1 rounded-full"></div>
-                            </div>
-                            <div class="w-32 truncate">halloween</div>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
-                                 fill="currentColor" class="invisible h-3 w-3 shrink-0">
-                                <path d="M20.285 2l-11.285 11.567-5.286-5.011-3.714 3.716 9 8.728 15-15.285z"></path>
-                            </svg>
-                        </button>
-                    </li>
-
-
+                    {% endfor %}
                 </ul>
             </div>
         </div>
+        {% endif %}
         <div class="dropdown dropdown-bottom dropdown-end">
             <div tabindex="0" role="button" class="btn btn-ghost btn-circle m-1">
                 <i class="fa-regular fa-user text-lg"></i>
             </div>
             <ul tabindex="0" class="dropdown-content rounded-md  bg-base-300 z-20 w-48 p-2 shadow-2xl">
                 <li>
-                    <a class="btn btn-sm btn-block btn-ghost justify-around"
-                       href="{% url 'admin:password_change' %}">{% trans 'Change password' %}
-                    </a>
-
+                    <a class="btn btn-sm btn-block btn-ghost justify-start"
+                       href="{% url 'admin:password_change' %}">{% trans 'Change password' %}</a>
                 </li>
                 <li>
                     <a class="btn btn-sm btn-block btn-ghost justify-start" onclick="$('#logout-form').submit()"

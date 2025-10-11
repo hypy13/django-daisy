@@ -28,8 +28,24 @@
             }
         }
 
+        function getDefaultTheme() {
+            const defaultTheme = '{{ DEFAULT_THEME|default:"" }}';
+            const defaultThemeDark = '{{ DEFAULT_THEME_DARK|default:"" }}';
+
+            if (defaultTheme && !defaultThemeDark) {
+                return defaultTheme; // Always use DEFAULT_THEME if dark not set
+            }
+
+            if (defaultTheme && defaultThemeDark) {
+                // Choose based on system color scheme
+                return getSystemColorScheme() === 'dark' ? defaultThemeDark : defaultTheme;
+            }
+
+            return getSystemColorScheme(); // Fall back to system preference
+        }
+
         document.documentElement.setAttribute(
-            'data-theme', localStorage.getItem('theme') || getSystemColorScheme()
+            'data-theme', localStorage.getItem('theme') || getDefaultTheme()
         )
 
         {% if change_language_url %}

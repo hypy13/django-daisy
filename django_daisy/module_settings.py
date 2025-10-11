@@ -17,6 +17,18 @@ DEFAULT_DAISY_SETTINGS = {
     "SIDEBAR_FOOTNOTE": "",
     "FORM_RENDERER": "django.forms.renderers.TemplatesSetting",
     "X_FRAME_OPTIONS": "SAMEORIGIN",
+    "DEFAULT_THEME": 'None',
+    "DEFAULT_THEME_DARK": None,
+    "SHOW_THEME_SELECTOR": True,
+    "THEME_LIST": [
+        {"name": _("Light"), "value": "light"},
+        {"name": _("Dark"), "value": "dark"},
+        {"name": _("CMYK"), "value": "cmyk"},
+        {"name": _("Dracula"), "value": "dracula"},
+        {"name": _("Lemonade"), "value": "lemonade"},
+        {"name": _("Halloween"), "value": "halloween"},
+        {"name": _("Garden"), "value": "garden"},
+    ],
     "APPS_REORDER": {
         "auth": {
             "icon": "fa-solid fa-person-military-pointing",
