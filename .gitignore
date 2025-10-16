@@ -3,4 +3,4 @@ __pycache__/
 django_daisy.egg-info/
 dist/
 .tox/
-[.ve]nv
+.venv
