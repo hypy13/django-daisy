@@ -1,0 +1,34 @@
+{% load i18n %}
+{% if show %}
+<div class="dropdown dropdown-hover">
+  <div tabindex="0" role="button" class="btn btn-outline btn-sm gap-2">
+    <i class="fa fa-calendar"></i>
+    <!-- {% trans 'Filter by date' %} -->
+    {% if back %}
+      <span class="badge badge-primary badge-sm">{{ back.title }}</span>
+    {% endif %}
+  </div>
+  <ul tabindex="0" class="dropdown-content z-[1] menu p-2 shadow-lg bg-base-100 rounded-box w-64">
+    {% if back %}
+    <li>
+      <a href="{{ back.link }}" class="flex items-center gap-2 text-primary hover:bg-primary hover:text-primary-content">
+        <i class="fa fa-arrow-left"></i>
+        {{ back.title }}
+      </a>
+    </li>
+    <!-- <li><hr class="divider my-1"></li> -->
+    {% endif %}
+    {% for choice in choices %}
+    <li>
+      {% if choice.link %}
+      <a href="{{ choice.link }}" class="hover:bg-base-200 {% if choice.title == current %}bg-primary text-primary-content{% endif %}">
+        {{ choice.title }}
+      </a>
+      {% else %}
+      <span class="text-base-content font-semibold bg-base-200 px-2 py-1 rounded">{{ choice.title }}</span>
+      {% endif %}
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endif %}
