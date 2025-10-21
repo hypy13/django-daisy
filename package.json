@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx @tailwindcss/cli -i build-styles/app.css -o django_daisy/static/admin/css/app.css --minify --watch",
-    "build:customise": "npx tailwindcss -i build-styles/customize.css -o django_daisy/static/admin/css/customized_components.css --minify"
+    "build": "npx tailwindcss -i build-styles/customize.css -o django_daisy/static/admin/css/customized_components.css --minify"
   },
   "keywords": [],
   "author": "",

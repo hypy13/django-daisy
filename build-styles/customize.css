@@ -217,14 +217,6 @@ input[data-jdp] {
     @apply link link-primary;
 }
 
-.ts-dropdown {
-    @apply bg-base-200 text-base-content border-neutral-300 ;
-}
-
-.ts-dropdown .active {
-    @apply bg-base-300 text-base-content  ;
-}
-
 .selector input {
     @apply input input-sm;
 }
@@ -245,3 +237,13 @@ input[data-jdp] {
     @apply text-sm link link-hover;
 }
 
+.ts-dropdown {
+    @apply text-base-content  bg-base-content;
+}
+
+.ts-dropdown .active {
+    @apply bg-base-300 text-base-content  ;
+}
+.ts-control {
+    @apply !bg-base-content;
+}
