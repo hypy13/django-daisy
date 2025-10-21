@@ -1,0 +1,84 @@
+name: Sync Hugging Face Space with latest commit
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  update-space:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Hugging Face Hub
+        run: pip install huggingface_hub
+
+      - name: Update HF Space requirements with commit
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          python - <<'EOF'
+          import os
+          import subprocess
+          from huggingface_hub import HfApi, create_commit, CommitOperationAdd, hf_hub_download
+
+          HF_TOKEN = os.environ["HF_TOKEN"]
+          SPACE_ID = "hypy13/django-daisy"
+
+          api = HfApi()
+
+          # 1. Get the latest commit hash of django-daisy
+          commit_hash = subprocess.check_output(["git", "rev-parse", "HEAD"]).decode().strip()
+          print("📌 Latest commit:", commit_hash)
+
+          # 2. Download current requirements.txt
+          try:
+              req_path = hf_hub_download(
+                  repo_id=SPACE_ID,
+                  repo_type="space",
+                  filename="requirements.txt",
+                  token=HF_TOKEN
+              )
+              with open(req_path, "r") as f:
+                  requirements = f.read().splitlines()
+          except Exception:
+              print("⚠️ No requirements.txt found, creating new one")
+              requirements = []
+
+          # 3. Replace or add django-daisy line
+          new_line = f"git+https://github.com/hypy13/django-daisy.git@{commit_hash}"
+          updated = False
+          for i, line in enumerate(requirements):
+              if "django-daisy" in line:  # matches PyPI or git installs
+                  requirements[i] = new_line
+                  updated = True
+                  break
+          if not updated:
+              requirements.append(new_line)
+
+          new_content = "\n".join(requirements) + "\n"
+
+          # 4. Commit the updated requirements.txt
+          create_commit(
+              repo_id=SPACE_ID,
+              repo_type="space",
+              operations=[
+                  CommitOperationAdd(
+                      path_in_repo="requirements.txt",
+                      path_or_fileobj=new_content.encode("utf-8"),
+                  )
+              ],
+              commit_message=f"🔄 Update django-daisy to {commit_hash}",
+              token=HF_TOKEN,
+          )
+
+          print(f"✅ Space {SPACE_ID} requirements updated with django-daisy@{commit_hash}")
+          EOF
