@@ -48,8 +48,7 @@
                 <div>
                     <p class="errornote">
                         <i class="fa fa-exclamation"></i>
-                        {% blocktranslate count counter=cl.formset.total_error_count %}Please correct the error below.
-                        {% plural %}Please correct the errors below.{% endblocktranslate %}
+                        {% blocktranslate count counter=cl.formset.total_error_count %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktranslate %}
                     </p>
                     <ul class="menu">
                         {% for error in cl.formset.non_form_errors %}

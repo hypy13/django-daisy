@@ -22,7 +22,7 @@
         </a>
     </div>
     <div class="navbar-end">
-    {% if DJANGO_DAISY.SHOW_THEME_SELECTOR %}
+    {% if SHOW_THEME_SELECTOR %}
         <div title="Change Theme" class="dropdown dropdown-end block ">
             <div tabindex="0" role="button" class="btn group btn-sm gap-1.5 px-1.5 btn-ghost" aria-label="Change Theme">
                 <div class="bg-base-100 group-hover:border-base-content/20 border-base-content/10 grid shrink-0 grid-cols-2 gap-0.5 rounded-md border p-1 transition-colors">
@@ -40,7 +40,7 @@
                  class="dropdown-content bg-base-200 text-base-content rounded-box top-px max-h-[calc(100vh-8.6rem)] overflow-y-auto border-[length:var(--border)] border-white/5 shadow-2xl outline-[length:var(--border)] outline-black/5 mt-10">
                 <ul class="menu w-56">
                     <li class="menu-title text-xs">{% trans "Theme" %}</li> <!--[-->
-                    {% for theme in DJANGO_DAISY.THEME_LIST %}
+                    {% for theme in THEME_LIST %}
                     <li>
                         <button class="gap-3 px-2" data-set-theme="{{ theme.value }}" data-act-class="[&amp;_svg]:visible">
                             <div data-theme="{{ theme.value }}"

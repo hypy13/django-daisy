@@ -109,7 +109,7 @@ class DaisyAdminSite(admin.AdminSite):
 
         return {
             **context,
-            'DJANGO_DAISY': DAISY_SETTINGS,
+            **DAISY_SETTINGS,
             "change_language_url": change_language_url,
             "logo": self.get_logo(request),
             "can_delete_popup": "",
