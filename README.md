@@ -1,243 +1,238 @@
-# Django Daisy
+# Django Daisy v2.0 🌼
+
 ![Test Status](https://github.com/hypy13/django-daisy/actions/workflows/tox_test.yml/badge.svg)
 [![Published on Django Packages](https://img.shields.io/badge/Published%20on-Django%20Packages-0c3c26)](https://djangopackages.org/packages/p/django-daisy/)
 
+**🎉 NEW: Version 2.0 is here!** Built with DaisyUI v5 and Tailwind CSS v4 for blazing-fast performance, enhanced responsiveness, and stunning new designs.
 
-[**Live Demo https://hypy13-django-daisy.hf.space/en/admin/**](https://hypy13-django-daisy.hf.space/en/admin/)  
-**Username:** demo  
-**Password:** demo
+---
 
+## 🚀 Live Demo
 
-for RTL mode:
-https://hypy13-django-daisy.hf.space/fa/admin/
+[**Try it now: https://hypy13-django-daisy.hf.space/en/admin/**](https://hypy13-django-daisy.hf.space/en/admin/)  
+**Username:** demo | **Password:** demo
+
+**RTL Demo:** https://hypy13-django-daisy.hf.space/fa/admin/
 
 ![ScreenShot](https://raw.githubusercontent.com/hypy13/django-daisy/refs/heads/main/screenshots/change_form.png)
 
 ---
 
-Django Daisy is a modern, sleek, and highly responsive admin dashboard built with **DaisyUI** and **TailwindCSS**. It brings a polished and user-friendly interface that scales beautifully across devices, from mobile to desktop, making your admin experience fast and efficient.
+## 📖 Documentation
 
-
-### Documentation:
-https://hypy13.github.io/django-daisy-docs/
+**Full documentation:** https://hypy13.github.io/django-daisy-docs/
 
 ---
 
-## ✨ Key Features
+## ✨ What's New in v2.0
 
-- 🌍 **Responsive Design**: Perfectly adapts to all screen sizes, ensuring a seamless user experience across mobile, tablet, and desktop devices.
-- 🔄 **RTL Support**: Complete right-to-left language support, with a clean and consistent layout for RTL users.
-- 🎨 **Multi-Theme Support**: Effortlessly switch between themes to match your brand identity or personal style.
-- 🚀 **Enhanced UX/UI**: Experience an optimized interface with **tabbed inline admin panels** for better organization and usability.
-- 📝 **Tabbed Inline Admin**: Manage related data more efficiently with tabbed inline admin sections, improving organization and accessibility.
-- 🔍 **Advanced Admin Filtering**: Utilize multi-value filters for fast and precise navigation through admin lists.
+Version 2.0 brings major improvements in performance, design, and user experience:
+
+- ⚡ **DaisyUI v5 & Tailwind CSS v4** - Lighter, faster, and more efficient
+- 🎨 **New Themes & Icons** - Expanded theme collection with modern iconography
+- 📱 **Enhanced Responsiveness** - Improved mobile experience with compact table views
+- 🎯 **Redesigned Change Form** - Submit buttons relocated to right sidebar on large screens
+- 📜 **Recent History Component** - Quick access to recent object changes in the sidebar
+- 🗑️ **Improved Delete Confirmation** - Cleaner, more intuitive deletion interface
+- ✅ **Updated Form Controls** - Modern DaisyUI v5 checkbox and input styling
+- 🔧 **Performance Optimizations** - Faster load times and smoother interactions
+
+<details>
+<summary><strong>📋 Complete Changelog</strong></summary>
+
+1. Upgraded to DaisyUI v5 and Tailwind CSS v4
+2. Relocated submit button row to right sidebar on large screens (change form)
+3. Added recent object history component in right sidebar (change form)
+4. Improved change list table responsiveness with compact mobile view
+5. Enhanced delete confirmation page design
+6. Updated checkbox inputs to DaisyUI v5 styling
+7. Added new themes to theme selector with updated icons
+8. Various responsive improvements and UI enhancements
+
+</details>
+
+---
+
+## ✨ Core Features
+
+- 🌍 **Fully Responsive** - Seamless experience across mobile, tablet, and desktop
+- 🔄 **RTL Support** - Complete right-to-left language support
+- 🎨 **Multi-Theme System** - Switch themes effortlessly to match your brand
+- 📑 **Tabbed Inline Admin** - Organize related data with tabbed sections
+- 🔍 **Advanced Filtering** - Multi-value filters for precise navigation
+- 🚀 **Optimized Performance** - Lightning-fast load times with minimal overhead
 
 ---
 
 ## ⚙️ Compatibility
 
-- Django 3.2 - 5.1.1 are fully supported.
-
----
-
-## 🚧 Upcoming Features
-
-Stay tuned! Continuous improvements and new features are regularly added to enhance your experience.
+- **Django:** 3.2 - 5.1.1 fully supported
+- **Python:** 3.8+
 
 ---
 
 ## 📦 Installation
 
-### Option 1: Install via PyPi
+### Quick Install (PyPI)
 
 ```bash
 pip install django-daisy
 ```
-### Option 2: Install as an editable GitHub source
+
+### Development Install (GitHub)
 
 ```bash
 pip install -e git+https://github.com/hypy13/django-daisy.git#egg=django-daisy
 ```
 
-After installation, add `django_daisy` and `django.contrib.humanize` to your `INSTALLED_APPS` in the Django settings file.  
+### Configuration
+
+Add to your `INSTALLED_APPS` in `settings.py`:
 
 ```python
 INSTALLED_APPS = [
     'django_daisy',
     'django.contrib.admin',
-    'django.contrib.humanize',  # Required for django-daisy
-    ...
+    'django.contrib.humanize',  # Required
+    # ... your other apps
 ]
 ```
 
-
-Once you've made these changes, enjoy the fresh new theme!
+That's it! Your admin now has a modern, beautiful interface.
 
 ---
 
-## Project Customizations
+## 🎨 Customization
 
-### 1. App Configuration in `apps.py`
+<details>
+<summary><strong>App Configuration (apps.py)</strong></summary>
 
-You can configure app-specific settings in the `apps.py` file for each application within your Django project. Below is an example of how to customize the `Polls` app:
+Customize individual app appearance in the sidebar:
 
 ```python
 class PollsConfig(AppConfig):
-    name = 'polls'  # The name of the app
-    icon = 'fa fa-square-poll-vertical'  # FontAwesome icon for the app (optional)
-    divider_title = "Apps"  # Title of the section divider in the sidebar (optional)
-    priority = 0  # Determines the order of the app in the sidebar (higher values appear first, optional)
-    hide = False  # Set to True to hide the app from the sidebar menu (optional)
+    name = 'polls'
+    icon = 'fa fa-square-poll-vertical'  # FontAwesome icon
+    divider_title = "Apps"  # Section divider title
+    priority = 0  # Sidebar ordering (higher = top)
+    hide = False  # Hide from sidebar
 ```
 
-### Explanation:
-- **name**: The name of the app.
-- **icon**: An optional FontAwesome icon to display next to the app name in the sidebar.
-- **divider_title**: The title for the section divider, grouping similar apps together (optional).
-- **priority**: An optional setting that controls the order of apps in the sidebar; higher values appear at the top.
-- **hide**: If set to `True`, the app will be hidden from the sidebar menu.
+</details>
 
----
+<details>
+<summary><strong>Global Settings (settings.py)</strong></summary>
 
-## 2. Global Customizations in `settings.py`
-
-You can define various project-wide settings for customizing the Django admin interface in your `settings.py` file using the `DAISY_SETTINGS` dictionary. Below is an example configuration:
+Configure site-wide appearance and behavior:
 
 ```python
 DAISY_SETTINGS = {
-    'SITE_TITLE': 'Django Admin',  # The title of the site 
-    'SITE_HEADER': 'Administration',  # Header text displayed in the admin panel
-    'INDEX_TITLE': 'Hi, welcome to your dashboard',  # The title for the index page of dashboard
-    'SITE_LOGO': '/static/admin/img/daisyui-logomark.svg',  # Path to the logo image displayed in the sidebar
-    'EXTRA_STYLES': [],  # List of extra stylesheets to be loaded in base.html (optional)
-    'EXTRA_SCRIPTS': [],  # List of extra script URLs to be loaded in base.html (optional)
-    'LOAD_FULL_STYLES': False,  # If True, loads full DaisyUI components in the admin (useful if you have custom template overrides)
-    'SHOW_CHANGELIST_FILTER': False,  # If True, the filter sidebar will open by default on changelist views
-    'DONT_SUPPORT_ME': False, # Hide github link in sidebar footer
-    'SIDEBAR_FOOTNOTE': '', # add footnote to sidebar
-    'DEFAULT_THEME': None,  # Set a default theme (e.g., 'corporate', 'dark', 'light')
-    'DEFAULT_THEME_DARK': None,  # Set a default dark theme when system prefers dark mode
-    'SHOW_THEME_SELECTOR': True,  # If False, hides the theme selector dropdown entirely
-    'THEME_LIST': [  # List of themes shown in the theme selector dropdown
+    # Branding
+    'SITE_TITLE': 'Django Admin',
+    'SITE_HEADER': 'Administration',
+    'INDEX_TITLE': 'Hi, welcome to your dashboard',
+    'SITE_LOGO': '/static/admin/img/daisyui-logomark.svg',
+    
+    # Customization
+    'EXTRA_STYLES': [],  # Additional CSS files
+    'EXTRA_SCRIPTS': [],  # Additional JS files
+    'LOAD_FULL_STYLES': False,  # Load complete DaisyUI library
+    'SHOW_CHANGELIST_FILTER': False,  # Auto-open filter sidebar
+    'DONT_SUPPORT_ME': False,  # Hide GitHub link
+    'SIDEBAR_FOOTNOTE': '',  # Custom sidebar footer text
+    
+    # Theme Configuration
+    'DEFAULT_THEME': None,  # e.g., 'corporate', 'dark'
+    'DEFAULT_THEME_DARK': None,  # Dark mode default
+    'SHOW_THEME_SELECTOR': True,  # Show/hide theme dropdown
+    'THEME_LIST': [
         {'name': 'Light', 'value': 'light'},
         {'name': 'Dark', 'value': 'dark'},
-        # ... customize as needed
+        # Add custom themes...
     ],
+    
+    # Third-Party App Customization
     'APPS_REORDER': {
-        # Custom configurations for third-party apps that can't be modified directly in their `apps.py`
         'auth': {
-            'icon': 'fa-solid fa-person-military-pointing',  # FontAwesome icon for the 'auth' app
-            'name': 'Authentication',  # Custom name for the 'auth' app
-            'hide': False,  # Whether to hide the 'auth' app from the sidebar (set to True to hide)
-            'divider_title': "Auth",  # Divider title for the 'auth' section
-        },
-        'social_django': {
-            'icon': 'fa-solid fa-users-gear',  # Custom FontAwesome icon for the 'social_django' app
+            'icon': 'fa-solid fa-person-military-pointing',
+            'name': 'Authentication',
+            'hide': False,
+            'divider_title': "Auth",
         },
     },
 }
 ```
 
-### Explanation:
-- **SITE_TITLE**: Sets the title of your site (visible in the browser tab).
-- **SITE_HEADER**: The header displayed at the top of the Django admin interface.
-- **INDEX_TITLE**: The title shown on the dashboard page of the admin panel.
-- **SITE_LOGO**: Specifies the path to a logo image that appears in the sidebar.
-- **EXTRA_STYLES**: A list of additional CSS files to be loaded into the admin interface (useful for custom styling).
-- **EXTRA_SCRIPTS**: A list of additional JavaScript files to be loaded into the admin interface.
-- **LOAD_FULL_STYLES**: If set to `True`, loads the full DaisyUI library for styling, which can be useful if you have overridden the admin templates.
-- **SHOW_CHANGELIST_FILTER**: Controls whether the changelist filter sidebar is shown by default.
-- **DONT_SUPPORT_ME**: Hide github link in sidebar footer.
-- **SIDEBAR_FOOTNOTE**: Add footnote to sidebar.
-- **DEFAULT_THEME**: Sets a default theme for all users (e.g., 'corporate', 'dark', 'light'). If set alone, this theme will always be used as the default regardless of system preference.
-- **DEFAULT_THEME_DARK**: Sets a default theme when the system prefers dark mode. Only used when `DEFAULT_THEME` is also set. When both are configured, the appropriate theme is chosen based on the user's system color scheme preference.
-- **SHOW_THEME_SELECTOR**: Controls whether the theme selector dropdown is visible in the navbar. Set to `False` to hide the theme selector entirely, useful when enforcing a specific theme organization-wide.
-- **THEME_LIST**: Configures which themes appear in the theme selector dropdown. Each theme should have a `name` (display text) and `value` (theme ID). Defaults to six popular DaisyUI themes.
-- **APPS_REORDER**: This allows you to reorder, customize, and modify third-party apps. For example, you can change the name of the `auth` app to `users`, provide a custom icon, or hide it from the sidebar entirely.
+</details>
 
----
+<details>
+<summary><strong>Theme Configuration Examples</strong></summary>
 
-### Theme Configuration Examples
-
-#### Single Default Theme
-To set one theme as default for all users regardless of their system preference:
+**Single Default Theme:**
 ```python
 DAISY_SETTINGS = {
-    'DEFAULT_THEME': 'corporate',  # Always use corporate theme
-    # ... other settings
+    'DEFAULT_THEME': 'corporate',  # Always use this theme
 }
 ```
 
-#### Separate Light/Dark Default Themes
-To set different default themes based on system color scheme preference:
+**Separate Light/Dark Themes:**
 ```python
 DAISY_SETTINGS = {
-    'DEFAULT_THEME': 'light',       # Default for light mode
-    'DEFAULT_THEME_DARK': 'dim',    # Default for dark mode
-    # ... other settings
+    'DEFAULT_THEME': 'light',      # Light mode default
+    'DEFAULT_THEME_DARK': 'dim',   # Dark mode default
 }
 ```
 
-#### Enforce Theme Without User Choice
-To completely hide the theme selector and enforce a specific theme:
-```python
-DAISY_SETTINGS = {
-    'DEFAULT_THEME': 'corporate',    # Enforced theme
-    'SHOW_THEME_SELECTOR': False,    # Hide theme selector
-    # ... other settings
-}
-```
-
-#### Custom Theme List
-To customize which themes appear in the dropdown selector:
+**Enforce Theme (No User Choice):**
 ```python
 DAISY_SETTINGS = {
     'DEFAULT_THEME': 'corporate',
-    'THEME_LIST': [
-        {'name': 'Light', 'value': 'light'},
-        {'name': 'Corporate', 'value': 'corporate'},
-        {'name': 'Business', 'value': 'business'},
-        {'name': 'Luxury', 'value': 'luxury'},
-    ],
-    # ... other settings
+    'SHOW_THEME_SELECTOR': False,  # Hide selector
 }
 ```
 
-**Note:** The theme selection logic prioritizes user-saved preferences in localStorage first, then falls back to your configured defaults, and finally to system preference if no defaults are set.
+**Custom Theme List:**
+```python
+DAISY_SETTINGS = {
+    'THEME_LIST': [
+        {'name': 'Light', 'value': 'light'},
+        {'name': 'Corporate', 'value': 'corporate'},
+        {'name': 'Luxury', 'value': 'luxury'},
+    ],
+}
+```
 
-**Important:** When using custom DaisyUI themes (like 'corporate', 'dim', 'autumn', etc.) as default themes, you may need to enable `LOAD_FULL_STYLES: True` to ensure all theme styles are loaded properly.
+> **Note:** For custom DaisyUI themes, enable `LOAD_FULL_STYLES: True` to load all theme styles.
+
+</details>
 
 ---
 
-### Using Tabbed Inline Admin
+## 🔧 Advanced Features
 
-To create a tabbed inline admin interface in your Django project, follow these steps:
+<details>
+<summary><strong>Tabbed Inline Admin</strong></summary>
 
-1. **Import the necessary modules**:
-    import NavTabMixin in your `admin.py` file:
-   ```python
-   from django_daisy.mixins import NavTabMixin
-   ```
+Create tabbed inline interfaces for related objects:
 
-2. **Extend `NavTabMixin` in your `InlineAdmin` class**:
-   Create your inline admin class by extending `NavTabMixin` along with `admin.TabularInline` or `admin.StackedInline` for a different layout:
-   ```python
-   class ChoiceInline(admin.TabularInline, NavTabMixin):  # or admin.StackedInline for a different layout
-       model = Choice
-       extra = 1
-   ```
+```python
+from django_daisy.mixins import NavTabMixin
 
-3. **Register your inline admin class**:
-   Use the inline admin class in your `ModelAdmin` class:
-   ```python
-   @admin.register(Poll)
-   class PollAdmin(admin.ModelAdmin):
-       inlines = [ChoiceInline]
-   ```
+class ChoiceInline(admin.TabularInline, NavTabMixin):
+    model = Choice
+    extra = 1
 
-### Making Admin Fieldsets as Navtabs
+@admin.register(Poll)
+class PollAdmin(admin.ModelAdmin):
+    inlines = [ChoiceInline]
+```
 
-To make admin fieldsets appear as navigation tabs in the admin interface, add the `navtab` class to the `classes` attribute of your fieldset definition in your `admin.py` file:
+</details>
+
+<details>
+<summary><strong>Tabbed Fieldsets</strong></summary>
+
+Convert fieldsets into navigation tabs:
 
 ```python
 @admin.register(MyModel)
@@ -246,75 +241,90 @@ class MyModelAdmin(admin.ModelAdmin):
         (None, {
             'fields': ('username', 'password')
         }),
-        (_('Personal info (tabbed example)'), {
-            'fields': (
-                'first_name', 'last_name', 'email',
-            ),
-            'classes': ('navtab',),  # Add navtab class here
+        ('Personal Info', {
+            'fields': ('first_name', 'last_name', 'email'),
+            'classes': ('navtab',),  # Creates a tab
         }),
-        (_('No tabbed example'), {
-            'fields': (
-                'is_active', 'is_staff', 'is_superuser',
-            ),
+        ('Permissions', {
+            'fields': ('is_active', 'is_staff', 'is_superuser'),
         }),
     )
 ```
 
-This will create a tabbed interface where each fieldset marked with the `navtab` class appears as a separate navigation tab in the admin form.
+</details>
 
-### 🌐 Enabling Language Change in Admin Panel
+<details>
+<summary><strong>Language Switching</strong></summary>
 
-To enable language switching directly from the admin panel, follow these steps:
+Enable language selection in the admin panel:
 
-1. **Include Django's `set_language` URL**  
-   Add the following line to your `urls.py` file:
-   ```python
-   urlpatterns = [
-       ...,
-       path("i18n/", include("django.conf.urls.i18n")),  # Add this line
-   ]
-   ```
+**1. Add URL pattern (`urls.py`):**
+```python
+urlpatterns = [
+    path("i18n/", include("django.conf.urls.i18n")),
+    # ... other patterns
+]
+```
 
-2. **Ensure `LocaleMiddleware` is Enabled**  
-   Confirm that the following middleware is included in your `MIDDLEWARE` settings:
-   ```python
-   MIDDLEWARE = [
-       ...,
-       'django.middleware.locale.LocaleMiddleware',
-       ...
-   ]
-   ```
+**2. Enable middleware (`settings.py`):**
+```python
+MIDDLEWARE = [
+    'django.middleware.locale.LocaleMiddleware',
+    # ... other middleware
+]
+```
 
-3. **Define Supported Language**   
-   Specify the languages your application supports in `settings.py`:
-   ```python
-   LANGUAGES = [
-       ('en', 'English'),
-       ('fa', 'Farsi'),
-       # Add other languages as needed
-   ]
-   ```
+**3. Define languages (`settings.py`):**
+```python
+LANGUAGES = [
+    ('en', 'English'),
+    ('fa', 'Farsi'),
+    # Add more languages...
+]
+```
 
-## 🤝 Contributing
-
-We welcome contributions from the community! Feel free to submit any issues, suggestions, or pull requests to help improve Django Daisy.
+</details>
 
 ---
 
 ## 📸 Screenshots
 
-##### Listing View:
+<details>
+<summary><strong>View Gallery</strong></summary>
+
+**Listing View:**
 ![Listing View](https://raw.githubusercontent.com/hypy13/django-daisy/refs/heads/main/screenshots/listing.png)
 
-##### Change Form:
-![Listing View](https://raw.githubusercontent.com/hypy13/django-daisy/refs/heads/main/screenshots/change_form.png)
+**Change Form:**
+![Change Form](https://raw.githubusercontent.com/hypy13/django-daisy/refs/heads/main/screenshots/change_form.png)
 
-##### Mobile Responsive:
-![Listing View](https://raw.githubusercontent.com/hypy13/django-daisy/refs/heads/main/screenshots/mobile.png)
+**Mobile Responsive:**
+![Mobile View](https://raw.githubusercontent.com/hypy13/django-daisy/refs/heads/main/screenshots/mobile.png)
 
-##### Dark Theme:
-![Listing View](https://raw.githubusercontent.com/hypy13/django-daisy/refs/heads/main/screenshots/dark_theme.png)
+**Dark Theme:**
+![Dark Theme](https://raw.githubusercontent.com/hypy13/django-daisy/refs/heads/main/screenshots/dark_theme.png)
 
-## Acknowledgments
-Special thanks to [Cloud With Django](https://www.youtube.com/@CloudWithDjango) for featuring my theme in their video. Your support means a lot! <br>
-Demo Video: https://www.youtube.com/watch?v=WEKTXu1la9M
+</details>
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Submit issues, suggestions, or pull requests on [GitHub](https://github.com/hypy13/django-daisy).
+
+---
+
+## 🙏 Acknowledgments
+
+Special thanks to [Cloud With Django](https://www.youtube.com/@CloudWithDjango) for featuring Django Daisy!  
+**Watch the demo:** https://www.youtube.com/watch?v=WEKTXu1la9M
+
+---
+
+## 📄 License
+
+MIT License - see LICENSE file for details
+
+---
+
+**Made with ❤️ by the Django Daisy team**
