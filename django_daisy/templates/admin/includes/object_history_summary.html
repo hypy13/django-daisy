@@ -15,17 +15,17 @@
     {% for log in recent_logs %}
         <li class="flex gap-3 p-3 {% if not forloop.last %}border-b-1 border-base-content/15{% endif %}">
             <div class="">
-                {% if log.user.profile.avatar %}
-                    <img class="size-10 rounded-box" src="{{ log.user.profile.avatar.url }}"
+                {% if log.user.avatar %}
+                    <img class="size-10 rounded-box" src="{{ log.user.avatar.url }}"
                          alt="{{ log.user.get_full_name|default:log.user.username }}"/>
                 {% else %}
                     <div class="size-10 rounded-box bg-gray-300 flex items-center justify-center text-sm font-semibold">
-                        {{ log.user.get_full_name|default:log.user.username|first|upper }}
+                        {{ log.user.get_full_name|default:log.user|stringformat:"s"|first|upper }}
                     </div>
                 {% endif %}
             </div>
             <div>
-                <div>{{ log.user.get_full_name|default:log.user.username }}</div>
+                <div>{{ log.user.get_full_name|default:log.user }}</div>
                 <div class="text-xs uppercase font-semibold opacity-60">
                     {{ log.get_action_flag_display }} {{ log.object_repr|truncatechars_html:30|safe }}
                 </div>
@@ -49,5 +49,4 @@
             {% trans "No recent changes found" %}
         </li>
     {% endfor %}
-
 </ul>
