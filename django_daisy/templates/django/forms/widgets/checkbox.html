@@ -1,6 +1,9 @@
 {% load dash_tags %}
 {% if widget.name == '_selected_action' %}
-
+    {% with widget=widget|apply_class_to_widget:'checkbox-xs checkbox' %}
+        <input type="{{ widget.type }}" name="{{ widget.name }}" {% if widget.value != None %}
+               value="{{ widget.value|stringformat:'s' }}"{% endif %}{% include "django/forms/widgets/attrs.html" %}  >
+    {% endwith %}
 {% else %}
     <label class="toggle toggle-sm toggle-primary checked:border-success checked:bg-success text-base-content">
         <input type="{{ widget.type }}" name="{{ widget.name }}" {% if widget.value != None %}
@@ -29,7 +32,6 @@
                 <path d="M20 6 9 17l-5-5"></path>
             </g>
         </svg>
-
     </label>
 {% endif %}
 
