@@ -72,8 +72,7 @@
                             <div>
                                 <p class="errornote">
                                     <i class="fa fa-exclamation"></i>
-                                    {% blocktranslate count counter=errors|length %}Please correct the error
-                                        below.{% plural %}Please correct the errors below.{% endblocktranslate %}
+                                    {% blocktranslate count counter=errors|length %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktranslate %}
                                 </p>
                                 <ul class="menu">
                                     {% for error in adminform.form.non_field_errors %}
@@ -101,7 +100,7 @@
                                         <fieldset
                                                 style="outline: none !important;"
                                                 class="mb-3 ltr:!rounded-tl-none rtl:!rounded-tr-none w-full !overflow-auto collapse-arrow collapse fieldset bg-base-100 p-1">
-                                            <input type="checkbox" name="fieldsets-5" checked/>
+                                            <input type="checkbox" name="fieldsets-5" checked="checked"/>
                                             <div class="collapse-title text-xl font-medium">
                                                 {{ fieldset.name|default:opts.verbose_name }}
                                             </div>
@@ -137,7 +136,7 @@
                                     </a>
                                     <fieldset
                                             class="mb-3 tab-content ltr:!rounded-tl-none rtl:!rounded-tr-none  w-full collapse-arrow collapse overflow-visible fieldset bg-base-100 p-1">
-                                        <input type="radio" name="my-accordion-3"/>
+                                        <input type="checkbox" name="fieldset-navtab-{{ forloop.counter }}" checked/>
                                         <div class="collapse-title text-xl font-medium">
                                             {{ fieldset.name|default:opts.verbose_name }}
                                         </div>
