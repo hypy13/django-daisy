@@ -48,7 +48,8 @@
                 <div>
                     <p class="errornote">
                         <i class="fa fa-exclamation"></i>
-                        {% blocktranslate count counter=cl.formset.total_error_count %}Please correct the error below.{% plural %}Please correct the errors below.{% endblocktranslate %}
+                        {% blocktranslate count counter=cl.formset.total_error_count %}Please correct the error
+                            below.{% plural %}Please correct the errors below.{% endblocktranslate %}
                     </p>
                     <ul class="menu">
                         {% for error in cl.formset.non_form_errors %}
@@ -91,18 +92,18 @@
                                     {% endif %}
                                     {% block object-tools-items %}
                                         {% change_list_object_tools %}
+                                        <div class="indicator {% if SHOW_CHANGELIST_FILTER %} xl:hidden {% endif %}">
+                                            {% if active_filters_count %}
+                                                <span class="indicator-item badge badge-info">{{ active_filters_count }}</span>
+                                            {% endif %}
+                                            {% if cl.list_filter %}
+                                                <button type="button" id="open-filter-drawer"
+                                                        class="btn btn-sm btn-primary drawer-button">
+                                                    <i class="fa fa-filter"></i>
+                                                </button>
+                                            {% endif %}
+                                        </div>
                                     {% endblock %}
-                                    <div class="indicator {% if SHOW_CHANGELIST_FILTER %} xl:hidden {% endif %}">
-                                        {% if active_filters_count %}
-                                            <span class="indicator-item badge badge-info">{{ active_filters_count }}</span>
-                                        {% endif %}
-                                        {% if cl.list_filter %}
-                                            <button type="button" id="open-filter-drawer"
-                                                    class="btn btn-sm btn-primary drawer-button">
-                                                <i class="fa fa-filter"></i>
-                                            </button>
-                                        {% endif %}
-                                    </div>
                                 {% endblock %}
                             </div>
                         </div>
