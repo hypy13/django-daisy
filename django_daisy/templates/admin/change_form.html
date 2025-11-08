@@ -193,32 +193,33 @@
             </div>
         </form>
     </div>
-{% endblock %}
 
-{% block admin_change_form_document_ready %}
-    <script id="django-admin-form-add-constants"
-            src="{% static 'admin/js/change_form.js' %}"
-            {% if adminform and add %}
-            data-model-name="{{ opts.model_name }}"
-            {% endif %}
-            async>
-    </script>
-    <script>
-        $(document).ready(function () {
-            $('.tab').each(function (index) {
-                $(this).on('click', function () {
-                    // Remove 'tab-active' from all tabs
-                    $('.tab').removeClass('tab-active');
-                    // Hide all tab content
-                    $('.tab-content').addClass('hidden');
-                    // Add 'tab-active' to the clicked tab
-                    $(this).addClass('tab-active');
-                    // Show the corresponding tab content
-                    $('.tab-content').eq(index).removeClass('hidden');
+
+    {% block admin_change_form_document_ready %}
+        <script id="django-admin-form-add-constants"
+                src="{% static 'admin/js/change_form.js' %}"
+                {% if adminform and add %}
+                data-model-name="{{ opts.model_name }}"
+                {% endif %}
+                async>
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('.tab').each(function (index) {
+                    $(this).on('click', function () {
+                        // Remove 'tab-active' from all tabs
+                        $('.tab').removeClass('tab-active');
+                        // Hide all tab content
+                        $('.tab-content').addClass('hidden');
+                        // Add 'tab-active' to the clicked tab
+                        $(this).addClass('tab-active');
+                        // Show the corresponding tab content
+                        $('.tab-content').eq(index).removeClass('hidden');
+                    });
                 });
             });
-        });
-    </script>
-    {# JavaScript for prepopulated fields #}
-    {% prepopulated_fields_js %}
+        </script>
+        {# JavaScript for prepopulated fields #}
+        {% prepopulated_fields_js %}
+    {% endblock %}
 {% endblock %}
