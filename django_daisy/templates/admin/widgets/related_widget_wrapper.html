@@ -1,7 +1,9 @@
 {% load i18n static %}
-<div class="related-widget-wrapper flex flex-row max-sm:flex-wrap justify-start gap-1 w-full max-w-sm"
+{#<div class="related-widget-wrapper flex flex-row max-sm:flex-wrap justify-start gap-1 w-full max-w-sm"#}
+<div class="related-widget-wrapper flex flex-row max-sm:flex-wrap justify-start gap-1 w-full"
      {% if not model_has_limit_choices_to %}data-model-ref="{{ model }}"{% endif %}>
-    <div class="rounded-md flex w-full max-xl:max-w-lg max-lg:max-w-md max-sm:max-w-xs ">
+{#    <div class="rounded-md flex w-full max-xl:max-w-lg max-lg:max-w-md max-sm:max-w-xs ">#}
+    <div class="rounded-md flex w-full ">
         {{ rendered_widget }}
     </div>
     <!-- Dropdown for links -->
