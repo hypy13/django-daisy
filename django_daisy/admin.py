@@ -90,10 +90,12 @@ class DaisyAdminSite(admin.AdminSite):
 
         for app_label, app_info in app_dict.items():
             # Add icon and divider title to each app
-            app_info["icon"] = getattr(apps.get_app_config(app_label), "icon", "")
-            app_info["divider_title"] = getattr(
-                apps.get_app_config(app_label), "divider_title", ""
-            )
+            app_config = apps.get_app_config(app_label)
+            get_attr = lambda name, default="": getattr(app_config, name, default)
+
+            app_info["icon"] = get_attr("icon")
+            app_info["divider_title"] = get_attr("divider_title")
+            app_info["priority"] = get_attr("priority", 0)
 
             if app_label in override_apps_config:
                 app_info.update(override_apps_config[app_label])
