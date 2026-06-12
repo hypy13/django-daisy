@@ -7,6 +7,8 @@
 
 @source "../django_daisy/**/*.{html,css,js,py,po}";
 @source "./build-styles/*.css";
+@source "../../apps/**/*.{html,css,js,py,po}";
+@source "../../apps/dashboard/templates/admin/dashboard.html";
 
 
 body {
@@ -170,13 +172,6 @@ a.tab-active i {
     @apply animate-bounce opacity-85 ;
 }
 
-.ts-wrapper .ts-control {
-    @apply bg-base-200 border border-base-300 ;
-}
-
-.ts-wrapper .ts-control > div {
-    @apply border-base-300 border bg-base-300 text-base-content  ;
-}
 
 .json-field-viewer-wrapper input {
     @apply input-sm;
@@ -220,9 +215,6 @@ input[data-jdp] {
     @apply link link-primary;
 }
 
-.ts-dropdown {
-    @apply bg-base-200 text-base-content border-neutral-300 ;
-}
 
 .ts-dropdown .active {
     @apply bg-base-300 text-base-content  ;

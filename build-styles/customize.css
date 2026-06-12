@@ -171,10 +171,6 @@ a.tab-active i {
     @apply !bg-base-200 border border-base-300 ;
 }
 
-.ts-wrapper .ts-control > div {
-    @apply border-base-300 border bg-base-300 text-base-content  ;
-}
-
 .json-field-viewer-wrapper input {
     @apply input-sm;
 }
@@ -238,9 +234,23 @@ input[data-jdp] {
 }
 
 .ts-dropdown {
-    @apply text-base-content  bg-base-content;
+    @apply !text-base-content  !bg-base-300 !border-base-100;
 }
 
 .ts-dropdown .active {
-    @apply bg-base-300 text-base-content  ;
+    @apply !text-base-content  !bg-base-100;
+}
+
+.ts-wrapper .ts-control > div {
+    @apply cursor-pointer;
+    @apply mr-1 mb-1 px-2 py-1;
+    @apply rounded-sm border-0;
+
+    /* High contrast */
+    @apply !bg-base-content !text-base-100;
+    @apply transition-colors duration-200;
+}
+
+.ts-wrapper .ts-control > div:hover {
+    @apply opacity-90;
 }
