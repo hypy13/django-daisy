@@ -66,7 +66,7 @@ label.required::after {
 }
 
 .select2.select2-container.select2-container--admin-autocomplete {
-    @apply select w-full select-sm;
+    @apply select !w-full select-sm h-min;
 }
 
 .select2-selection.select2-selection {
@@ -129,21 +129,20 @@ span.select2-selection__clear:hover {
 }
 
 .select2-selection__choice {
-    @apply inline-block badge-md badge badge-outline m-1 p-1 px-1.5 h-auto;
+    @apply inline-block badge-md badge badge-outline m-1 p-1 px-1.5 h-auto !border-base-content/50;
 }
 
-.select2-selection__choice__remove {
-    @apply bg-base-300 text-base-content rounded-full inline-block text-center me-1;
-    width: 20px;
-    height: 20px;
+span.select2-selection__choice__remove {
+    @apply !rounded-full !bg-error !text-error-content text-center align-middle me-2 inline-flex w-4 h-4 justify-center items-center;
 }
 
 .select2 .selection {
     @apply w-full h-full;
 }
 
-.select2-container .select2-selection--single .select2-selection__rendered {
-    @apply !inline-block !overflow-auto !align-middle p-1;
+ul.select2-selection__rendered {
+    @apply !overflow-auto !align-middle !p-1;
+    @apply !flex;
 }
 
 li[aria-selected="true"] {

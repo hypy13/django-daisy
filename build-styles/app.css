@@ -137,11 +137,6 @@ span.select2-selection__clear:hover {
     @apply inline-block badge-md badge badge-outline m-1 p-1 px-1.5 h-auto;
 }
 
-.select2-selection__choice__remove {
-    @apply bg-base-300 text-base-content rounded-full inline-block text-center me-1;
-    width: 20px;
-    height: 20px;
-}
 
 .select2 .selection {
     @apply w-full h-full;

@@ -2,7 +2,6 @@
 {
     const $ = django.jQuery;
     const init = function ($element, options) {
-        options["width"] = "100%"
         const settings = $.extend({
             ajax: {
                 data: function (params) {
