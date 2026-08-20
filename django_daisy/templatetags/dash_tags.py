@@ -86,6 +86,7 @@ def daisy_result_list_tag(parser, token):
         func=daisy_result_list,
         template_name="change_list_results.html",
         takes_context=False,
+        name="daisy_result_list",
     )
 
 
