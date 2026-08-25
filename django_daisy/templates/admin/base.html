@@ -111,7 +111,8 @@
     {% endfor %}
 </head>
 
-<body class="bg-base-200 {% if LANGUAGE_BIDI %}font-vazir{% else %}font-cantarell{% endif %} ">
+<body class="bg-base-200 {% if LANGUAGE_BIDI %}font-vazir{% else %}font-cantarell{% endif %} "
+      data-admin-utc-offset="{% now "Z" %}">
 
 <div class="flex">
     {% if not is_popup and is_nav_sidebar_enabled %}
