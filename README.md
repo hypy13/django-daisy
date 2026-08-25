@@ -67,7 +67,7 @@ Version 2.0 brings major improvements in performance, design, and user experienc
 
 ## ⚙️ Compatibility
 
-- **Django:** 3.2 - 5.1.1 fully supported
+- **Django:** 3.2 - 6.1 fully supported
 - **Python:** 3.8+
 
 ---
