@@ -45,7 +45,7 @@
     <div id="content-main" class="border-base-200 mt-3">
         <form
                 {% if has_file_field %}enctype="multipart/form-data" {% endif %}
-                {% if form_url %}action="{{ form_url }}"{% else %} action="{{ request.path }}" {% endif %}
+                {% if form_url %}action="{{ form_url }}"{% endif %}
                 method="post"
                 id="{{ opts.model_name }}_form"
 

@@ -9,18 +9,18 @@
 
 {% block content %}
     <div class="mt-3 grid gap-6">
-        <div class="">
-            <div aria-label="Card" class="card bg-base-100 card-bordered">
-                <div class="card-body">
-                    <div class="flex items-center justify-between">
-                        <span class="font-medium">{% trans "History" %}</span>
-                        <a class="btn btn-link" href="{{ logentry_changelist_url }}">{% trans "Show all" %}</a>
+        <div class="w-full">
+            <div aria-label="Card" class="card bg-base-100 card-bordered overflow-hidden">
+                <div class="card-body p-4 sm:p-6">
+                    <div class="flex flex-wrap items-center justify-between gap-2">
+                        <span class="font-medium text-base">{% trans "History" %}</span>
+                        <a class="btn btn-link btn-sm" href="{{ logentry_changelist_url }}">{% trans "Show all" %}</a>
                     </div>
-                    <div class="overflow-auto">
-                        <table class="table">
+                    <div class="overflow-x-auto w-full mt-2">
+                        <table class="table table-sm sm:table-md text-nowrap sm:text-wrap w-full">
                             <thead>
                             <tr>
-                                <th class="w-100">{% trans "In" %}</th>
+                                <th class="min-w-[120px]">{% trans "In" %}</th>
                                 <th>{% trans "Action" %}</th>
                                 <th>{% trans "At Time" %}</th>
                                 <th>{% trans "Admin" %}</th>
@@ -31,7 +31,7 @@
                                 <tr>
                                     <td>
                                         <a href="{{ history.get_admin_url }}"
-                                           class="text-primary">
+                                           class="text-primary hover:underline">
                                             {{ history.content_type }}
                                         </a>
                                     </td>
@@ -40,13 +40,13 @@
                                            href="{% url 'admin:admin_logentry_change' history.pk %}">{{ history.get_action_flag_display }}</a>
                                     </td>
                                     <td>
-                                    <span class="text-muted">
+                                    <span class="text-muted text-xs sm:text-sm">
                                         {{ history.action_time|naturaltime }}
                                     </span>
                                     </td>
                                     <td>
                                         <strong>
-                                            <a href="{% get_user_admin_change_url history.user %}">{{ history.user }}</a>
+                                            <a href="{% get_user_admin_change_url history.user %}" class="hover:underline">{{ history.user }}</a>
                                         </strong>
                                     </td>
                                 </tr>
