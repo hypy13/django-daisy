@@ -81,8 +81,8 @@ def daisy_result_list(cl):
 @register.tag(name="daisy_result_list")
 def daisy_result_list_tag(parser, token):
     return InclusionAdminNode(
-        parser,
-        token,
+        parser=parser,
+        token=token,
         func=daisy_result_list,
         template_name="change_list_results.html",
         takes_context=False,
