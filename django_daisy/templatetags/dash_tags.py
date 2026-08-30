@@ -81,15 +81,17 @@ def daisy_result_list(cl):
 
 @register.tag(name="daisy_result_list")
 def daisy_result_list_tag(parser, token):
-    args = ("daisy_result_list",) if django.VERSION >= (4, 2) else ()
-    return InclusionAdminNode(
-        *args,
-        parser,
-        token,
-        func=daisy_result_list,
-        template_name="change_list_results.html",
-        takes_context=False,
-    )
+    kwargs = {
+        "parser": parser,
+        "token": token,
+        "func": daisy_result_list,
+        "template_name": "change_list_results.html",
+        "takes_context": False,
+    }
+    if django.VERSION >= (4, 2):
+        kwargs["name"] = "daisy_result_list"
+
+    return InclusionAdminNode(**kwargs)
 
 
 # String manipulation filters
