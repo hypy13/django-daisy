@@ -2,6 +2,7 @@ import re
 from typing import Optional, Dict, Any
 from urllib.parse import parse_qs
 
+import django
 from django import template
 from django.contrib.admin.models import LogEntry
 from django.contrib.admin.templatetags import admin_list
@@ -80,13 +81,14 @@ def daisy_result_list(cl):
 
 @register.tag(name="daisy_result_list")
 def daisy_result_list_tag(parser, token):
+    args = ("daisy_result_list",) if django.VERSION >= (4, 2) else ()
     return InclusionAdminNode(
-        parser=parser,
-        token=token,
+        *args,
+        parser,
+        token,
         func=daisy_result_list,
         template_name="change_list_results.html",
         takes_context=False,
-        name="daisy_result_list",
     )
 
 
