@@ -88,8 +88,7 @@ def daisy_result_list_tag(parser, token):
         "template_name": "change_list_results.html",
         "takes_context": False,
     }
-    print(django.VERSION)
-    if django.VERSION > (4, 2):
+    if django.VERSION >= (6, 1):
         kwargs["name"] = "daisy_result_list"
 
     return InclusionAdminNode(**kwargs)
@@ -220,8 +219,6 @@ def is_active_choice(choice: Dict[str, Any], spec, request: HttpRequest) -> str:
         return 'selected'
 
     for filter_key in spec.expected_parameters():
-        if "expertise" in filter_key:
-            print('x')
         if is_multiple_filter_choice(spec):
             filter_key = filter_key.replace('__exact', '__in')
             if not filter_key.endswith('__in'):
