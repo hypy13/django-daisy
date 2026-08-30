@@ -88,7 +88,8 @@ def daisy_result_list_tag(parser, token):
         "template_name": "change_list_results.html",
         "takes_context": False,
     }
-    if django.VERSION >= (4, 2):
+    print(django.VERSION)
+    if django.VERSION > (4, 2):
         kwargs["name"] = "daisy_result_list"
 
     return InclusionAdminNode(**kwargs)
