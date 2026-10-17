@@ -69,7 +69,7 @@
         <link rel="stylesheet" href="{% static 'admin/css/app.css' %}?v=4">
     {% endif %}
 
-    <link href="{% static 'admin/css/customized_components.css' %}?v=4" rel="stylesheet">
+    <link href="{% static 'admin/css/customized_components.css' %}?v=6" rel="stylesheet">
 
     <link href="{% static 'admin/css/calendar.css' %}" rel="stylesheet">
 
@@ -116,6 +116,8 @@
 
 <div class="flex">
     {% if not is_popup and is_nav_sidebar_enabled %}
+        <button id="sidebar-overlay" class="sidebar-overlay" type="button"
+                aria-label="{% trans 'Close navigation menu' %}" aria-hidden="true"></button>
         {% block nav-sidebar %}
             {% include "admin/parts/sidebar.html" with app_list=available_apps %}
         {% endblock %}

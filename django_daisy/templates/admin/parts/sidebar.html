@@ -1,5 +1,6 @@
 {% load i18n %}
-<div id="sidebar" class="flex max-lg:hidden flex-col justify-between sidebar bg-base-100 border-base-200 border-e w-56">
+<nav id="sidebar" class="flex max-lg:hidden flex-col justify-between sidebar bg-base-100 border-base-200 border-e w-56"
+     aria-label="{% trans 'Main navigation' %}">
     <!-- Sidebar header with logo -->
     <a class="flex flex-row h-16 items-center" href="{% url 'admin:index' %}">
         {% if logo %}
@@ -84,4 +85,4 @@
             </a>
         {% endif %}
     </div>
-</div>
+</nav>

@@ -2,18 +2,55 @@ function close_modal() {
     $('.modal-backdrop').click()
 }
 
-$('#menu-toggle').click(() => {
-    let sidebar = $('#sidebar')
+(() => {
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const sidebarOverlay = document.getElementById('sidebar-overlay');
+    const mobileSidebarMedia = window.matchMedia('(max-width: 63.999rem)');
 
-    if (sidebar.is(":visible")) {
-        sidebar.removeClass('!block')
-        sidebar.addClass('!hidden')
-    } else {
-        sidebar.addClass('!block')
-        sidebar.removeClass('!hidden')
+    if (!menuToggle || !sidebar || !sidebarOverlay) {
+        return;
     }
 
-});
+    function setSidebarOpen(isOpen) {
+        if (mobileSidebarMedia.matches) {
+            sidebar.classList.toggle('is-open', isOpen);
+            sidebarOverlay.classList.toggle('is-open', isOpen);
+            sidebarOverlay.setAttribute('aria-hidden', String(!isOpen));
+            document.body.classList.toggle('sidebar-open', isOpen);
+        } else {
+            sidebar.classList.toggle('desktop-hidden', !isOpen);
+        }
+
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+    }
+
+    menuToggle.setAttribute('aria-expanded', String(!mobileSidebarMedia.matches));
+
+    menuToggle.addEventListener('click', () => {
+        const isOpen = mobileSidebarMedia.matches
+            ? sidebar.classList.contains('is-open')
+            : !sidebar.classList.contains('desktop-hidden');
+        setSidebarOpen(!isOpen);
+    });
+
+    sidebarOverlay.addEventListener('click', () => setSidebarOpen(false));
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && mobileSidebarMedia.matches && sidebar.classList.contains('is-open')) {
+            setSidebarOpen(false);
+            menuToggle.focus();
+        }
+    });
+
+    mobileSidebarMedia.addEventListener('change', () => {
+        sidebar.classList.remove('is-open', 'desktop-hidden');
+        sidebarOverlay.classList.remove('is-open');
+        sidebarOverlay.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('sidebar-open');
+        menuToggle.setAttribute('aria-expanded', String(!mobileSidebarMedia.matches));
+    });
+})();
 
 
 // jquery toggle whole attribute
