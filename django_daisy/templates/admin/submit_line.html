@@ -16,12 +16,12 @@
         </div>
     {% else %}
 
-        <!-- For XLarge Screen -->
-        <div class="justify-between sticky z-1000 top-3 right-0 bg-base-200 max-2xl:hidden">
-            <div class="text-start grid gap-2">
+        <!-- Desktop actions -->
+        <div class="p-3 bg-base-100 justify-between flex flex-row-reverse flex-wrap gap-3 max-md:hidden">
+            <div class="text-start flex flex-wrap items-center gap-2">
+
                 {% if show_save %}
-                    <button type="submit"
-                            class="btn btn-block  btn-success dark:btn-primary px-4 rounded-md legitRipple"
+                    <button type="submit" class="btn-sm btn-success dark:btn-primary px-4 btn rounded-md legitRipple"
                             name="_save">
                         {% translate 'Save' %}
                         <i class="fas fa-save px-1"></i>
@@ -29,55 +29,7 @@
                 {% endif %}
 
                 {% if show_save_and_continue %}
-                    <button class="btn-soft btn-block btn rounded-md legitRipple" type="submit"
-                            name="_continue">
-                        {% if can_change %}{% translate 'Save and continue editing' %}{% else %}
-                            {% translate 'Save and view' %}{% endif %}
-                        <i class="fas fa-sync"></i>
-                    </button>
-                {% endif %}
-                {% if show_save_and_add_another %}
-                    <button class="btn-soft btn-block rounded-md btn legitRipple" type="submit"
-                            name="_addanother">
-                        {% translate 'Save and add another' %}
-                        <i class="fas fa-plus-circle"></i>
-                    </button>
-                {% endif %}
-                {% if show_save_as_new %}
-                    <input type="submit" class="btn-soft btn-block btn rounded-md legitRipple"
-                           value="{% translate 'Save as new' %}" name="_saveasnew">
-                {% endif %}
-
-                {% if show_delete_link and original or can_delete_popup %}
-                    <div class="divider my-0 py-0"></div>
-                    {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
-                    <a href="{% add_preserved_filters delete_url %}{% if can_delete_popup %}?_popup=1{% endif %}"
-                       class="btn-block btn-error error-content btn rounded-md place-self-end">
-                        {% translate "Delete" %}
-                        <i class="fa fa-xmark"></i>
-                    </a>
-                {% endif %}
-                {% if show_close and not is_popup %}
-                    <a href="{% url opts|admin_urlname:'changelist' %}"
-                       class="btn-sm  btn-block mt-1 btn rounded-md place-self-end closelink">{% translate 'Close' %}</a>
-                {% endif %}
-            </div>
-        </div>
-
-        <!-- For Large-Small Screen -->
-        <div class="p-3 bg-base-100  justify-between flex flex-row-reverse gap-15 sticky top-3 2xl:hidden max-md:hidden">
-            <div class="text-start flex gap-2">
-
-                {% if show_save %}
-                    <button type="submit" class="btn-sm btn-primary px-4 primary-content  btn rounded-md legitRipple"
-                            name="_save">
-                        {% translate 'Save' %}
-                        <i class="fas fa-save px-1"></i>
-                    </button>
-                {% endif %}
-
-                {% if show_save_and_continue %}
-                    <button class="btn-sm bg-blue-300 text-black btn rounded-md legitRipple" type="submit"
+                    <button class="btn-sm btn-soft btn rounded-md legitRipple" type="submit"
                             name="_continue">
                         {% if can_change %}{% translate 'Save and continue editing' %}{% else %}
                             {% translate 'Save and view' %}{% endif %}
@@ -85,29 +37,29 @@
                     </button>
                 {% endif %}
                 {% if show_save_as_new %}
-                    <input class="btn-sm bg-blue-300 text-black btn rounded-md legitRipple" type="submit"
+                    <input class="btn-sm btn-soft btn rounded-md legitRipple" type="submit"
                            value="{% translate 'Save as new' %}" name="_saveasnew">
                 {% endif %}
                 {% if show_save_and_add_another %}
-                    <button class="btn-sm  bg-blue-300 text-black rounded-md btn legitRipple" type="submit"
+                    <button class="btn-sm btn-soft rounded-md btn legitRipple" type="submit"
                             name="_addanother">
                         {% translate 'Save and add another' %}
                         <i class="fas fa-plus-circle"></i>
                     </button>
                 {% endif %}
             </div>
-            <div class="text-end">
+            <div class="text-end flex flex-wrap items-center gap-2">
                 {% if show_delete_link and original or can_delete_popup %}
                     {% url opts|admin_urlname:'delete' original.pk|admin_urlquote as delete_url %}
                     <a href="{% add_preserved_filters delete_url %}{% if can_delete_popup %}?_popup=1{% endif %}"
-                       class="btn-sm btn-block btn-error error-content   btn rounded-md place-self-end">
+                       class="btn-sm btn-error error-content btn rounded-md">
                         {% translate "Delete" %}
                         <i class="fa fa-xmark"></i>
                     </a>
                 {% endif %}
                 {% if show_close and not is_popup %}
                     <a href="{% url opts|admin_urlname:'changelist' %}"
-                       class="btn-sm btn-block mt-1 btn rounded-md place-self-end closelink">{% translate 'Close' %}</a>
+                       class="btn-sm btn rounded-md closelink">{% translate 'Close' %}</a>
                 {% endif %}
             </div>
         </div>
