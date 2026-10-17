@@ -174,7 +174,7 @@ span.select2-selection__clear {
 }
 
 span.select2-selection__clear:hover {
-    @apply animate-ping text-lg;
+    @apply text-red-600;
 }
 
 .select2 .selection {

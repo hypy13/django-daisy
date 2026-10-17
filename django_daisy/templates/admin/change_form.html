@@ -55,17 +55,11 @@
             {% block form_top %}
 
             {% endblock %}
-            <div class="grid grid-cols-1 {% if original and not is_popup %}2xl:grid-cols-4{% endif %} gap-3 auto-rows-auto">
+            <div class="grid grid-cols-1 gap-3 auto-rows-auto">
                 {% if is_popup %}<input type="hidden" name="{{ is_popup_var }}" value="1">{% endif %}
                 {% if to_field %}<input type="hidden" name="{{ to_field_var }}" value="{{ to_field }}">{% endif %}
 
-                {% if original and not is_popup %}
-                    <aside class="max-2xl:hidden flex flex-col justify-end">
-                        {% include "admin/includes/object_history_summary.html" %}
-                    </aside>
-                {% endif %}
-
-                <div class="w-full {% if original and not is_popup %}col-span-1 2xl:col-span-3{% endif %}">
+                <div class="w-full">
                     {% if save_on_top %}
                         {% block submit_buttons_top %}
                             <div class="w-full mb-3">
