@@ -138,6 +138,7 @@ DAISY_SETTINGS = {
     'EXTRA_STYLES': [],  # Additional CSS files
     'EXTRA_SCRIPTS': [],  # Additional JS files
     'LOAD_FULL_STYLES': False,  # Load complete DaisyUI library
+    'DAISY_CSS': None,  # Optional static path to your own compiled Tailwind/DaisyUI CSS
     'SHOW_CHANGELIST_FILTER': False,  # Auto-open filter sidebar
     'DONT_SUPPORT_ME': False,  # Hide GitHub link
     'SIDEBAR_FOOTNOTE': '',  # Custom sidebar footer text
@@ -203,9 +204,114 @@ DAISY_SETTINGS = {
 }
 ```
 
-> **Note:** For custom DaisyUI themes, enable `LOAD_FULL_STYLES: True` to load all theme styles.
+> **Note:** The bundled stylesheet contains the themes listed above. To use other themes, supply a custom build as described below. `LOAD_FULL_STYLES` is a legacy development option that loads Tailwind's browser compiler and should not be used in production.
 
 </details>
+
+### Override admin templates
+
+django-daisy uses Django's template loader, so you can customize the admin in your project without editing the installed package. Start by checking that your Django template settings include a project-level template directory and enable app template discovery:
+
+```python
+# settings.py
+TEMPLATES = [
+    {
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": [BASE_DIR / "templates"],
+        "APP_DIRS": True,
+        # Keep your existing OPTIONS and context processors here.
+    },
+]
+```
+
+Keep `django_daisy` before `django.contrib.admin` in `INSTALLED_APPS`, as shown in the installation section. Templates in `DIRS` take precedence over templates supplied by those apps. Add or update these settings in your existing `TEMPLATES` configuration rather than discarding its context processors.
+
+#### Example: add a message to one model's change form
+
+For a `Book` model in the `catalog` app, create `templates/admin/catalog/book/change_form.html`:
+
+```django
+{% extends "admin/change_form.html" %}
+
+{% block form_top %}
+    {{ block.super }}
+    <p class="my-admin-notice">Review the book details before saving.</p>
+{% endblock %}
+```
+
+Django selects this template for that model's add and change pages. Replace `catalog` and `book` with your model's **app label** and lowercase model name. `block.super` preserves content from the parent block. Other useful blocks in django-daisy's change form include `field_sets` and `submit_buttons_top`.
+
+To customize the change form for every model instead, use `templates/admin/change_form.html` and extend `admin/change_form.html` in the same way. Django can extend the next matching template from django-daisy even though the override has the same name.
+
+#### Common override locations
+
+| Project template | Scope |
+| --- | --- |
+| `templates/admin/base_site.html` | Admin pages that extend `admin/base_site.html`, including the index |
+| `templates/admin/index.html` | Admin index |
+| `templates/admin/change_list.html` | Model list pages |
+| `templates/admin/change_form.html` | Model add and change pages |
+| `templates/admin/<app_label>/<model_name>/change_list.html` | One model's list page |
+| `templates/admin/<app_label>/<model_name>/change_form.html` | One model's add and change pages |
+
+For layout shared by pages that extend django-daisy's `admin/base.html` directly, override `templates/admin/base.html` and extend `admin/base.html`. Inspect the matching template in `django_daisy/templates/admin/` to choose an available block. For example, `top-navbar`, `nav-sidebar`, `extrahead`, `extrastyle`, and `scripts` are defined in the base template. Prefer extending a block and retaining `{{ block.super }}` where appropriate; copying an entire template makes future django-daisy upgrades harder to incorporate.
+
+#### Style your override
+
+For a small change, add a project static file and load its URL through `EXTRA_STYLES`:
+
+```python
+# settings.py (adjust this URL if your STATIC_URL differs)
+DAISY_SETTINGS = {
+    "EXTRA_STYLES": ["/static/myproject/admin-overrides.css"],
+}
+```
+
+For example, place your CSS in `static/myproject/admin-overrides.css` and ensure that `static/` is included in `STATICFILES_DIRS`, or place it in an installed app's static directory. `EXTRA_STYLES` accepts URLs and is loaded after django-daisy's styles. If you use manifest-based static storage and need Django to resolve a hashed filename, load the file with `{% static 'myproject/admin-overrides.css' %}` in an `extrastyle` template block instead. If your override uses a Tailwind utility or DaisyUI component not present in the bundled CSS, use the custom build described in the next section; adding a class to an HTML template alone does not generate its CSS. Run `collectstatic` when deploying static files.
+
+If an override does not appear, check the directory in `TEMPLATES[0]["DIRS"]`, the filename and model path, and the order of apps in `INSTALLED_APPS`. If the HTML appears but a class has no effect, check that its CSS is loaded and rebuild your custom stylesheet if needed.
+
+### Using your own Tailwind and DaisyUI build
+
+The default installation needs no Node.js: it ships CSS for django-daisy's own templates. To use new Tailwind utilities or DaisyUI themes in your own admin templates, build your own stylesheet in your project and replace the bundled framework stylesheet. django-daisy's admin-specific styling is still loaded afterwards.
+
+From the Django project directory, install the build dependencies and create the source list:
+
+```sh
+npm install --save-dev tailwindcss@4 @tailwindcss/cli@4 daisyui@5
+python manage.py daisy_css_sources --output assets/daisy/sources.css
+```
+
+Create `assets/daisy/app.css`:
+
+```css
+@import "tailwindcss" source(none);
+@import "./sources.css";
+
+@plugin "daisyui" {
+  themes: light --default, dark --prefersdark, dracula, cmyk, lemonade, halloween, garden;
+}
+
+@custom-variant dark (&:where([data-theme=dark], [data-theme=dark] *, [data-theme=halloween], [data-theme=halloween] *, [data-theme=dracula], [data-theme=dracula] *));
+```
+
+Edit the theme list to suit your project. Build the CSS into a project static directory, for example:
+
+```sh
+npx @tailwindcss/cli -i assets/daisy/app.css -o static/myproject/admin.css --minify
+```
+
+Set the **static file path**, not its URL, in Django settings:
+
+```python
+DAISY_SETTINGS = {
+    "DAISY_CSS": "myproject/admin.css",
+}
+```
+
+Ensure `static/` is included in `STATICFILES_DIRS` (or put the output in an installed app's `static/` directory), and run `collectstatic` during deployment. For development, add `--watch` to the build command. `DAISY_CSS` takes precedence over `LOAD_FULL_STYLES`; `EXTRA_STYLES` still loads last for additional CSS overrides.
+
+The generated source list includes django-daisy's installed package, local installed apps, and configured template directories. Run `daisy_css_sources` again after installing in a different environment or adding an app/template directory; the generated file contains machine-specific absolute paths and should not be committed. Add `--source path/to/directory` (repeatable) for other files containing classes. Use complete class names in templates; Tailwind cannot detect dynamically assembled class names. The custom build must use compatible Tailwind 4 and DaisyUI 5 versions and include the themes and utilities your admin uses.
 
 ---
 

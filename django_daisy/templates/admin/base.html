@@ -62,7 +62,9 @@
         {% block title %}{{ title }} | {{ site_title|default:_('Django site admin') }}{% endblock %}
     </title>
 
-    {% if LOAD_FULL_STYLES %}
+    {% if DAISY_CSS %}
+        <link rel="stylesheet" href="{% static DAISY_CSS %}">
+    {% elif LOAD_FULL_STYLES %}
         <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css"/>
         <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     {% else %}

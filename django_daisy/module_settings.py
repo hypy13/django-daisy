@@ -12,6 +12,7 @@ DEFAULT_DAISY_SETTINGS = {
     "EXTRA_STYLES": [],
     "EXTRA_SCRIPTS": [],
     "LOAD_FULL_STYLES": False,
+    "DAISY_CSS": None,
     "SHOW_CHANGELIST_FILTER": False,
     "DONT_SUPPORT_ME": False,
     "SIDEBAR_FOOTNOTE": "",

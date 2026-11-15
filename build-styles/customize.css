@@ -1,42 +1,29 @@
-@import "tailwindcss" source(none);
+@reference "./app.css";
 
-@plugin "daisyui" {
-    themes: light --default, dark --prefersdark, dracula, cmyk, lemonade, halloween, garden;
-}
-
-@custom-variant dark (&:where(
-[data-theme=dark],
-[data-theme=dark] *,
-[data-theme=halloween],
-[data-theme=halloween] *,
-[data-theme=dracula],
-[data-theme=dracula] *
-));
-
-/* ─── Typography ─────────────────────────────────────────── */
+/* Typography */
 
 body {
-    font-family: 'body-font', sans-serif;
+    font-family: "body-font", sans-serif;
 }
 
 body:dir(rtl) {
-    font-family: 'rtl-font', sans-serif;
+    font-family: "rtl-font", sans-serif;
 }
 
-/* ─── Global Resets ──────────────────────────────────────── */
+/* Global resets */
 
 *:focus-visible {
     outline: none !important;
 }
 
-/* ─── RTL File Input ─────────────────────────────────────── */
+/* RTL file input */
 
 [dir="rtl"] .file-input::-webkit-file-upload-button,
 [dir="rtl"] .file-input::file-selector-button {
     margin-right: 0;
 }
 
-/* ─── Form Elements ──────────────────────────────────────── */
+/* Forms */
 
 .input,
 .select,
@@ -58,7 +45,7 @@ body:dir(rtl) {
 }
 
 label.required::after {
-    content: ' *';
+    content: " *";
     @apply absolute px-1.5 text-base text-error;
 }
 
@@ -70,7 +57,7 @@ label.required::after {
     @apply btn-link text-primary;
 }
 
-/* ─── Delete Confirmation ────────────────────────────────── */
+/* Delete confirmation */
 
 .delete-confirmation li {
     @apply !px-8 !pt-1;
@@ -80,13 +67,13 @@ label.required::after {
     @apply link link-hover text-primary;
 }
 
-/* ─── Tabs ───────────────────────────────────────────────── */
+/* Tabs */
 
 a.tab-active i {
     @apply animate-bounce opacity-85;
 }
 
-/* ─── Misc Widgets ───────────────────────────────────────── */
+/* Date and JSON widgets */
 
 .json-field-viewer-wrapper input {
     @apply input-sm;
@@ -100,7 +87,7 @@ div[data-theme="tailwind"] div[data-schematype]:not([data-schematype="object"]):
     background-color: initial;
 }
 
-/* ─── Select2 ────────────────────────────────────────────── */
+/* Select2 */
 
 .select2.select2-container.select2-container--admin-autocomplete {
     @apply select !h-auto !w-full select-sm;
@@ -127,9 +114,8 @@ div[data-theme="tailwind"] div[data-schematype]:not([data-schematype="object"]):
 }
 
 .select2-results .select2-results__options {
-    @apply max-h-64 overflow-x-auto text-sm;
+    @apply text-sm;
     @apply list max-h-[300px] overflow-auto rounded-box bg-base-200 shadow-xl;
-
 }
 
 .select2-results .select2-results__option {
@@ -140,7 +126,6 @@ div[data-theme="tailwind"] div[data-schematype]:not([data-schematype="object"]):
     @apply bg-base-300;
 }
 
-/* Intentionally overrides the border set above — transparent dropdown style */
 .select2-dropdown {
     @apply border-none bg-transparent;
 }
@@ -177,11 +162,6 @@ span.select2-selection__clear:hover {
     @apply text-red-600;
 }
 
-.select2 .selection {
-    @apply w-full h-full;
-}
-
-
 ul.select2-selection__rendered {
     @apply !flex !overflow-auto !align-middle !p-1;
 }
@@ -190,7 +170,7 @@ li[aria-selected="true"] {
     @apply hidden;
 }
 
-/* ─── Tom Select ─────────────────────────────────────────── */
+/* Tom Select */
 
 .ts-wrapper .ts-control {
     @apply !bg-base-200 border border-base-300;
@@ -213,7 +193,7 @@ li[aria-selected="true"] {
     @apply !bg-base-100 !text-base-content;
 }
 
-/* ─── Auth Selector Widget ───────────────────────────────── */
+/* Django's filtered select widget */
 
 .selector input {
     @apply input input-sm;
@@ -279,13 +259,13 @@ li[aria-selected="true"] {
     }
 }
 
-/* ─── User Form ──────────────────────────────────────────── */
+/* User form */
 
 #user_form .field-password a {
     @apply link link-primary;
 }
 
-/* ─── Responsive Navigation ──────────────────────────────── */
+/* Responsive navigation */
 
 .sidebar-overlay {
     display: none;
