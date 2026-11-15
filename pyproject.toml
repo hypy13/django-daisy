@@ -23,8 +23,9 @@ classifiers = [
 # Declare fields that are dynamically set
 dynamic = ["version"]
 
-[tool.setuptools]
-packages = ["django_daisy"]
+[tool.setuptools.packages.find]
+include = ["django_daisy*"]
+namespaces = false
 
 [tool.setuptools_scm]
 version_file = "django_daisy/_version.py"

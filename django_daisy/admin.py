@@ -32,7 +32,12 @@ class DaisyAdminSite(admin.AdminSite):
     )
 
     def get_urls(self):
+        from django_daisy.fields import toastui_editor_upload
+
         urls = [
+            path("toastui-editor/upload/", self.admin_view(toastui_editor_upload.upload), name="toastui-editor-upload"),
+            path("toastui-editor/attachments/", self.admin_view(toastui_editor_upload.attachments), name="toastui-editor-attachments"),
+            path("toastui-editor/delete/", self.admin_view(toastui_editor_upload.delete), name="toastui-editor-delete"),
             path("json-editor-upload-handler/", self.admin_view(self.upload_file), name='json-editor-upload-handler')
         ]
         return urls + super().get_urls()

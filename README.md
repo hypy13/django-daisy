@@ -288,6 +288,38 @@ LANGUAGES = [
 
 ---
 
+## Custom Fields
+
+<details>
+<summary><strong>TOAST UI Editor</strong></summary>
+
+Add a Markdown editor with a visual editing mode to your forms. In the Daisy
+admin, you can upload images and files and manage your attachments.
+
+```python
+from django import forms
+from django_daisy.fields.toastui_editor import ToastUIEditorField, ToastUIEditorWidget
+
+# In a model
+body = ToastUIEditorField(blank=True)
+
+# Or in a form
+body = forms.CharField(widget=ToastUIEditorWidget, required=False)
+```
+
+- **Outside the admin:** Render `{{ form.media }}` and include a CSRF token.
+- **Upload size:** The default limit is 5 MiB. Set
+  `DAISY_TOASTUI_EDITOR_MAX_UPLOAD_SIZE` to change it (in bytes).
+- **Attachments:** Managing existing files requires storage with `listdir()`
+  support. Delete files explicitly from the editor; removing a link or object
+  does not delete them.
+- **Rendering:** Serve uploads from a separate origin and sanitize Markdown
+  before rendering it as HTML.
+
+</details>
+
+---
+
 ## 📸 Screenshots
 
 <details>
